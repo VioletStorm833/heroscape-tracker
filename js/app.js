@@ -2428,10 +2428,10 @@
 
   // ---------- tournament maps ----------
   const MAP_REQ = {}; // map id -> your own list of products [{id: n}] for maps whose PDF has no readable list
-  const MSTATE = { level: '', show: '', q: '', rand: null, edit: null, rlevel: '', sizeOnly: false, tab: '' };
+  const MSTATE = { level: '', show: '', q: '', rand: null, edit: null, rlevel: '', sizeOnly: false, noObjects: false, tab: '' };
   registerSaved({
     key: 'maps', label: 'map notes',
-    get: () => ({ requirements: JSON.parse(JSON.stringify(MAP_REQ)), sizeOnly: MSTATE.sizeOnly }),
+    get: () => ({ requirements: JSON.parse(JSON.stringify(MAP_REQ)), sizeOnly: MSTATE.sizeOnly, noObjects: MSTATE.noObjects }),
     clean: (o) => {
       const requirements = {};
       if (o && o.requirements && typeof o.requirements === 'object') for (const [k, v] of Object.entries(o.requirements).slice(0, 300)) {
@@ -2439,12 +2439,12 @@
         for (const [p, n] of Object.entries(v).slice(0, 30)) { const q = cnt(n, 9); if (q) r[str(p, 40)] = q; }
         if (Object.keys(r).length) requirements[str(k, 20)] = r;
       }
-      return { requirements, sizeOnly: !!(o && o.sizeOnly) };
+      return { requirements, sizeOnly: !!(o && o.sizeOnly), noObjects: !!(o && o.noObjects) };
     },
     apply: (v, merge) => {
       if (!merge) for (const k of Object.keys(MAP_REQ)) delete MAP_REQ[k];
       if (v) for (const [k, r] of Object.entries(v.requirements)) if (!merge || !MAP_REQ[k]) MAP_REQ[k] = r;
-      if (v && !merge) MSTATE.sizeOnly = v.sizeOnly;
+      if (v && !merge) { MSTATE.sizeOnly = v.sizeOnly; MSTATE.noObjects = v.noObjects; }
     }
   });
   const mapOptions = (m) => MAP_REQ[m.id] ? [MAP_REQ[m.id]] : m.options;
@@ -2455,15 +2455,20 @@
   // trees of any kind count together, and so do rock outcrops; walls and other objects still count by type.
   // A map with pieces read from its PDF (m.pieces) needs those; any other map needs every piece in its products.
   const TREES = new Set(['tree', 'evergreen', 'laurtree', 'underbrush', 'snowtree', 'swampbrush']);
-  const pieceKey = (t, s) => (TREES.has(t) ? 'tree|' : /outcrop|lavarock/.test(t) ? 'outcrop|' + s : /^\d+$/.test(s) ? 'hex|' + s : t + '|' + s);
+  // "Ignore terrain objects": trees, walls, ruins and other pieces without a hex size are left out (null)
+  const pieceKey = (t, s) => {
+    const hex = /^\d+$/.test(s);
+    if (!hex && MSTATE.noObjects) return null;
+    return TREES.has(t) ? 'tree|' : /outcrop|lavarock/.test(t) ? 'outcrop|' + s : hex && MSTATE.sizeOnly ? 'hex|' + s : t + '|' + s;
+  };
   function piecesOf(o, m) {
     const need = {};
-    const add = (t, s, n) => { const k = pieceKey(t, s); need[k] = (need[k] || 0) + n; };
+    const add = (t, s, n) => { const k = pieceKey(t, s); if (k) need[k] = (need[k] || 0) + n; };
     if (m && m.pieces && !MAP_REQ[m.id]) for (const [k, n] of Object.entries(m.pieces)) { const [t, sz] = k.split('|'); add(t, sz, n); }
     else for (const [p, n] of Object.entries(o)) for (const x of (prodById(p) || {}).terrain || []) add(x.t, x.s, x.n * n);
     return need;
   }
-  function piecePool() { const pool = {}; for (const [k, n] of terrainOwned()) { const [t, s] = k.split('|'); const q = pieceKey(t, s); pool[q] = (pool[q] || 0) + n; } return pool; }
+  function piecePool() { const pool = {}; for (const [k, n] of terrainOwned()) { const [t, s] = k.split('|'); const q = pieceKey(t, s); if (q) pool[q] = (pool[q] || 0) + n; } return pool; }
   function bestBySize(maps) {
     const pool = piecePool();
     const cand = maps.filter((m) => mapKnown(m)).map((m) => ({ m, opts: mapOptions(m).map((o) => ({ o, need: piecesOf(o, m) })).filter((x) => canBuildWith(x.need, pool)) })).filter((c) => c.opts.length);
@@ -2486,7 +2491,7 @@
   }
   // largest group of maps that can stand at the same time (each map picks one of its options)
   function bestSet(maps) {
-    if (MSTATE.sizeOnly) return bestBySize(maps);
+    if (MSTATE.sizeOnly || MSTATE.noObjects) return bestBySize(maps);
     const cand = maps.filter((m) => mapKnown(m) && mapCan(m));
     cand.sort((a, b) => d3.sum(Object.values(mapOptions(a)[0])) - d3.sum(Object.values(mapOptions(b)[0])));
     let best = [], steps = 0;
@@ -2508,6 +2513,8 @@
   }
   const mSize = root.querySelector('.m-sizeonly');
   mSize.addEventListener('change', () => { MSTATE.sizeOnly = mSize.checked; persist(); drawMaps(); });
+  const mNoObj = root.querySelector('.m-noobj');
+  mNoObj.addEventListener('change', () => { MSTATE.noObjects = mNoObj.checked; persist(); drawMaps(); });
   segBind('.m-tab', 'tab', (v) => { MSTATE.tab = v; });
   segBind('.m-level', 'l', (v) => { MSTATE.level = v; });
   segBind('.m-show', 's', (v) => { MSTATE.show = v; });
@@ -2630,7 +2637,7 @@
     root.querySelector('#maps .m-tour').hidden = MSTATE.tab === 'mine'; root.querySelector('#maps .m-mine').hidden = MSTATE.tab !== 'mine';
     if (MSTATE.tab === 'mine') { drawMine(); return; }
     segSync('.m-level', 'l', MSTATE.level); segSync('.m-show', 's', MSTATE.show);
-    mSize.checked = MSTATE.sizeOnly; root.querySelector('.m-sizenote').hidden = !MSTATE.sizeOnly;
+    mSize.checked = MSTATE.sizeOnly; mNoObj.checked = MSTATE.noObjects; root.querySelector('.m-sizenote').hidden = !MSTATE.sizeOnly && !MSTATE.noObjects;
     const can = M.filter((m) => mapCan(m)), best = bestSet(M);
     root.querySelector('.m-can').textContent = String(can.length);
     root.querySelector('.m-total').textContent = String(M.length);

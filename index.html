@@ -8,7 +8,7 @@
 <meta name="description" content="Free Heroscape tracker: army card rankings, army builder, collection and terrain tracking, tournament maps, Swiss tournaments, game record and rules. No accounts; your data stays on your device.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=7617968ab3">
+<link rel="stylesheet" href="css/style.css?v=096cdcbfbb">
 </head>
 <body>
 <div id="dash-root"><div class="hs">
@@ -623,7 +623,8 @@
         <h3 style="margin-top: 0"><span data-ek="t6e7a7100">Most maps at once</span></h3>
         <p class="hs-note"><span data-ek="t8edf5185">The largest group of maps you can have built at the same time with the products you own, for running several tables.</span></p>
         <label class="hs-chk"><input type="checkbox" class="m-sizeonly"> <span data-ek="te6764bd1">Ignore hex type, count only size</span></label>
-        <p class="hs-note m-sizenote"><span data-ek="tbf4fe635">With this on, hexes of any type count together by size, and trees count together whatever their kind. Maps marked “pieces counted” use the pieces read from their PDF; other maps need every piece in their listed products.</span></p>
+        <label class="hs-chk"><input type="checkbox" class="m-noobj"> <span data-ek="t60bd2ea4">Ignore terrain objects (trees, walls, ruins and other non-hex pieces)</span></label>
+        <p class="hs-note m-sizenote"><span data-ek="t22366d61">With these on, the count goes by pieces: maps with “Pieces counted from the PDF” use those pieces, and other maps need every piece in their listed products. Counting only size puts hexes of any type together by size, and trees of any kind together.</span></p>
         <div class="m-best"></div>
       </div>
       <div class="hs-card">
@@ -1064,7 +1065,7 @@
 </dialog>
 </div>
 <script src="vendor/d3.v7.min.js"></script>
-<script src="js/data.js?v=7617968ab3"></script>
-<script src="js/app.js?v=7617968ab3"></script>
+<script src="js/data.js?v=096cdcbfbb"></script>
+<script src="js/app.js?v=096cdcbfbb"></script>
 </body>
 </html>
