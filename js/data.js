@@ -2,6 +2,7 @@
 // the only network requests are for these files, from the same place the page came from.
 (function () {
   const FILES = { units: 'data/units.json', abilities: 'data/abilities.json', cards: 'data/cards.json', products: 'data/products.json', terrain: 'data/terrain.json', maps: 'data/maps.json', errata: 'data/errata.json' };
+  const V = 'f56612fd54'; // the build puts a version tag here, so an update never mixes old cached data with new code
   const LAZY = new Set(); // anything large can be listed here to load on first use (card pictures are now separate small files)
   const S = {};
   const subs = [];
@@ -14,7 +15,7 @@
   function load(id) {
     if (S[id]) return;
     S[id] = { status: 'loading', data: [] };
-    fetch(FILES[id])
+    fetch(FILES[id] + (V ? '?v=' + V : ''))
       .then((r) => { if (!r.ok) throw new Error(r.status + ' ' + r.statusText); return r.json(); })
       .then((rows) => { S[id] = { status: 'ok', data: rows }; notify(); })
       .catch((e) => { S[id] = { status: 'error', data: [], message: String(e.message || e) }; notify(); });
