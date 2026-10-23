@@ -3576,7 +3576,11 @@
     e.stickers = (Array.isArray(o.stickers) ? o.stickers : []).filter((k) => k && !k.gone && ((IMG_RE.test(String(k.src)) && k.src.length < 3000000) || ASSET_RE.test(String(k.src)))).slice(0, 40).map((k) => ({
       id: /^[\w-]{1,30}$/.test(k.id) ? k.id : uid(), src: k.src, page: /^[\w-]{0,30}$/.test(k.page || '') ? k.page || '' : '',
       at: ['screen', 'header', 'page', 'block'].includes(k.at) ? k.at : 'page', block: Math.round(num(k.block, 0, 200, 0)),
-      x: num(k.x, -20, 120, 50), y: num(k.y, -20, 120, 50), w: num(k.w, 1, 100, 30), layer: k.layer === 'back' ? 'back' : 'front', px: !!k.px
+      layer: k.layer === 'back' ? 'back' : 'front', px: !!k.px,
+      // u 'px': drawings keep exact pixel spots (x from the page's middle, y from its top), so pieces never drift apart
+      ...(k.u === 'px' && k.at === 'page'
+        ? { u: 'px', x: num(k.x, -10000, 10000, 0), y: num(k.y, -2000, 400000, 0), w: num(k.w, 0.5, 6000, 100) }
+        : { x: num(k.x, -20, 120, 50), y: num(k.y, -20, 120, 50), w: num(k.w, 1, 100, 30) })
     }));
     // themes: each has its own pictures and colors; visitors choose one in Settings
     e.themes = (Array.isArray(o.themes) ? o.themes : []).slice(0, 20).map((t) => {
@@ -4177,7 +4181,7 @@
   }
   function applyStickers() {
     const list = effStickers(), owner = tgt();
-    const sig = JSON.stringify([state.page, STK_SEL, STK_MOVE, edActive(), list.map(([k, o]) => [k.id, k.src.length, k.at, k.block, k.x, k.y, k.w, k.layer, k.px, o === owner])]);
+    const sig = JSON.stringify([state.page, STK_SEL, STK_MOVE, edActive(), list.map(([k, o]) => [k.id, k.src.length, k.at, k.block, k.x, k.y, k.w, k.u, k.layer, k.px, o === owner])]);
     const placed = document.querySelectorAll('img.stk');
     if (sig === STK_SIG && [...placed].every((i) => i.isConnected && i.parentElement)) return;
     STK_SIG = sig;
@@ -4187,7 +4191,8 @@
       const host = stkHost(k); if (!host) continue;
       if (k.at !== 'screen') host.classList.add('stk-host');
       const im = document.createElement('img'); im.className = 'stk ' + k.layer + (k.px ? ' px' : ''); im.alt = ''; im.src = k.src; im.dataset.stk = k.id;
-      im.style.left = k.x + '%'; im.style.top = k.y + '%'; im.style.width = k.w + '%';
+      if (k.u === 'px') { im.style.left = `calc(50% + ${k.x}px)`; im.style.top = k.y + 'px'; im.style.width = k.w + 'px'; }
+      else { im.style.left = k.x + '%'; im.style.top = k.y + '%'; im.style.width = k.w + '%'; }
       if (o === DOODLES) im.classList.add('doodle');
       if (edActive() && o === owner) { im.classList.add('mine'); if (k.id === STK_SEL) im.classList.add('sel'); if (STK_MOVE) im.classList.add('moving'); }
       host.appendChild(im);
@@ -4209,7 +4214,10 @@
   }
   function placeAt(k, place) {
     const r1 = (v) => Math.round(v * 10) / 10;
-    k.x = r1(place.x); k.y = r1(place.y); k.w = Math.max(1, Math.min(100, r1(place.w))); if (place.page) k.page = place.page;
+    if (place.u === 'px') { k.u = 'px'; k.at = 'page'; k.x = r1(place.x); k.y = r1(place.y); k.w = Math.max(0.5, r1(place.w)); }
+    else { delete k.u; k.x = r1(place.x); k.y = r1(place.y); k.w = Math.max(1, Math.min(100, r1(place.w))); }
+    if (place.page) k.page = place.page;
+    if (place.layer) k.layer = place.layer;
   }
   // a visitor's own drawings from the drawing square: on top of whatever theme they use, saved only for them
   let DOODLES = [];
@@ -4244,12 +4252,12 @@
   function clearDoodles(page) { DOODLES = DOODLES.filter((k) => k.page !== page); persist(); applyStickers(); }
   // the visitor's choice to show the drawing square (Settings)
   // and where they dragged it: which side of the screen, and how far down (% of the screen height)
-  const DRAWSQ = { on: false, side: 'right', y: 50 };
+  const DRAWSQ = { on: false, side: 'right', y: 50, layer: 'front' };
   registerSaved({
     key: 'drawsq', label: 'drawing square setting',
     get: () => ({ ...DRAWSQ }),
-    clean: (o) => ({ on: !!(o && o.on), side: o && o.side === 'left' ? 'left' : 'right', y: Math.min(95, Math.max(5, Number(o && o.y) || 50)) }),
-    apply: (v) => { Object.assign(DRAWSQ, { on: false, side: 'right', y: 50 }, v || {}); if (typeof syncDrawSquare === 'function') syncDrawSquare(); }
+    clean: (o) => ({ on: !!(o && o.on), side: o && o.side === 'left' ? 'left' : 'right', y: Math.min(95, Math.max(5, Number(o && o.y) || 50)), layer: o && o.layer === 'back' ? 'back' : 'front' }),
+    apply: (v) => { Object.assign(DRAWSQ, { on: false, side: 'right', y: 50, layer: 'front' }, v || {}); if (typeof syncDrawSquare === 'function') syncDrawSquare(); }
   });
   function stickerRow() {
     const row = mk('div', 'ed-row ed-stk');
@@ -4261,6 +4269,7 @@
     if (!mine.length) { row.appendChild(mk('span', 'hs-note', 'none on this page yet; make some with the Art maker or add a picture')); return row; }
     if (!mine.some((k) => k.id === STK_SEL)) STK_SEL = mine[mine.length - 1].id;
     const k = stkOf(STK_SEL);
+    stkToPct(k);
     const sel = document.createElement('select'); sel.setAttribute('aria-label', 'Free art you are changing');
     mine.forEach((x, i) => sel.append(new Option('Art ' + (i + 1) + (x.page ? '' : ' (every page)'), x.id)));
     sel.value = STK_SEL; sel.addEventListener('change', () => { STK_SEL = sel.value; drawBar(); applyStickers(); });
@@ -4284,12 +4293,23 @@
     row.append(where, size, btn('Delete art', 'hs-sm', (e) => { if (!armed('delstk', e.currentTarget, 'Tap again to delete')) return; T.stickers = T.stickers.filter((x) => x !== k); STK_SEL = ''; saveDraft(); applyStickers(); drawBar(); }));
     return row;
   }
+  // a drawing placed in pixels becomes ordinary free art (percent of its page) once its settings are changed
+  function stkToPct(k) {
+    if (!k || k.u !== 'px') return;
+    const sec = root.querySelector('section.hs-page#' + (k.page || state.page));
+    const r = sec && sec.getBoundingClientRect();
+    if (!r || !r.width || !r.height) return;
+    const r1 = (v) => Math.round(v * 1000) / 1000;
+    k.x = r1(50 + (k.x / r.width) * 100); k.y = r1((k.y / r.height) * 100); k.w = r1(Math.max(0.1, (k.w / r.width) * 100));
+    delete k.u;
+  }
   // moving art by dragging it, and picking the block it sticks to
   document.addEventListener('pointerdown', (e) => {
     if (!edActive()) return;
     const im = e.target.closest && e.target.closest('img.stk.mine');
     if (!im || !STK_MOVE) return;
     const k = stkOf(im.dataset.stk); if (!k) return;
+    stkToPct(k);
     e.preventDefault(); e.stopPropagation();
     if (STK_SEL !== k.id) { STK_SEL = k.id; drawBar(); }
     im.setPointerCapture(e.pointerId);
@@ -4883,6 +4903,7 @@
     ptBind(DS);
     // a scroll wheel still scrolls: the drawing so far is placed first, then the page moves
     DS.view.addEventListener('wheel', (e) => { e.preventDefault(); commitDraw(); window.scrollBy(e.deltaX, e.deltaY); }, { passive: false });
+    DS.y0 = window.scrollY;
     dqLayer.replaceChildren(DS.view);
   }
   function openDraw() {
@@ -4909,8 +4930,9 @@
     if (t) {
       const data = artData(t.c, MAKER || !EDIT_MODE ? 600000 : 2900000);
       if (data) {
+        // exact pixels from the page's middle and top, so a drawing made in pieces (scrolling between them) stays joined
         const cx = (t.x0 + t.c.width / 2) / DS.scale, cy = (t.y0 + t.c.height / 2) / DS.scale, w = t.c.width / DS.scale;
-        const place = { x: ((cx - A.left) / A.width) * 100, y: ((cy - A.top) / A.height) * 100, w: (w / A.width) * 100, page: A.page };
+        const place = { u: 'px', x: cx - (A.left + A.width / 2), y: cy - A.top, w, page: A.page, layer: DRAWSQ.layer };
         const id = edActive() ? addSticker(data, false, 0, 0, place) : addDoodle(data, place);
         if (id) DQ.done.push({ id });
       }
@@ -4980,6 +5002,13 @@
     const sz = mk('label', 'pt-range'); const si = document.createElement('input'); si.type = 'range'; si.min = 1; si.max = 120; si.value = PT.size; si.setAttribute('aria-label', 'Size');
     si.addEventListener('input', () => { PT.size = +si.value; }); sz.append(document.createTextNode('Size '), si);
     dqPop.appendChild(sz);
+    // which layer new drawings go on: over the page, or behind the cards and text
+    const lay = mk('div', 'hs-seg dq-layer'); lay.setAttribute('role', 'group'); lay.setAttribute('aria-label', 'Layer to draw on');
+    for (const [id, t] of [['front', 'In front'], ['back', 'Behind']]) {
+      const b = mk('button', '', t); b.type = 'button'; b.setAttribute('aria-pressed', String(DRAWSQ.layer === id));
+      b.addEventListener('click', () => { if (DRAWSQ.layer !== id) { commitDraw(); DRAWSQ.layer = id; persist(); } drawDrawUI(); }); lay.appendChild(b);
+    }
+    dqPop.append(mk('span', 'hs-note dq-laylabel', 'Layer'), lay);
     const cols = pxColorRow(drawDrawUI); cols.classList.add('dq-cols');
     dqPop.appendChild(cols);
     dqPop.appendChild(btn(DQ.adv ? 'Hide advanced tools' : 'Advanced tools', 'hs-sm', () => { DQ.adv = !DQ.adv; drawDrawUI(); }));
@@ -4995,6 +5024,8 @@
     ptShow(DS); placePop();
   }
   // keep the canvas lined up with the screen
+  // the page scrolled some other way (scroll bar, keys): place what was drawn before the page moved
+  window.addEventListener('scroll', () => { if (DS && DS.anchor && Math.abs(window.scrollY - DS.y0) > 1) commitDraw(); if (DS) DS.y0 = window.scrollY; }, { passive: true });
   window.addEventListener('resize', () => { if (DS) { commitDraw(); dqSurface(); if (!DQ.drawing) dqLayer.hidden = true; } });
   window.addEventListener('hashchange', () => { if (DS) commitDraw(); });
   document.addEventListener('keydown', (e) => {
