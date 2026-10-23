@@ -2,7 +2,7 @@
 // the only network requests are for these files, from the same place the page came from.
 (function () {
   const FILES = { units: 'data/units.json', abilities: 'data/abilities.json', cards: 'data/cards.json', products: 'data/products.json', terrain: 'data/terrain.json', maps: 'data/maps.json', errata: 'data/errata.json' };
-  const LAZY = new Set(['cards']); // card pictures are large, so they load on first use
+  const LAZY = new Set(); // anything large can be listed here to load on first use (card pictures are now separate small files)
   const S = {};
   const subs = [];
   let queued = false;

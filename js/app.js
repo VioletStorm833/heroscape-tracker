@@ -304,6 +304,19 @@
     return el;
   }
 
+  // the card picture on a unit's page; if the list of pictures is still loading, it is filled in when it arrives
+  function dlgPic() {
+    const ibox = dlg.querySelector('.hs-cardimg-box'), r = DLG_UNIT;
+    if (!r || ibox.querySelector('img')) return;
+    const C = dash.data('cards');
+    if (C.status !== 'ok') return;
+    const row = C.data.find((x) => x.unit === r.unit);
+    if (row && CARD_IMG.test(row.img)) {
+      const im = document.createElement('img');
+      im.className = 'hs-cardimg'; im.alt = r.unit + ' army card'; im.src = row.img;
+      ibox.appendChild(im);
+    }
+  }
   function openCard(r, focusAbility) {
     DLG_UNIT = r;
     syncDlgAdd();
@@ -317,17 +330,8 @@
     if (r.bonding) sub.appendChild(mk('span', '', 'Bonding: ' + r.bonding));
     if (r.sizenum) sub.appendChild(mk('span', '', fmt(r.sizenum), um('sizenum')));
 
-    const ibox = dlg.querySelector('.hs-cardimg-box');
-    ibox.replaceChildren();
-    const C = dash.data('cards');
-    if (C.status === 'ok') {
-      const row = C.data.find((x) => x.unit === r.unit);
-      if (row && /^data:image\/jpeg;base64,/.test(row.img)) {
-        const im = document.createElement('img');
-        im.className = 'hs-cardimg'; im.alt = r.unit + ' army card'; im.src = row.img;
-        ibox.appendChild(im);
-      }
-    }
+    dlg.querySelector('.hs-cardimg-box').replaceChildren();
+    dlgPic();
     const basic = dlg.querySelector('.hs-basic');
     basic.replaceChildren();
     const box = (label, field) => { const d = mk('div', '', label); const b = mk('b', '', fmt(r[field]), um(field)); d.prepend(b); return d; };
@@ -806,11 +810,13 @@
   layoutBtns.forEach((b) => b.addEventListener('click', () => { state.layout = b.dataset.layout; draw(); }));
   const armyPics = root.querySelector('.hs-armypics');
   armyPics.addEventListener('change', () => draw());
+  // a card picture is its own small file (data/cards/<name>.jpg, written by the build), or an embedded jpeg
+  const CARD_IMG = /^(data:image\/jpeg;base64,|data\/cards\/[\w-]+\.jpg$)/;
   function imgFor(unit) {
     const C = dash.data('cards');
     if (C.status !== 'ok') return null;
     const row = C.data.find((x) => x.unit === unit);
-    return row && /^data:image\/jpeg;base64,/.test(row.img) ? row.img : null;
+    return row && CARD_IMG.test(row.img) ? row.img : null;
   }
   function gcard(r, opts) {
     const d = mk('div', 'hs-gcard'); d.setAttribute('data-key', r.unit); d.tabIndex = 0;
@@ -5281,6 +5287,7 @@
     const raw = lsGet(STORE_KEY);
     if (raw) { try { restore(clean(JSON.parse(raw)), false); LAST_SAVED = raw; } catch (e) { /* unreadable: start fresh */ } }
   }
+  dash.onData(() => { if (dlg.open) dlgPic(); });
   dash.onData(() => {
     draw();
   });
