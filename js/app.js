@@ -3636,7 +3636,7 @@
       } else if (im) im.remove();
       s.classList.toggle('has', !!src);
     });
-    // whole-site background picture, tiled
+    // whole-site background picture: photos fill the screen, pixel art tiles
     const bg = E.images.background;
     document.body.style.backgroundImage = bg ? `url("${bg}")` : '';
     document.body.classList.toggle('ed-bg', !!bg);

@@ -587,7 +587,8 @@ body.ed-on.ed-text #dash-root [data-ek]:hover { outline: 2px solid var(--accent)
 .ed-pop { position: fixed; z-index: 60; background: var(--color-panel); border: 1px solid var(--accent); border-radius: var(--cds-radius); box-shadow: 0 8px 30px rgb(0 0 0 / .25); padding: 10px; display: flex; flex-direction: column; gap: 8px; }
 .ed-pop textarea { width: 100%; box-sizing: border-box; font: inherit; color: var(--color-fg); background: var(--color-bg); border: 1px solid var(--color-border-line); border-radius: 6px; padding: 6px 8px; resize: vertical; }
 .ed-img.px, body.ed-bgpx { image-rendering: pixelated; }
-body.ed-bg { background-repeat: repeat; background-size: auto; }
+body.ed-bg { background-repeat: no-repeat; background-size: cover; background-position: center; background-attachment: fixed; }
+body.ed-bgpx { background-repeat: repeat; background-size: auto; background-attachment: scroll; } /* pixel art tiles; photos fill the screen */
 .ed-asset { display: inline-flex; gap: 4px; align-items: center; }
 .ed-asset input { font: inherit; font-size: var(--cds-font-size-caption); width: 13rem; max-width: 50vw; padding: 3px 6px; border: 1px solid var(--color-border-line); border-radius: 6px; background: var(--color-bg); color: var(--color-fg); }
 .px-wrap { position: fixed; inset: 0; z-index: 70; background: rgb(0 0 0 / .45); display: flex; align-items: flex-start; justify-content: center; overflow: auto; padding: 12px; }
