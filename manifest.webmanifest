@@ -1,0 +1,12 @@
+{
+  "name": "Heroscape Tracker",
+  "short_name": "Heroscape",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "theme_color": "#6b3fa0",
+  "background_color": "#f4f2f7",
+  "icons": []
+}
