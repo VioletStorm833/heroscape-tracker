@@ -664,6 +664,8 @@ body.ed-on .stk.mine.moving.back { opacity: .8; }
 
 /* drawing right on the page: the drawing square and its pop-up */
 .pd-wrap { position: fixed; inset: 0; z-index: 75; }
+.pd-backwrap { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+.pd-back { position: absolute; inset: 0; width: 100%; height: 100%; }
 .pd-canvas { position: absolute; inset: 0; width: 100%; height: 100%; touch-action: none; cursor: crosshair; }
 .dq-btn { position: fixed; right: 0; top: 50%; touch-action: none; transform: translateY(-50%); z-index: 78; width: 52px; height: 52px; padding: 0; display: flex; align-items: center; justify-content: center; font: inherit; font-size: 12px; font-weight: 600; color: var(--accent-fg); background: var(--accent); border: 0; border-radius: 10px 0 0 10px; box-shadow: 0 4px 16px rgb(0 0 0 / .25); cursor: pointer; overflow: hidden; }
 .dq-btn img { width: 100%; height: 100%; object-fit: contain; }

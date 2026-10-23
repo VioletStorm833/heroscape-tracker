@@ -4649,6 +4649,7 @@
     }
     g.drawImage(S.art, 0, 0);
     g.globalAlpha = PT.alpha / 100; g.drawImage(S.stroke, 0, 0); g.globalAlpha = 1;
+    if (S.onShow) S.onShow();
   }
 
   // the tool buttons and settings, shared by the art maker and drawing on the page
@@ -4849,7 +4850,8 @@
   if (DQ_ART) { const im = document.createElement('img'); im.src = DQ_ART; im.alt = ''; dqBtn.appendChild(im); } else dqBtn.textContent = 'Draw';
   const dqPop = mk('div', 'dq-pop'); dqPop.hidden = true; dqPop.setAttribute('role', 'dialog'); dqPop.setAttribute('aria-label', 'Drawing tools');
   const dqLayer = mk('div', 'pd-wrap'); dqLayer.hidden = true;
-  document.body.append(dqLayer, dqBtn, dqPop);
+  const dqBack = mk('div', 'pd-backwrap'); // holds the strokes in progress when drawing behind the page
+  document.body.append(dqBack, dqLayer, dqBtn, dqPop);
   // a tap opens the pop-up; dragging moves the square up and down, or across to the other side of the screen
   let dqDrag = null;
   dqBtn.addEventListener('pointerdown', (e) => { dqDrag = { x: e.clientX, y: e.clientY, moved: false }; dqBtn.setPointerCapture(e.pointerId); });
@@ -4904,24 +4906,34 @@
     // a scroll wheel still scrolls: the drawing so far is placed first, then the page moves
     DS.view.addEventListener('wheel', (e) => { e.preventDefault(); commitDraw(); window.scrollBy(e.deltaX, e.deltaY); }, { passive: false });
     DS.y0 = window.scrollY;
+    // drawing behind: the top canvas only catches the pen and stays see-through, and a copy behind the page shows the strokes
+    DS.back = document.createElement('canvas'); DS.back.className = 'pd-back'; DS.back.width = DS.w; DS.back.height = DS.h; DS.back.setAttribute('aria-hidden', 'true');
+    DS.onShow = () => {
+      const behind = DRAWSQ.layer === 'back';
+      DS.view.style.opacity = behind ? '0' : '';
+      DS.back.hidden = !behind || dqLayer.hidden;
+      if (!behind) return;
+      const g = DS.back.getContext('2d'); g.clearRect(0, 0, DS.w, DS.h); g.drawImage(DS.view, 0, 0);
+    };
     dqLayer.replaceChildren(DS.view);
+    dqBack.replaceChildren(DS.back);
   }
   function openDraw() {
     closePixel();
     DQ.open = true; DQ.drawing = true;
     if (!DS) dqSurface();
-    dqLayer.hidden = false; dqPop.hidden = false;
+    dqLayer.hidden = false; dqPop.hidden = false; ptShow(DS);
     drawDrawUI(); syncDrawSquare();
   }
   function closeDraw() {
     commitDraw();
     DQ.open = false; DS = null;
-    dqLayer.hidden = true; dqLayer.replaceChildren(); dqPop.hidden = true;
+    dqLayer.hidden = true; dqLayer.replaceChildren(); dqBack.replaceChildren(); dqPop.hidden = true;
     syncDrawSquare();
   }
   function setDrawing(on) {
     if (!on) commitDraw();
-    DQ.drawing = on; dqLayer.hidden = !on; drawDrawUI();
+    DQ.drawing = on; dqLayer.hidden = !on; if (DS) ptShow(DS); drawDrawUI();
   }
   // place what is on the canvas, then start a fresh one
   function commitDraw() {
@@ -5006,7 +5018,7 @@
     const lay = mk('div', 'hs-seg dq-layer'); lay.setAttribute('role', 'group'); lay.setAttribute('aria-label', 'Layer to draw on');
     for (const [id, t] of [['front', 'In front'], ['back', 'Behind']]) {
       const b = mk('button', '', t); b.type = 'button'; b.setAttribute('aria-pressed', String(DRAWSQ.layer === id));
-      b.addEventListener('click', () => { if (DRAWSQ.layer !== id) { commitDraw(); DRAWSQ.layer = id; persist(); } drawDrawUI(); }); lay.appendChild(b);
+      b.addEventListener('click', () => { if (DRAWSQ.layer !== id) { commitDraw(); DRAWSQ.layer = id; persist(); if (DS) ptShow(DS); } drawDrawUI(); }); lay.appendChild(b);
     }
     dqPop.append(mk('span', 'hs-note dq-laylabel', 'Layer'), lay);
     const cols = pxColorRow(drawDrawUI); cols.classList.add('dq-cols');
