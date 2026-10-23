@@ -3557,7 +3557,7 @@
   // pictures in use: the standard ones, with the chosen theme's own pictures on top
   function effImages() {
     const t = siteTheme(), ti = t ? t.images : {};
-    return { images: { ...EDITS.images, ...ti }, pixel: [...EDITS.pixel.filter((k) => !(k in ti)), ...(t ? t.pixel : [])] };
+    return { images: { ...EDITS.images, ...ti }, pixel: [...EDITS.pixel.filter((k) => !(k in ti) && !(k === 'bgfill' && 'background' in ti)), ...(t ? t.pixel : [])] };
   }
   const ORIG = {};
   const IMG_RE = /^data:image\/(png|jpeg|webp|gif);base64,[A-Za-z0-9+/=]+$/;
@@ -3568,7 +3568,8 @@
     for (const [k, v] of Object.entries(o.text || {})) if (/^[\w:-]{1,40}$/.test(k) && typeof v === 'string') e.text[k] = v.slice(0, 2000);
     for (const [k, v] of Object.entries(o.order || {})) if (/^[\w:-]{1,40}$/.test(k) && Array.isArray(v)) e.order[k] = v.slice(0, 50).map((x) => str(x, 40));
     for (const [k, v] of Object.entries(o.images || {})) if (/^[\w:-]{1,40}$/.test(k) && ((IMG_RE.test(String(v)) && v.length < 3000000) || ASSET_RE.test(String(v)))) e.images[k] = v;
-    e.pixel = (Array.isArray(o.pixel) ? o.pixel : []).filter((k) => k in e.images).slice(0, 50);
+    // 'bgfill' in the list means the background picture fills the screen instead of tiling
+    e.pixel = (Array.isArray(o.pixel) ? o.pixel : []).filter((k) => k in e.images || (k === 'bgfill' && 'background' in e.images)).slice(0, 50);
     // free art: pictures placed anywhere. at = what it sticks to; x, y = its middle in % of that; w = width in % of it
     const num = (v, lo, hi, d) => { const n = Number(v); return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : d; };
     e.stickers = (Array.isArray(o.stickers) ? o.stickers : []).filter((k) => k && !k.gone && ((IMG_RE.test(String(k.src)) && k.src.length < 3000000) || ASSET_RE.test(String(k.src)))).slice(0, 40).map((k) => ({
@@ -3636,11 +3637,12 @@
       } else if (im) im.remove();
       s.classList.toggle('has', !!src);
     });
-    // whole-site background picture: photos fill the screen, pixel art tiles
+    // whole-site background picture: tiled, or filling the screen when the theme says so
     const bg = E.images.background;
     document.body.style.backgroundImage = bg ? `url("${bg}")` : '';
     document.body.classList.toggle('ed-bg', !!bg);
     document.body.classList.toggle('ed-bgpx', !!bg && E.pixel.includes('background'));
+    document.body.classList.toggle('ed-bgfill', !!bg && E.pixel.includes('bgfill'));
     applyStickers();
   }
   function syncSite() {
@@ -3776,7 +3778,14 @@
     const bgPick = document.createElement('input'); bgPick.type = 'file'; bgPick.accept = 'image/*'; bgPick.hidden = true;
     bgPick.addEventListener('change', () => { if (bgPick.files[0]) readImage(bgPick.files[0], 'background'); });
     more.append(bgPick, mk('span', 'hs-note', 'Background:'), btn(tgt().images.background ? 'Replace' : 'Choose a picture', 'hs-sm', () => bgPick.click()));
-    if (tgt().images.background) more.appendChild(btn('Remove', 'hs-sm', () => clearImage('background')));
+    if (tgt().images.background) {
+      more.appendChild(btn('Remove', 'hs-sm', () => clearImage('background')));
+      const fl = mk('label', 'hs-chk'); const fc = document.createElement('input'); fc.type = 'checkbox';
+      fc.checked = tgt().pixel.includes('bgfill');
+      fc.addEventListener('change', () => { const T = tgt(); T.pixel = T.pixel.filter((k) => k !== 'bgfill'); if (fc.checked) T.pixel.push('bgfill'); applyImages(); saveDraft(); });
+      fl.append(fc, ' Fill the screen (no tiling)');
+      more.appendChild(fl);
+    }
     if (!MAKER) more.appendChild(assetField('background'));
     return more;
   }
@@ -4087,7 +4096,7 @@
     T.pixel = T.pixel.filter((k) => k !== slot); if (pixel) T.pixel.push(slot);
     applyImages(); saveDraft(); drawSlots();
   }
-  function clearImage(slot) { const T = tgt(); delete T.images[slot]; T.pixel = T.pixel.filter((k) => k !== slot); applyImages(); saveDraft(); drawSlots(); }
+  function clearImage(slot) { const T = tgt(); delete T.images[slot]; T.pixel = T.pixel.filter((k) => k !== slot && !(slot === 'background' && k === 'bgfill')); applyImages(); saveDraft(); drawSlots(); }
   const slotNames = () => [['logo', 'Logo spot (header)'], ...[...root.querySelectorAll('.hs-page')].map((sec) => { const n = root.querySelector(`[data-ek="page:${sec.id}"]`); return ['banner:' + sec.id, 'Banner on ' + (sec.id === 'home' ? 'Home' : n ? n.textContent : sec.id)]; }), ['background', 'Site background (tiled)']];
   function readImage(file, slot) {
     if (!/^image\/(png|jpeg|webp|gif|svg\+xml)$/.test(file.type)) { edMsg('That file is not a picture.'); return; }
