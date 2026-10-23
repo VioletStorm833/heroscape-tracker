@@ -531,10 +531,12 @@
     if (!DLG_UNIT) return;
     const cn = (COLL.get(DLG_UNIT.unit) || {}).note || '', an = ARMIES[CUR].note || '';
     if (document.activeElement !== cNote) cNote.value = cn;
+    notePicShow(DLG_UNIT.unit);
+    const has = !!(cn || an || notePicOf(DLG_UNIT.unit));
     if (document.activeElement !== aNote) aNote.value = an;
     dlg.querySelector('.dlg-anote-l').textContent = 'Note on army: ' + ARMIES[CUR].name;
-    noteBtn.classList.toggle('has', !!(cn || an));
-    noteBtn.setAttribute('aria-label', 'Notes' + (cn || an ? ' (has notes)' : ''));
+    noteBtn.classList.toggle('has', has);
+    noteBtn.setAttribute('aria-label', 'Notes' + (has ? ' (has notes)' : ''));
   }
   noteBtn.addEventListener('click', () => {
     notesBox.hidden = !notesBox.hidden;
@@ -1947,6 +1949,70 @@
     const g = e.target.closest('[data-goto]'); if (!g) return;
     e.preventDefault(); if (dlg.open) dlg.close(); showPage(g.dataset.goto, true); window.scrollTo(0, 0);
   });
+
+  // ---------- a drawing in a card's notes ----------
+  // one picture per unit, drawn on the pad under "Note on this card"; kept in this browser and in the backup file
+  let NOTEPICS = {}; // unit -> PNG data URL
+  const PIC_OK = /^data:image\/png;base64,[A-Za-z0-9+/=]+$/;
+  registerSaved({
+    key: 'notepics', label: 'card note drawings',
+    get: () => ({ ...NOTEPICS }),
+    clean: (o) => {
+      const out = {};
+      if (o && typeof o === 'object') for (const [n, v] of Object.entries(o).slice(0, 400)) if (typeof v === 'string' && v.length < 600000 && PIC_OK.test(v)) out[str(n, 120)] = v;
+      return out;
+    },
+    apply: (v, merge) => { NOTEPICS = merge ? { ...(v || {}), ...NOTEPICS } : { ...(v || {}) }; }
+  });
+  function notePicOf(n) { return NOTEPICS[n] || ''; }
+  const picC = dlg.querySelector('.dlg-picc'), picG = picC.getContext('2d');
+  const picCol = dlg.querySelector('.dlg-pic-col'), picSize = dlg.querySelector('.dlg-pic-size');
+  const PIC = { unit: '', tool: 'pen', undo: [] };
+  try { picCol.value = getComputedStyle(document.documentElement).getPropertyValue('--accent').trim() || picCol.value; } catch (e) { /* keep the default */ }
+  function notePicShow(n) {
+    if (PIC.unit === n) return;
+    PIC.unit = n; PIC.undo = [];
+    picG.clearRect(0, 0, picC.width, picC.height);
+    const src = NOTEPICS[n];
+    if (src) { const im = new Image(); im.onload = () => { if (PIC.unit === n) picG.drawImage(im, 0, 0); }; im.src = src; }
+  }
+  function notePicSave() {
+    const px = picG.getImageData(0, 0, picC.width, picC.height).data;
+    let blank = true;
+    for (let i = 3; i < px.length; i += 4) if (px[i]) { blank = false; break; }
+    if (blank) delete NOTEPICS[PIC.unit]; else NOTEPICS[PIC.unit] = picC.toDataURL('image/png');
+    persist(); syncNotes();
+  }
+  const picAt = (e) => { const b = picC.getBoundingClientRect(); return [(e.clientX - b.left) * picC.width / b.width, (e.clientY - b.top) * picC.height / b.height]; };
+  let picLast = null;
+  picC.addEventListener('pointerdown', (e) => {
+    if (!PIC.unit) return;
+    e.preventDefault(); picC.setPointerCapture(e.pointerId);
+    PIC.undo.push(picG.getImageData(0, 0, picC.width, picC.height)); if (PIC.undo.length > 20) PIC.undo.shift();
+    picLast = picAt(e);
+    picG.globalCompositeOperation = PIC.tool === 'eraser' ? 'destination-out' : 'source-over';
+    picG.strokeStyle = picG.fillStyle = picCol.value; picG.lineWidth = Number(picSize.value) * (PIC.tool === 'eraser' ? 2 : 1);
+    picG.lineCap = picG.lineJoin = 'round';
+    picG.beginPath(); picG.arc(picLast[0], picLast[1], picG.lineWidth / 2, 0, Math.PI * 2); picG.fill();
+  });
+  picC.addEventListener('pointermove', (e) => {
+    if (!picLast) return;
+    const p = picAt(e);
+    picG.beginPath(); picG.moveTo(picLast[0], picLast[1]); picG.lineTo(p[0], p[1]); picG.stroke();
+    picLast = p;
+  });
+  const picEnd = () => { if (!picLast) return; picLast = null; picG.globalCompositeOperation = 'source-over'; notePicSave(); };
+  picC.addEventListener('pointerup', picEnd); picC.addEventListener('pointercancel', picEnd);
+  dlg.querySelectorAll('.dlg-pic-tool button').forEach((b) => b.addEventListener('click', () => {
+    PIC.tool = b.dataset.v; dlg.querySelectorAll('.dlg-pic-tool button').forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+  }));
+  dlg.querySelector('.dlg-pic-undo').addEventListener('click', () => { const s = PIC.undo.pop(); if (s) { picG.putImageData(s, 0, 0); notePicSave(); } });
+  dlg.querySelector('.dlg-pic-clear').addEventListener('click', async () => {
+    if (!NOTEPICS[PIC.unit] || !await ask({ title: 'Clear this drawing?', ok: 'Clear' })) return;
+    PIC.undo.push(picG.getImageData(0, 0, picC.width, picC.height));
+    picG.clearRect(0, 0, picC.width, picC.height); notePicSave();
+  });
+
   // ---------- navigation: home index, side menu, and sibling pages ----------
   const SECTIONS = [
     ['cards', 'Armies & cards', [

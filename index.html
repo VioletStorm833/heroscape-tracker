@@ -8,7 +8,7 @@
 <meta name="description" content="Free Heroscape tracker: army card rankings, army builder, collection and terrain tracking, tournament maps, Swiss tournaments, game record and rules. No accounts; your data stays on your device.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=94d5f66d33">
+<link rel="stylesheet" href="css/style.css?v=543f86e290">
 </head>
 <body>
 <div id="dash-root"><div class="hs">
@@ -965,6 +965,20 @@
     <button type="button" class="hs-notebtn" aria-expanded="false" aria-controls="dlg-notes"><span data-ek="t98912075">Notes</span></button>
     <div class="hs-notes" id="dlg-notes" hidden>
       <label class="hs-field"><span data-ek="t77cc5c86">Note on this card</span><textarea class="dlg-cnote" rows="3" maxlength="1000"></textarea></label>
+      <div class="dlg-pic">
+        <span class="dlg-pic-l"><span data-ek="t09894672">Drawing on this card</span></span>
+        <canvas class="dlg-picc" width="600" height="360" aria-label="Drawing pad for this card"></canvas>
+        <div class="dlg-pic-tools">
+          <label class="dlg-pic-sw"><span data-ek="td790df76">Color</span><input type="color" class="dlg-pic-col" value="#6b3fa0"></label>
+          <div class="hs-seg dlg-pic-tool" role="group" aria-label="Tool">
+            <button type="button" data-v="pen" aria-pressed="true"><span data-ek="ta7a1dd94">Pen</span></button>
+            <button type="button" data-v="eraser" aria-pressed="false"><span data-ek="t62987144">Eraser</span></button>
+          </div>
+          <label class="dlg-pic-sw"><span data-ek="t27884066">Size</span><input type="range" class="dlg-pic-size" min="2" max="40" value="6"></label>
+          <button type="button" class="hs-btn hs-sm dlg-pic-undo"><span data-ek="t3ccb60a0">Undo</span></button>
+          <button type="button" class="hs-btn hs-sm dlg-pic-clear"><span data-ek="te15098e1">Clear</span></button>
+        </div>
+      </div>
       <label class="hs-field"><span class="dlg-anote-l"><span data-ek="t9e4a44f5">Note on the army</span></span><textarea class="dlg-anote" rows="3" maxlength="1000"></textarea></label>
     </div>
     <div class="hs-dlg-prod hs-note"></div>
@@ -990,7 +1004,7 @@
 </dialog>
 </div>
 <script src="vendor/d3.v7.min.js"></script>
-<script src="js/data.js?v=94d5f66d33"></script>
-<script src="js/app.js?v=94d5f66d33"></script>
+<script src="js/data.js?v=543f86e290"></script>
+<script src="js/app.js?v=543f86e290"></script>
 </body>
 </html>

@@ -798,3 +798,8 @@ dialog.hs-dlg.ab-newdlg { width: min(26rem, calc(100vw - 2rem)); height: fit-con
 .hs-qa p { margin: 0 0 4px; line-height: 1.45; }
 .hs-q { font-weight: 600; }
 .hs-qafrom { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); margin-bottom: 4px; }
+.dlg-pic { display: grid; gap: 6px; }
+.dlg-picc { width: 100%; height: auto; aspect-ratio: 5 / 3; background: var(--color-bg); border: 1px solid var(--color-border-line); border-radius: 8px; touch-action: none; cursor: crosshair; }
+.dlg-pic-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.dlg-pic-sw { display: inline-flex; align-items: center; gap: 6px; }
+.dlg-pic-col { width: 40px; height: 32px; padding: 0; border: 0; background: none; }
