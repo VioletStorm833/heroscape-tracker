@@ -868,6 +868,1432 @@
    "notes": []
   }
  ],
+ "clar": [
+  {
+   "unit": "4th Massachusetts Line",
+   "qa": [
+    {
+     "q": "If my non-Valiant figures are destroyed, and only Valiant figures are left on the battlefield, can the 4th Massachusetts Line use their Valiant Army Defense Bonus?",
+     "a": "Yes."
+    }
+   ]
+  },
+  {
+   "unit": "Agent Skahen",
+   "qa": [
+    {
+     "q": "Cover Fire activates after inflicting a wound on an opponent's figure. How does that interact with other \"after attacking\" movement powers like the Deathreaver's Scatter?",
+     "a": "Both effects have the same timing window, so the active player resolves Cover Fire first, then the defender resolves Scatter."
+    }
+   ]
+  },
+  {
+   "unit": "Air Elemental",
+   "qa": [
+    {
+     "q": "Can Flying figures fly over an Air Elemental and ignore Swirling Vortex?",
+     "a": "Yes. They are flying over the spaces, and are therefore immune from the effects until they step onto a space."
+    }
+   ]
+  },
+  {
+   "unit": "Airborne Elite",
+   "qa": [
+    {
+     "q": "If I decide not to throw a grenade with one Airborne Elite, can I throw 2 grenades with one of the other ones?",
+     "a": "No, you can only throw one grenade with each Airborne Elite."
+    },
+    {
+     "q": "Can you use The Drop to drop the Airborne Elite into an area below an overhang?",
+     "a": "No."
+    },
+    {
+     "q": "Can the Airborne Elite use The Drop more than once per game?",
+     "a": "No."
+    },
+    {
+     "q": "When you use the Grenade Special Attack power, does each Airborne Elite have to lob a grenade if they have an enemy in sight?",
+     "a": "No. They don't have to. But if one uses his grenades, they all have to use them or lose them. You can't split it up across turns."
+    }
+   ]
+  },
+  {
+   "unit": "Alastair MacDirk",
+   "qa": [
+    {
+     "q": "Can you place the 6th wound marker on Alastair & take your last turn according to Overextend Attack?",
+     "a": "No, as soon as you placed the 6th wound marker on Alastair he would die and be removed from the game."
+    }
+   ]
+  },
+  {
+   "unit": "Arkmer",
+   "qa": [
+    {
+     "q": "Does Arkmer get +2 defense dice if Kyntela Gwyn is adjacent to him (+1 for Staff of Lerkintin and +1 for Kyntella's Strength of the Oak Aura 1)?",
+     "a": "Yes."
+    }
+   ]
+  },
+  {
+   "unit": "Battle Copter",
+   "qa": [
+    {
+     "q": "Does Battle Ready trigger before you would reveal an Order Marker on an Army Card that has all of its figures destroyed?",
+     "a": "Yes. You still reveal the Order Marker on the Army Card even if you would normally not get to take that turn."
+    }
+   ]
+  },
+  {
+   "unit": "Brandis Skyhunter",
+   "qa": [
+    {
+     "q": "If I'm taking temporary control of an opponent's Brandis Skyhunter and use Archer's Glory, do I get to take the additional turn as well?",
+     "a": "No. Control has returned to your opponent so you cannot take an additional turn."
+    }
+   ]
+  },
+  {
+   "unit": "Brave Arrow",
+   "qa": [
+    {
+     "q": "With Concealment, if Brave Arrow is 5 spaces away from the attacking figure, does that mean he can add 5 to the roll?",
+     "a": "No. For example, if Brave Arrow is being attacked at a range of 5, the minimum number of spaces between the 2 figures is more than likely 4. Do not count either space the figures are on."
+    }
+   ]
+  },
+  {
+   "unit": "Brunak",
+   "qa": [
+    {
+     "q": "Can Brunak place a figure that he carried onto a high spot adjacent to himself once he stops moving?",
+     "a": "Yes, as long as the figure would still be considered adjacent to Brunak."
+    },
+    {
+     "q": "Once I kill a figure using Brunak's Blood Hungry Special Attack, can I move and attack again with Brunak?",
+     "a": "No, you can only attack again. If you are not adjacent to any other figures, your turn ends."
+    }
+   ]
+  },
+  {
+   "unit": "Cainak, Private Eye",
+   "qa": [
+    {
+     "q": "Guilty McCreech is destroyed on my opponent's Player Turn, then after that Player Turn I take a turn with Cainak due to Pick up the Trail. It is then my Player Turn where I reveal an Order Marker on and take a turn with Nishi Souta. Can Souta use Call for Backup to take a turn with Cainak or is she considered to have already activated this Player Turn?",
+     "a": "You can use Call for Backup to take a turn with Cainak. Cainak's bonus turn is its own special Player Turn outside the normal Player Turn sequence and any \"once per player turn\" effects would reset before and after it."
+    }
+   ]
+  },
+  {
+   "unit": "Charos",
+   "qa": [
+    {
+     "q": "Does Charos' Improved Counter Strike work against Samurai?",
+     "a": "Yes it works against everyone. No one is safe from Charos."
+    }
+   ]
+  },
+  {
+   "unit": "COBRA Flight Pod",
+   "qa": [
+    {
+     "q": "Does Battle Ready trigger before you would reveal an Order Marker on an Army Card that has all of its figures destroyed?",
+     "a": "Yes. You still reveal the Order Marker on the Army Card even if you would normally not get to take that turn."
+    }
+   ]
+  },
+  {
+   "unit": "Corvynn the Rotbeak",
+   "qa": [
+    {
+     "q": "Can Durnipia use Bloodstitcher 15 on a figure adjacent to Corvynn if that figure is not adjacent to Durnipia?",
+     "a": "No. Eyes in the Sky only affects clear sight and Bloodstitcher 15 requires adjacency."
+    },
+    {
+     "q": "Can Cyprien Esenwein's Chill Touch be used on a figure adjacent to Corvynn if that figure is not adjacent to Cyprien?",
+     "a": "No, for the same reason as in the above answer."
+    },
+    {
+     "q": "Can Maruchott, Mind Whisperer use Marachott's Whisper on a figure within 2 spaces of Corvynn if that figure is not within 2 spaces of Marachott?",
+     "a": "Yes, as long as Corvynn has clear sight to that figure range can be measured from Corvynn instead of Maruchott."
+    }
+   ]
+  },
+  {
+   "unit": "Crimson Twins",
+   "qa": [
+    {
+     "q": "If Misaerx inflicts the 6th wound on The Crimson Twins and both of them are then destroyed, does she remove 1 Wound Marker due to Life Drain or 2.",
+     "a": "2. She has destroyed two figures and therefore removes 2 Wound Markers."
+    },
+    {
+     "q": "If Grimnak destroys 1 Crimson Twin figure with Chomp, what happens?",
+     "a": "The figure is destroyed and the other Crimson Twin carries on with the full remaining Life pool."
+    }
+   ]
+  },
+  {
+   "unit": "Cyprien Esenwein",
+   "qa": [
+    {
+     "q": "Can Cyprien use his Chilling Touch special power even if he doesn't move?",
+     "a": "A figure can move 0 spaces, so yes. He can stay where he is and use Chilling Touch."
+    }
+   ]
+  },
+  {
+   "unit": "Deathwalker 8000",
+   "qa": [
+    {
+     "q": "If an opposing figure has a special power that allows it to ignore the wound(s) inflicted by Deathwalker 8000's Rapid Fire Special Attack, can my Deathwalker 8000 keep attacking?",
+     "a": "No, if the opposing figure ignores the wound it is the same as blocking it with a shield. The wound was never received, so Deathwalker 8000's Special Attack would stop there."
+    },
+    {
+     "q": "If Deathwalker 8000 kills a squad member with his Rapid Fire Special Attack, can he continue to attack?",
+     "a": "Yes. He inflicted a wound to destroy that squad member, so he may continue to attack."
+    }
+   ]
+  },
+  {
+   "unit": "Decker the Burrowbreaker",
+   "qa": [
+    {
+     "q": "If Decker goes through a Krav Maga Agent with Drill-Drive Special Attack, can that Krav Maga Agent use Stealth Dodge against the attack?",
+     "a": "Yes, if the Krav Maga Agent is not adjacent to Decker when the attack is rolled. If Decker the Burrowbreaker ended that movement next to the Agent, then no, Stealth Dodge could not be used."
+    },
+    {
+     "q": "Can I choose the order that figures are affected by Decker's Drill-Drive Special Attack?",
+     "a": "No. Similar to other \"straight line\" powers like Fire Line, there is a natural ordering to the figures that are affected. Figures roll defense dice in the order decker moved through them."
+    },
+    {
+     "q": "If Decker is killed by a leaving engagement attack while moving with Drill-Drive Special Attack, do you still roll to attack the figures that Decker had already moved through?",
+     "a": "No. If Decker is killed before he ends his Drill-Drive movement, no attack takes place."
+    },
+    {
+     "q": "Does Decker's Drill-Drive Special Attack ignore elevation levels while moving?",
+     "a": "No, moving up a level still requires an extra space of movement."
+    }
+   ]
+  },
+  {
+   "unit": "Deflectatron",
+   "qa": [
+    {
+     "q": "Does Magnetic Deflector Shield apply to enemy units as well?",
+     "a": "Yes."
+    },
+    {
+     "q": "Can units adjacent to 2 Delfectatrons change 2 die results to shields?",
+     "a": "If the Deflectatrons are controlled by different players, yes. If they are controlled by the same player, no."
+    },
+    {
+     "q": "Do auras with clear sight requirements (Raelin, Taelord, etc.) still work on units adjacent to the aura unit if the aura unit is also adjacent to a Deflectatron?",
+     "a": "No. Adjacency allows a figure to ignore clear sight only while making attacks."
+    },
+    {
+     "q": "What does \"Magnetic Deflector Shield is negated while adjacent to another figure with the Magnetic Deflector Shield Special Power\" mean?",
+     "a": "If a Deflectatron is adjacent to another Deflectatron, both Magnetic Deflector Shield special powers have no effect."
+    },
+    {
+     "q": "If a figure is adjacent to a Deflectatron, can it use Corvynn the Rotbeak's Eyes in the Sky to treat figures within clear sight of Corvynn as within clear sight?",
+     "a": "Yes, because clear sight is determined from Corvynn, not the figure adjacent to the Deflectatron."
+    },
+    {
+     "q": "If Corvynn is adjacent to a Delflectatron, can Corvynn use Eyes in the Sky?",
+     "a": "No, because figures cannot be within clear sight of Corvynn while Corvynn is adjacent to a Deflectatron."
+    }
+   ]
+  },
+  {
+   "unit": "Durnipia",
+   "qa": [
+    {
+     "q": "Does I'll Do It Myself trigger before you would reveal an Order Marker on an Army Card that has all of its figures destroyed?",
+     "a": "Yes. You still reveal the Order Marker on the Army Card even if you would normally not get to take that turn."
+    },
+    {
+     "q": "Can Durnipia use Bloodsticher 15 to remove 2 Wound Markers from a figure if she already has 4 or 5 Wound Markers on her Army Card?",
+     "a": "Yes, but if she does so she is destroyed before she can attempt to remove those markers."
+    }
+   ]
+  },
+  {
+   "unit": "Dzu-Teh",
+   "qa": [
+    {
+     "q": "Can a Dzu-Teh Glacier Traverse across several Glacier Mountains in one turn if they are all connected?",
+     "a": "No, the wording of the power states \"any unoccupied space adjacent to that Glacier Mountain.\" You can only Glacier Traverse across one mountain per move."
+    },
+    {
+     "q": "If a Dzu-Teh is engaged to an opponent's figure, and uses Glacier Traverse to leave the engagement, is it subject to a leaving engagement attack?",
+     "a": "Yes, the Dzu-Teh would still take a leaving engagement attack from the figure it was engaged with."
+    }
+   ]
+  },
+  {
+   "unit": "Eel & F'fuoh",
+   "qa": [
+    {
+     "q": "Can Eel & F'fouh use their Mobile Gunner Special Attack even if they did not make a normal attack?",
+     "a": "Yes. A figure can always use a special attack instead of a normal attack."
+    },
+    {
+     "q": "If Eel & F'fouh have 4 or more Wound Markers and are Out of Control, are they required to attack adjacent destructible objects?",
+     "a": "Yes. Destructible objects are treated as figures during attacks, and Out of Control specifies that Eel & F'fouh must attack all adjacent figures, even figures they are not engaged with."
+    }
+   ]
+  },
+  {
+   "unit": "Ewashia, Master of Tides",
+   "qa": [
+    {
+     "q": "Ewashia is within one space of a water tile, can she use her Twister Special Attack even if she does not have clear sight to that water tile?",
+     "a": "Twister Special Attack does not require clear sight. However, tiles must be visible to the players in order to have an effect on the game (see \"Terrain Tiles\" in the Rules Errata section)."
+    }
+   ]
+  },
+  {
+   "unit": "Feral Troll",
+   "qa": [
+    {
+     "q": "Is Regenerate a mandatory ability?",
+     "a": "No."
+    }
+   ]
+  },
+  {
+   "unit": "Fen Hydra",
+   "qa": [
+    {
+     "q": "If a Fen Hydra attacks and takes wounds during that attack, will those wounds impact any further attacks this turn?",
+     "a": "Yes. The Fen Hydra would immediately lose any extra \"Hydra Heads\" attacks because of any wounds received."
+    }
+   ]
+  },
+  {
+   "unit": "Finn the Viking Champion",
+   "qa": [
+    {
+     "q": "Can Finn's Attack Aura affect a figure you control that has a range greater than 1 if that figure is attacking an adjacent figure?",
+     "a": "No, because the figure has a range greater than 1. Fire Elemental Champions of the Forgotten Realms See Errata section above."
+    },
+    {
+     "q": "If a Fire Elemental is on a water space but has other bonuses (Glyphs, height, etc) can it roll defense for those bonuses?",
+     "a": "No. When on a water space, a Fire Elemental cannot roll any defense dice."
+    }
+   ]
+  },
+  {
+   "unit": "Gelryie Vanguards",
+   "qa": [
+    {
+     "q": "Does a Gelryie Vanguard get to roll extra defense dice from Defend the Deep against a special attack from an attacker with height advantage?",
+     "a": "Yes. Even though the attacker does not get to roll an extra attack die, the attacker still has height advantage, so Defend the Deep still applies."
+    }
+   ]
+  },
+  {
+   "unit": "Gladiatrons",
+   "qa": [
+    {
+     "q": "Are the Gladiatrons also stuck in the engagement because of their own Cyberclaw?",
+     "a": "No. Cyberclaw only affects figures that are engaged with a Gladiatron. Once an eligible opponent's figure enters a space adjacent to a Gladiatron, they cannot move. That includes movements around the Gladiatron while still staying engaged. However, the Gladiatrons can leave the engagement if they choose to. Note: If 2 engaged figures both have Cyberclaw, they would lock each other down."
+    },
+    {
+     "q": "Does Cyberclaw also affect a character with Ghost Walk or Disengage?",
+     "a": "Yes. As soon as they pass onto a space adjacent to a Gladiatron, they are locked into the engagement. No special power on an Army Card or Glyph can get them out of the engagement."
+    }
+   ]
+  },
+  {
+   "unit": "Girushia, Grove Keeper",
+   "qa": [
+    {
+     "q": "If Isamu uses Vanish to escape an attack and moves adjacent to Girushia, what happens with Wicked Thorns?",
+     "a": "Vanish requires that Isamu does not end his movement adjacent to an enemy figure, so Girushia cannot roll for Wicked Thorns because Isamu is not on a space where he can end his movement."
+    },
+    {
+     "q": "If Brunak uses Carry and places a Small or Medium figure next to Girushia, can Girushia roll for Wicked Thorns?",
+     "a": "Yes. Obviously it does not matter if the figure's movement ends, and that figure isn't taking a turn so the attack reduction does not matter. But Wicked Thorns may inflict a wound. The same ruling applies for figures that are placed from off of the battlefield, for example from the Zombies of Morindan's Zombies Rise Again Special Power."
+    }
+   ]
+  },
+  {
+   "unit": "Granite Guardians",
+   "qa": [
+    {
+     "q": "When using Gain High Ground, does the space have to be higher?",
+     "a": "No."
+    }
+   ]
+  },
+  {
+   "unit": "Greater Ice Elemental",
+   "qa": [
+    {
+     "q": "Does the Greater Ice Elemental have to stop on water spaces?",
+     "a": "No. He turns the water to ice as soon as he steps on it."
+    },
+    {
+     "q": "Does the Greater Ice Elemental take falling damage when falling into water?",
+     "a": "Yes. He turns the water to ice as soon as he lands on it."
+    }
+   ]
+  },
+  {
+   "unit": "Grimnak",
+   "qa": [
+    {
+     "q": "Do you have to use Chomp each turn?",
+     "a": "No, it is an optional ability."
+    },
+    {
+     "q": "Can Grimnak use Chomp before he moves?",
+     "a": "No, Grimnak can only use Chomp only after moving (if he chooses to) and before he decides to attack."
+    }
+   ]
+  },
+  {
+   "unit": "Gurei-Oni",
+   "qa": [
+    {
+     "q": "Does Gurei-Oni need line of sight to use Evil Eye Defense?",
+     "a": "No."
+    }
+   ]
+  },
+  {
+   "unit": "Haluchott, Corruptor of Beasts",
+   "qa": [
+    {
+     "q": "Since you can use a special attack instead of a normal attack, could Haluchott use Staff of the Long Hand \"before using her normal attack\" then replace her normal attack with another Staff of the Long Hand?",
+     "a": "No. Haluchott may attack with Staff of the Long Hand Special Attack once per turn, either before, instead of, or after using Haluchott's normal attack."
+    }
+   ]
+  },
+  {
+   "unit": "Isamu",
+   "qa": [
+    {
+     "q": "If Isamu uses Vanish to escape an attack and moves adjacent to Girushia or Vrono, what happens with Wicked Thorns/Sharp Thorns?",
+     "a": "Vanish requires that Isamu does not end his movement adjacent to an enemy figure, so Girushia/Vrono cannot roll for Wicked/Sharp Thorns because Isamu is not on a space where he can end his movement."
+    }
+   ]
+  },
+  {
+   "unit": "Jeanne d'Arc",
+   "qa": [
+    {
+     "q": "If Jeanne D'Arc is killed by a Line or Explosion attack before another unique figure would defend against that Line or Explosion attack, can the other figure use Jeanne's Shield of Faith special power?",
+     "a": "No. While you can put Jeanne on that Unique figure's Army Card as soon as she's destroyed, the \"after rolling attack dice\" window for using Shield of Faith for the attack has already passed."
+    }
+   ]
+  },
+  {
+   "unit": "Jotun",
+   "qa": [
+    {
+     "q": "Are figures that are thrown subject to falling damage?",
+     "a": "No, throwing damage includes falling damage. You do not have to roll for falling damage separately."
+    },
+    {
+     "q": "What does \"the height of Jotun\" mean?",
+     "a": "The \"height of Jotun\" is the level Jotun is on, plus his height of 10. For example, if Jotun were standing on the first level, he would need to toss someone up above level 11 (or on the top of level 11) in order to negate any throwing damage."
+    },
+    {
+     "q": "Jotun can only throw \"non-flying\" figures. If the wind glyph is in play and activated, or if Morsbane has negated the figure's special powers, and that figure cannot fly, are they considered \"non-flying\" figures and can Jotun throw them?",
+     "a": "Yes on both counts."
+    }
+   ]
+  },
+  {
+   "unit": "Kelda the Kyrie Warrior",
+   "qa": [
+    {
+     "q": "Can Kelda heal herself?",
+     "a": "No, Kelda cannot heal herself."
+    },
+    {
+     "q": "Can Kelda use her healing touch on an opponent's wounded Hero figure in an attempt to roll a 1 and inflict damage?",
+     "a": "Yes."
+    }
+   ]
+  },
+  {
+   "unit": "Knaves of the Silver Scimitar",
+   "qa": [
+    {
+     "q": "Does the extra defense die from The Captain's Way apply if my chosen Unique Captain has been Mind Shackled or otherwise controlled by the opposing player?",
+     "a": "Yes."
+    }
+   ]
+  },
+  {
+   "unit": "Kozuke Samurai",
+   "qa": [
+    {
+     "q": "When using Charging Assault, can the Samurai's movement be enhanced by anything like roads, or auras to increase the amount of spaces it can move?",
+     "a": "Yes. This ability is enhancing the base movement of the card, which may also be enhanced by things like Glyphs, special powers, or special terrain."
+    }
+   ]
+  },
+  {
+   "unit": "The Kraken",
+   "qa": [
+    {
+     "q": "Does Summon the Kraken allow me to reposition a tentacle that is already on the board?",
+     "a": "Yes. You can either place a tentacle that has not yet entered the game or you may move a tentacle that is on the board. If you move a tentacle with Summon the Kraken it will take any leaving engagement attacks."
+    },
+    {
+     "q": "Does The Kraken's ‘Warp Space' Special Power allow every tentacle to Warp, or just one per turn?",
+     "a": "Each tentacle has the option to Warp Space instead of its normal movement."
+    },
+    {
+     "q": "When revealing an Order Marker on a Krakenling to place a Kraken tentacle with Summon the Kraken, do you have to place that tentacle next to the Krakenling subsequently taking a turn?",
+     "a": "No. You can place the Kraken tentacle next to any Krakenling, as revealing the Order Marker on the Krakenling's card occurs before choosing which Krakenling to activate."
+    },
+    {
+     "q": "If The Kraken uses Command the Kraken to take the extra turn generated by the Unbelievable Rage Special Power on Morinstein's Masterpiece, does it prevent me from taking another turn during my Player Turn?",
+     "a": "No. Morinstein's Masterpiece never takes a turn, so additional turns are not prevented by Unbelievable Rage."
+    },
+    {
+     "q": "Can The Kraken use Command the Kraken to take a turn instead of a Hero that has already been destroyed?",
+     "a": "No. You must have been able to take the turn that The Kraken's turn is replacing."
+    }
+   ]
+  },
+  {
+   "unit": "Major Q9",
+   "qa": [
+    {
+     "q": "Can Major Q9's shoulder pads block his own line of sight?",
+     "a": "Yes. When checking to see if you have a clear line of sight with Q9, you may want to look behind the targeted figure's Hit Zone to see if you can see Q9's head, or the side of his face. He cannot fire directly behind himself."
+    }
+   ]
+  },
+  {
+   "unit": "Major Q10",
+   "qa": [
+    {
+     "q": "Can Major Q10 use both of his special attacks in the same turn?",
+     "a": "No. He can either attack normally, or use one of his special attacks."
+    }
+   ]
+  },
+  {
+   "unit": "Major X17",
+   "qa": [
+    {
+     "q": "Is Major X17 also stuck in the engagement because of his own Improved Cyberclaw?",
+     "a": "No. Improved Cyberclaw only affects figures that are engaged with X17. Once an eligible opponent's figure enters a space adjacent to X17, they cannot move. That includes movements around X17 while still staying engaged. However, X17 can leave the engagement if he chooses to. Note: If 2 engaged figures both have Improved Cyberclaw, they would lock each other down."
+    },
+    {
+     "q": "Does Cyberclaw also affect a character with Ghost Walk or Disengage?",
+     "a": "Yes. As soon as they pass onto a space adjacent to Major X17, they are locked into the engagement. No special power on an Army Card or Glyph can get them out of the engagement."
+    }
+   ]
+  },
+  {
+   "unit": "Marrden Hounds",
+   "qa": [
+    {
+     "q": "If I have 2 Marrden Hounds next to 1 figure, how many wounds can that figure take in one turn?",
+     "a": "That figure can only take 1 wound depending on the D20 roll. Marro Plague can only affect a figure once per turn, no matter how many Hounds are adjacent to it."
+    }
+   ]
+  },
+  {
+   "unit": "Marrden Nagrubs",
+   "qa": [
+    {
+     "q": "Can a Hivelord choose to destroy an adjacent Nagrub before moving if he was taking a turn from his own Army card, and not activated by Hivelord Life Bonding?",
+     "a": "No."
+    },
+    {
+     "q": "While using Hivelord Life Bonding, can a Hivelord destroy an adjacent Marrden Nagrub even if it has no wounds to heal?",
+     "a": "Yes."
+    }
+   ]
+  },
+  {
+   "unit": "Marro Dividers",
+   "qa": [
+    {
+     "q": "Can you roll for Cell Divide if none of your Dividers have been destroyed?",
+     "a": "Yes"
+    }
+   ]
+  },
+  {
+   "unit": "Marro Drones",
+   "qa": [
+    {
+     "q": "If I only have 6 Marro Drones on the battlefield and I roll a 17-20, can I move with 6 of them, attack, and move with 3 again to meet the 9 requirement?",
+     "a": "No, you can only move and attack with as many Marro Drones as you have on the board. You cannot move & attack multiple times in one turn with any Marro Drones. Marro Hive Swarm of the Marro See Errata section above."
+    },
+    {
+     "q": "When using the Marro Hive's Hive Mind special power, can I use the Marro Drone's Hive Swarm power to activate Drones that are out of range of the Hive?",
+     "a": "No. All figures taking a turn instead of the Hive must be within 12 clear sight spaces of the Hive."
+    }
+   ]
+  },
+  {
+   "unit": "Marro Warriors",
+   "qa": [
+    {
+     "q": "Do you need at least one Marro in the water to Water Clone?",
+     "a": "No, they just have a better chance to Water Clone if they are in the water. You may still clone if all of the Marro Warriors are on terrain tiles."
+    },
+    {
+     "q": "Can cloned Marro Warriors clone or attack on the turn they are cloned?",
+     "a": "No, the newly cloned Marro Warriors must wait until their next turn to be called on to do anything."
+    },
+    {
+     "q": "In order to Water Clone must all in-play Marro Warriors commit to the action? Or, for instance, may one Marro Warrior attempt to \"Water Clone\" while another attacks?",
+     "a": "They must all, as a unit, choose to either attack or use Water Clone. You can't split it up."
+    }
+   ]
+  },
+  {
+   "unit": "Microcorp Agents",
+   "qa": [
+    {
+     "q": "Can the Microcorp Agents use Stealth Armor 15 to try to stop leaving engagement attacks and falling damage?",
+     "a": "Yes, any time a Microcorp Agent takes 1 or more wounds, you can attempt to use Stealth Armor 15."
+    },
+    {
+     "q": "Can the Microcorp Agents use Stealth Armor 15 to help against Grimnak's Chomp, or things like Massive Curse that \"destroy\" the figure?",
+     "a": "No. Stealth Armor 15 only works when the figure is taking a wound, not when they are \"destroyed\" or \"removed from the game.\""
+    }
+   ]
+  },
+  {
+   "unit": "Mika Connour",
+   "qa": [
+    {
+     "q": "Can I place a shadow tile on a water tile?",
+     "a": "No. Mika can only place a tile on a \"land\" tile which does not include any tiles that are the same size as shadow tiles (water, shadow, molten lava, ice, etc.)."
+    },
+    {
+     "q": "If I place a shadow tile over a hex that has a terrain specific power (like a lava field tile), will it still have that power?",
+     "a": "No. That tile is now a shadow space. Mimring Rise of the Valkyrie See Errata section above."
+    },
+    {
+     "q": "Is Mimring's tail a hit zone?",
+     "a": "Yes."
+    },
+    {
+     "q": "Mimring uses his Fire Line Special Attack into multiple figures. Which figure rolls defense dice first?",
+     "a": "Affected figures roll defense dice separately, starting with the figure closest to Mimring and proceeding along the line in sequence until all figures have made their defense rolls."
+    }
+   ]
+  },
+  {
+   "unit": "Misaerx the Kyrie Warrior",
+   "qa": [
+    {
+     "q": "Is Misaerx considered to be a Kyrie?",
+     "a": "No, her species is Undead."
+    },
+    {
+     "q": "If Misaerx uses Life Drain Spirit and is placed on the Army Card of a figure that has Life Drain to begin with, do the abilities stack?",
+     "a": "No."
+    },
+    {
+     "q": "Do I have to place Misaerx's figure on an Army Card after she is destroyed?",
+     "a": "No."
+    },
+    {
+     "q": "If Misaerx is placed on an Army Card to give that card Life Drain, can Life Drain be negated by Morsbane's Rod of Negation?",
+     "a": "Yes, as the card has gained that Special Power."
+    }
+   ]
+  },
+  {
+   "unit": "Mohican River Tribe",
+   "qa": [
+    {
+     "q": "With Concealment, if a Mohican is 5 spaces away from the attacking figure, does that mean he can add 5 to the roll?",
+     "a": "No. In the example, if the Mohican is being attacked at a range of 5, the minimum number of spaces between the 2 figures is more than likely 4. Do not count either space the figures are on."
+    }
+   ]
+  },
+  {
+   "unit": "Molten Crustaceans",
+   "qa": [
+    {
+     "q": "My Molten Crustacean is destroyed by a normal attack and I roll a 19+ for Volcanic Carapace. Do I still place a lava field tile if I'm out of molten lava tiles?",
+     "a": "Yes, if you have any left and it fits."
+    },
+    {
+     "q": "What happens if a Zombie of Morindan destroys a Molten Crustacean?",
+     "a": "According to the text of Zombies Rise again, the Zombie of Morindan is placed \"immediately.\" Therefore, the Zombies Rise Again triggers first and a zombie is placed. Then, Volcanic Carapace triggers and a lava tile is placed under the Zombie. If a molten lava tile is placed, the Zombie must then roll to see whether it is destroyed."
+    }
+   ]
+  },
+  {
+   "unit": "Morsbane",
+   "qa": [
+    {
+     "q": "When can I use Morsbane's Rod of Negation?",
+     "a": "At the end of any turn taken by Morsbane; after he has moved and attacked."
+    },
+    {
+     "q": "If Morsbane negates a Unique Squad figure, is it just that figure's powers that are negated, or all figures on the Army Card?",
+     "a": "All figures on that Army Card."
+    },
+    {
+     "q": "What happens when another Morsbane negates Morsbane's powers? Is the new negation marker just added to Morsbane's stock?",
+     "a": "No. The Negation Marker from the other Morsbane would automatically negate the opposing Morsbane's Rod of Negation special power. Any remaining Negation Markers still on the negated Morsbane would be rendered useless."
+    },
+    {
+     "q": "If I destroy a figure using the Rod of Negation, does that use one of my Negation markers?",
+     "a": "No. If you read on Morsbane's card it says if you roll a 16-19, place a negation marker on the card, but if you roll a 20, destroy the figure. You would not waste a negation marker if you are lucky enough to roll a 20."
+    },
+    {
+     "q": "If you don't have any Negation Markers left, can you still attempt the Rod of Negation only for the effect of the 20?",
+     "a": "No."
+    }
+   ]
+  },
+  {
+   "unit": "Nakita Agents",
+   "qa": [
+    {
+     "q": "If a figure with Double Attack or a squad of figures is targeting the Nakita Agents (or any figures near at least one Nakita Agent) and the Agents do not roll 13+ for Smoke Powder, can they re-roll for Smoke Powder on the second attack?",
+     "a": "Yes! The wording for Smoke Powder states that if it is successful, the figures do not have any Hit Zones for the duration of the targeting figure's turn which would include the second attack. However, if the first roll for Smoke Powder is unsuccessful, once the figure is re-targeted with the second attack of the double attack you would be able to roll for smoke powder again! Note: When a squad takes a turn, they move together, and then they attack together. That attacking figure's/squad's turn isn't over until all figures from that squad have attacked."
+    }
+   ]
+  },
+  {
+   "unit": "Necrotech Geistfire",
+   "qa": [
+    {
+     "q": "If a Necrotech Geistfire tries to attack \"Blink\" Dawson but Blink's Quickdraw 7 ability ends the attack, does the Geistfire have to roll for Unstable Blaster?",
+     "a": "No. For it to count as an attack, attack dice must be rolled. Because Blink's ability ends the attack before dice are rolled, the Geistfire does not have to roll for Unstable Blaster."
+    }
+   ]
+  },
+  {
+   "unit": "Necrotech Reavers",
+   "qa": [
+    {
+     "q": "If I use the Necrotech Reavers' Scavenged Parts Special Power to replace a Reaver with a Ghoulgrip and the figure is next to Girushia, Grove Keeper, does that count as moving adjacent to Girushia and therefore trigger Wicked Thorns?",
+     "a": "No. Replacing a figure is not movement."
+    }
+   ]
+  },
+  {
+   "unit": "Nilfheim",
+   "qa": [
+    {
+     "q": "Can Nilfheim's right wing block adjacency between the figure that is on the hex directly behind him, and a figure that is standing on the other side of the wing?",
+     "a": "No. The wing will not block adjacency."
+    }
+   ]
+  },
+  {
+   "unit": "Ninjas of the Northern Wind",
+   "qa": [
+    {
+     "q": "Does a Ninja using Disappearing Ninja have to move in order to disappear?",
+     "a": "In order to disappear, the Ninja must end its disappearing move not adjacent to any enemy figures, but remember, the move for Disappearing Ninja is up to the amount listed, so the Ninja could move 0 spaces as long as it is not already adjacent to an enemy figure and still disappear. If they cannot move (because of a power like Cyberclaw), and are engaged they cannot use Disappearing Ninja."
+    }
+   ]
+  },
+  {
+   "unit": "Ogre Pulverizer",
+   "qa": [
+    {
+     "q": "If an Ogre Pulverizer is attacking a figure with Counter Strike or any other ability that makes excess shields count as unblockable hits, are the excess shields doubled due to the Ogre's Lumbering Bully ability?",
+     "a": "No. The excess shields would only count as 1 hit each. Counterstrike and Lumbering Bully are overlapping effects and do not combine."
+    }
+   ]
+  },
+  {
+   "unit": "Omnicron Repulsors",
+   "qa": [
+    {
+     "q": "If a Soulborg Squad figure attacks an Omnicron Repulsor and EMP Response triggers, can the rest of the attacking squad still attack?",
+     "a": "No. The attacking figure's turn is over, including any Squad figures that have not yet attacked. Parmenio Zanafor's Discovery See Errata Section Above."
+    },
+    {
+     "q": "Can Sacred Band Defy Death 15 help against Grimnak's Chomp, or things like Massive Curse that \"destroy\" the figure?",
+     "a": "No. Sacred Band Defy Death 15 only works when the adjacent Sacred Band figure is taking a wound, not when they are \"destroyed\" or \"removed from the game.\""
+    },
+    {
+     "q": "Can Sacred Band Defy Death 15 help to stop leaving engagement attacks and falling damage?",
+     "a": "Yes, but only if the Sacred Band figure is adjacent to Parmenio when they would take that damage. Remember, the damage from a leaving engagement attack is applied while the figure is in the space it is leaving, not the space it is entering."
+    }
+   ]
+  },
+  {
+   "unit": "Rechets of Bogdan",
+   "qa": [
+    {
+     "q": "Does Lethal Sting allow a Ninja/Isamu to use Vanish or Disappear?",
+     "a": "No. When the Rechet rolls a skull on every die, the \"attack phase\" is over, and the figure is IMMEDIATELY destroyed. Much like other D20 destroy powers, things like Disappearing Ninja and Stealth Armor 15 do not help against it. It's an instant removal from the board."
+    }
+   ]
+  },
+  {
+   "unit": "Raakchott, Steward of Death",
+   "qa": [
+    {
+     "q": "If a figure is destroyed within 3 clear sight spaces of Raakchott when it is not someone's turn, such as from an effect like Lava Field or Glyph of Wannok, does Raakchott still get a Consume marker and can they get more than one?",
+     "a": "Yes, they still get a Consume Marker. Raakchott may acquire multiple Consume Markers when figures are destroyed while it is no one's turn since Consume the Dead says \"You cannot place more than one Consume Marker on this card each turn.\""
+    }
+   ]
+  },
+  {
+   "unit": "Revnan Acolytes",
+   "qa": [
+    {
+     "q": "Can I place a new Revnan Acolyte using Risen by Revna even if all my Revnan Acolytes have been destroyed?",
+     "a": "Yes, because their text references destroyed figures and is therefore active even if all figures from the Army Card have been destroyed."
+    }
+   ]
+  },
+  {
+   "unit": "Roman Archers",
+   "qa": [
+    {
+     "q": "Do all 3 Archers need to have range and line of sight to the target in order to use Arrow Volley Special Attack?",
+     "a": "Yes."
+    },
+    {
+     "q": "If you only have 2 Archers left, can you still use Arrow Volley and just roll 4 dice instead of 6?",
+     "a": "No, once you are down to 2 Archers, you lose the ability to use Arrow Volley Special Attack."
+    }
+   ]
+  },
+  {
+   "unit": "Sacred Band",
+   "qa": [
+    {
+     "q": "If my non-Disciplined figures are destroyed and I'm left with only Disciplined figures on the board. Do I get the Disciplined Army Defense Bonus?",
+     "a": "Yes."
+    }
+   ]
+  },
+  {
+   "unit": "Saylind the Kyrie Warrior",
+   "qa": [
+    {
+     "q": "When Saylind uses her Spear of Summoning to move a figure with a special power like Carry that says \"Before moving,\" can that power on the moved card take effect?",
+     "a": "No, the note of \"before moving\" on special powers like Carry refers to the normal movement of the figure."
+    },
+    {
+     "q": "Can Saylind use her Spear of Summoning to summon herself?",
+     "a": "No. Saylind, and her Spear of Summoning would need to stay on the board in order to determine adjacency with the newly summoned figure. Saylind cannot summon herself."
+    }
+   ]
+  },
+  {
+   "unit": "Scarlett",
+   "qa": [
+    {
+     "q": "Does Scarlett need to attack something in order to move with Lethal to the Bone?",
+     "a": "Yes."
+    },
+    {
+     "q": "When using Lethal to the Bone does she need to make an additional attack, does she need to both move and attack or can she do only 1 of those?",
+     "a": "Each part of Lethal to the Bone is optional, so she can move and not attack, not move and attack, or do both."
+    }
+   ]
+  },
+  {
+   "unit": "Serpentor",
+   "qa": [
+    {
+     "q": "Does I'll Do It Myself trigger before you would reveal an Order Marker on an Army Card that has all of its figures destroyed?",
+     "a": "Yes. You still reveal the Order Marker on the Army Card even if you would normally not get to take that turn."
+    }
+   ]
+  },
+  {
+   "unit": "Sgt. Drake Alexander (1.0)",
+   "qa": [
+    {
+     "q": "Does Sgt. Drake Alexander's Thorian Speed mean that Drake cannot be hit by any ranged attacks?",
+     "a": "No. Sgt. Drake Alexander can be hit by any ranged special attacks only. He cannot be hit by normal attacks unless they are from an engaged opponent because of Thorian Speed."
+    },
+    {
+     "q": "Can Sgt. Drake Alexander travel down 25 levels with his Grapple Gun without taking falling damage?",
+     "a": "No. He would fall like any other figure."
+    },
+    {
+     "q": "Can Sgt. Drake Alexander Grapple onto a Fortress Wall Walk that is exactly 25 levels higher and has a battlement on it? This battlement would cause him to go up 27 levels, but down 2 to get to the level 25 Fortress Wall Walk.",
+     "a": "No, because his total upward movement was more than his Grapple Gun's 25 level limit."
+    },
+    {
+     "q": "Can Sgt. Drake Alexander Grapple over a ruin and onto the hex on the other side?",
+     "a": "Yes he can, as long as the additional height of the ruin (6 levels) does not exceed his Grapple Gun's total height limit of 25 levels. Note: if he does Grapple over the ruin, he will take falling damage on the other side (fall of 6 levels)."
+    }
+   ]
+  },
+  {
+   "unit": "Shaolin Monks",
+   "qa": [
+    {
+     "q": "Can the Monks use Stealth Leap to leap over molten lava without taking molten lava damage?",
+     "a": "Yes."
+    },
+    {
+     "q": "Can a Shaolin Monk Stealth Leap over a 15 level Evergreen tree?",
+     "a": "No, you ignore elevations up to 12 levels because the Monk cannot jump higher than that. The Evergreen tree is more than 12 levels high, so you could not leap over it."
+    }
+   ]
+  },
+  {
+   "unit": "Sir Hawthorne",
+   "qa": [
+    {
+     "q": "If each player is playing with a Sir Hawthorne in their Army, and you have to use Stab in the Back (because of your roll), who takes control of Sir Hawthorne?",
+     "a": "You retain control of Sir Hawthorne, because no player can have more than one copy of a Unique Army Card in their Army."
+    }
+   ]
+  },
+  {
+   "unit": "Sonlen",
+   "qa": [
+    {
+     "q": "Can Sonlen use Dragon Healing and Dragon Swoop in the same turn?",
+     "a": "Yes."
+    }
+   ]
+  },
+  {
+   "unit": "Spartacus",
+   "qa": [
+    {
+     "q": "Can the \"X\" Order Marker be placed on Spartacus in order to activate Gladiator Inspiration?",
+     "a": "Yes. The \"X\" Order marker is a valid Order Marker."
+    },
+    {
+     "q": "If an Order Marker is removed from a Gladiator or from Spartacus during a round, does that negate Gladiator Inspiration?",
+     "a": "No. Gladiator Inspiration is checked at the beginning of the round. Whatever happens to the Order Markers during the round does not matter. Gladiator Inspiration (once activated) lasts the rest of the round."
+    }
+   ]
+  },
+  {
+   "unit": "Tagawa Samurai",
+   "qa": [
+    {
+     "q": "If a Tagawa Samurai destroys a figure with Counter Strike, can I add an Experience Marker for Bloodlust?",
+     "a": "Yes."
+    }
+   ]
+  },
+  {
+   "unit": "Taelord the Kyrie Warrior",
+   "qa": [
+    {
+     "q": "If Taelord gives Loviatäk a skull with Onslaught Aura, does it get doubled by Deadly Strike?",
+     "a": "Yes. The Onslaught Aura \"adds 1 skull to the roll\" and Deadly Strike says that \"each skull rolled counts for one additional skull.\""
+    }
+   ]
+  },
+  {
+   "unit": "Takanawa Kaiga",
+   "qa": [
+    {
+     "q": "Can Takanawa Kaiga use The Blade Thirsts on any turn or only his own?",
+     "a": "He may use The Blade Thirsts only on his own turn."
+    },
+    {
+     "q": "Does Takanawa Kaiga need to make an attack to use The Blade Thirsts or is it referring to the attack step? Can he attack a destructible object?",
+     "a": "Kaiga must attack a figure in order to use The Blade Thirsts. A destructible object is not a figure."
+    },
+    {
+     "q": "If Takanawa Kaiga attacks and gives a Wound Marker to a destructible object but not a figure during his turn, does he take a Wound Marker from the Bloodcursed Blade.",
+     "a": "Yes. A destructible object is not a figure (even though it is treated as a figure during an attack), so at the end of this Kaiga's turn no figure took a wound during that turn and therefore he must take 1 wound."
+    }
+   ]
+  },
+  {
+   "unit": "Tandros Kreel",
+   "qa": [
+    {
+     "q": "If the chosen figure in Cleave is no longer adjacent after the wound on the attacking figure is placed, does Cleave still affect them?",
+     "a": "Yes."
+    },
+    {
+     "q": "How does Tandros' Combat Challenge work in regards to an attack that affects multiple figures?",
+     "a": "Tandros must be one of the figures attacked, but there are no other restrictions."
+    },
+    {
+     "q": "If a special power gives me multiple attacks, do I have to resolve them all against Tandros?",
+     "a": "Yes, as long as Tandros is adjacent, each of these attacks must include him. If the power lists or implies that you can only attack a figure once (Shaolin Assault), you can only hit Tandros once, even if there are multiple targets, and cannot attack any other figures unless Tandros is destroyed."
+    }
+   ]
+  },
+  {
+   "unit": "Tanuki Tricksters",
+   "qa": [
+    {
+     "q": "Can a Tanuki Trickster figure that attacked but did not move be moved by Tanuki Aruki?",
+     "a": "Yes. Templar Cavalry Fields of Valor See Errata Section Above."
+    },
+    {
+     "q": "Can you use Galloping Charge and Righteous Smite in the same attack?",
+     "a": "Yes. You could even roll 7 attack dice if you managed to gain height advantage."
+    }
+   ]
+  },
+  {
+   "unit": "The Axegrinders of Burning Forge",
+   "qa": [
+    {
+     "q": "If you don't have a Dwarf Hero in your Army, can the Axegrinders still add 2 to their Move Value?",
+     "a": "Yes."
+    }
+   ]
+  },
+  {
+   "unit": "Tor-Kul-Na",
+   "qa": [
+    {
+     "q": "Can Tor-Kul-Na start to use Trample Stomp even before he has moved 1 space? Let's say for example, he starts adjacent to Sgt. Drake Alexander, can he roll for Trample Stomp without even moving?",
+     "a": "Yes. A figure can move 0 spaces, and the Army Card states \"at any point while moving\". Tor-Kul-Na can stay where he is and use Trample Stomp as long as he could move onto the space that Drake occupied if the wound from Trample Stomp destroys Drake."
+    },
+    {
+     "q": "With Trample Stomp, does moving onto the space the destroyed figure occupied count as using 1 movement, or is it a free move completely separate from his base move of 6?",
+     "a": "It counts as 1 movement because he's physically moving 1 space. For example, If Tor-Kul-Na moves 4 spaces, rolls for Trample Stomp, destroys the figure and moves onto its space, he can still move 1 more space as he has a base movement of 6 and has only moved 5 spaces so far."
+    }
+   ]
+  },
+  {
+   "unit": "Torin",
+   "qa": [
+    {
+     "q": "If Deathwalker 7000 is adjacent to Torin and is attacked by a ranged normal attack, do all shields rolled after the first count as unblockable wounds on the attacking figure?",
+     "a": "Yes."
+    },
+    {
+     "q": "What happens if a Deepwyrm Drow is adjacent to Torin and rolls successfully for Hide in Darkness on a ranged attack?",
+     "a": "Nothing. The attack at that point is over. The hits were blocked with no excess."
+    },
+    {
+     "q": "If Tul-Bak-Ra is attacked with an AOE attack like Deathwalker 9000's Explosion Special Attack, or any special attack that notes which figures are affected before the attack roll happens, and he Teleports Reinforcements, will the teleported figure be affected by the attack as well?",
+     "a": "No, because in Explosion Special Attack (and some other special attacks), the targets are chosen/noted before the attack roll."
+    }
+   ]
+  },
+  {
+   "unit": "Wing Commander Tuck Harrigan",
+   "qa": [
+    {
+     "q": "I am playing an Army with Vorid Glide Strikers and Wing Commander Tuck Harrigan, both of which have effects that trigger \"before revealing an Order Marker\". If I place a Vorid Glide Striker using Glider Landing, then successfully roll for Tuck's Glide In, can I place Tuck and then move the Glide Strikers Order Marker to Tuck's Army Card?",
+     "a": "Yes. Both effects occur simultaneously, so as the active player you can choose the order in which you want those effects to occur."
+    }
+   ]
+  },
+  {
+   "unit": "Wolves of Badru",
+   "qa": [
+    {
+     "q": "Do the Wolves of Badru need line of sight to use Pounce?",
+     "a": "Yes."
+    },
+    {
+     "q": "Does a Wolf of Badru need to move before it uses its Pounce Special Attack?",
+     "a": "No. The note of \"moved but has not attacked\" is noting the point in its turn that it can use Pounce. It has to be past the movement phase of its turn, and that Wolf cannot have attacked normally because each Wolf can either use its normal attack or special attack. If one of the Wolves of Badru attempts to Pounce and fails to destroy the defending figure, the attacking Wolf is destroyed."
+    },
+    {
+     "q": "For figures like Cyprian Esenwein, Zombies of Morindan, and Tagawa Samurai, does the defending figure get \"credit\" for destroying the figure? They each have powers that trigger when destroying an opponent's figure.",
+     "a": "No. The defending figure does not get credit for the kill when a Wolf of Badru fails in its Pounce Special Attack."
+    }
+   ]
+  },
+  {
+   "unit": "Wyvern",
+   "qa": [
+    {
+     "q": "If the Wyvern Talon Grabs a figure it is adjacent to at the start of his move, will it take any leaving engagement attacks?",
+     "a": "Yes."
+    },
+    {
+     "q": "Can a Wyvern Talon Grab and move a figure that is on a space on which it would land?",
+     "a": "No. The Wyvern needs to land first, then the grabbed figure is moved."
+    }
+   ]
+  }
+ ],
+ "mentions": [
+  {
+   "unit": "Deathreavers",
+   "from": "Card clarifications: Agent Skahen",
+   "q": "Cover Fire activates after inflicting a wound on an opponent's figure. How does that interact with other \"after attacking\" movement powers like the Deathreaver's Scatter?",
+   "a": "Both effects have the same timing window, so the active player resolves Cover Fire first, then the defender resolves Scatter."
+  },
+  {
+   "unit": "Eldgrim the Viking Champion",
+   "from": "Card clarifications: Alastair Macdirk",
+   "q": "Can you place the 6th wound marker on Alastair & take your last turn according to Overextend Attack?",
+   "a": "No, as soon as you placed the 6th wound marker on Alastair he would die and be removed from the game."
+  },
+  {
+   "unit": "Kyntela Gwyn",
+   "from": "Card clarifications: Arkmer",
+   "q": "Does Arkmer get +2 defense dice if Kyntela Gwyn is adjacent to him (+1 for Staff of Lerkintin and +1 for Kyntella's Strength of the Oak Aura 1)?",
+   "a": "Yes."
+  },
+  {
+   "unit": "Guilty McCreech",
+   "from": "Card clarifications: Cainak, Private Eye",
+   "q": "Guilty McCreech is destroyed on my opponent's Player Turn, then after that Player Turn I take a turn with Cainak due to Pick up the Trail. It is then my Player Turn where I reveal an Order Marker on and take a turn with Nishi Souta. Can Souta use Call for Backup to take a turn with Cainak or is she considered to have already activated this Player Turn?",
+   "a": "You can use Call for Backup to take a turn with Cainak. Cainak's bonus turn is its own special Player Turn outside the normal Player Turn sequence and any \"once per player turn\" effects would reset before and after it."
+  },
+  {
+   "unit": "Guilty McCreech (2.0)",
+   "from": "Card clarifications: Cainak, Private Eye",
+   "q": "Guilty McCreech is destroyed on my opponent's Player Turn, then after that Player Turn I take a turn with Cainak due to Pick up the Trail. It is then my Player Turn where I reveal an Order Marker on and take a turn with Nishi Souta. Can Souta use Call for Backup to take a turn with Cainak or is she considered to have already activated this Player Turn?",
+   "a": "You can use Call for Backup to take a turn with Cainak. Cainak's bonus turn is its own special Player Turn outside the normal Player Turn sequence and any \"once per player turn\" effects would reset before and after it."
+  },
+  {
+   "unit": "Nishi Souta",
+   "from": "Card clarifications: Cainak, Private Eye",
+   "q": "Guilty McCreech is destroyed on my opponent's Player Turn, then after that Player Turn I take a turn with Cainak due to Pick up the Trail. It is then my Player Turn where I reveal an Order Marker on and take a turn with Nishi Souta. Can Souta use Call for Backup to take a turn with Cainak or is she considered to have already activated this Player Turn?",
+   "a": "You can use Call for Backup to take a turn with Cainak. Cainak's bonus turn is its own special Player Turn outside the normal Player Turn sequence and any \"once per player turn\" effects would reset before and after it."
+  },
+  {
+   "unit": "Nishi Souta",
+   "from": "Card clarifications: Charos",
+   "q": "Does Charos' Improved Counter Strike work against Samurai?",
+   "a": "Yes it works against everyone. No one is safe from Charos."
+  },
+  {
+   "unit": "Durnipia",
+   "from": "Card clarifications: Corvynn the Rotbeak",
+   "q": "Can Durnipia use Bloodstitcher 15 on a figure adjacent to Corvynn if that figure is not adjacent to Durnipia?",
+   "a": "No. Eyes in the Sky only affects clear sight and Bloodstitcher 15 requires adjacency."
+  },
+  {
+   "unit": "Cyprien Esenwein",
+   "from": "Card clarifications: Corvynn the Rotbeak",
+   "q": "Can Cyprien Esenwein's Chill Touch be used on a figure adjacent to Corvynn if that figure is not adjacent to Cyprien?",
+   "a": "No, for the same reason as in the above answer."
+  },
+  {
+   "unit": "Marachott, Mind Whisperer",
+   "from": "Card clarifications: Corvynn the Rotbeak",
+   "q": "Can Maruchott, Mind Whisperer use Marachott's Whisper on a figure within 2 spaces of Corvynn if that figure is not within 2 spaces of Marachott?",
+   "a": "Yes, as long as Corvynn has clear sight to that figure range can be measured from Corvynn instead of Maruchott."
+  },
+  {
+   "unit": "Grimnak",
+   "from": "Card clarifications: Crimson Twins",
+   "q": "If Grimnak destroys 1 Crimson Twin figure with Chomp, what happens?",
+   "a": "The figure is destroyed and the other Crimson Twin carries on with the full remaining Life pool."
+  },
+  {
+   "unit": "Krav Maga Agents",
+   "from": "Card clarifications: Decker the Burrow Breaker",
+   "q": "If Decker goes through a Krav Maga Agent with Drill-Drive Special Attack, can that Krav Maga Agent use Stealth Dodge against the attack?",
+   "a": "Yes, if the Krav Maga Agent is not adjacent to Decker when the attack is rolled. If Decker the Burrowbreaker ended that movement next to the Agent, then no, Stealth Dodge could not be used."
+  },
+  {
+   "unit": "Corvynn the Rotbeak",
+   "from": "Card clarifications: Deflectatron",
+   "q": "If a figure is adjacent to a Deflectatron, can it use Corvynn the Rotbeak's Eyes in the Sky to treat figures within clear sight of Corvynn as within clear sight?",
+   "a": "Yes, because clear sight is determined from Corvynn, not the figure adjacent to the Deflectatron."
+  },
+  {
+   "unit": "Corvynn the Rotbeak",
+   "from": "Card clarifications: Deflectatron",
+   "q": "If Corvynn is adjacent to a Delflectatron, can Corvynn use Eyes in the Sky?",
+   "a": "No, because figures cannot be within clear sight of Corvynn while Corvynn is adjacent to a Deflectatron."
+  },
+  {
+   "unit": "Fire Elemental",
+   "from": "Card clarifications: Finn the Viking Champion",
+   "q": "Can Finn's Attack Aura affect a figure you control that has a range greater than 1 if that figure is attacking an adjacent figure?",
+   "a": "No, because the figure has a range greater than 1. Fire Elemental Champions of the Forgotten Realms See Errata section above."
+  },
+  {
+   "unit": "Taelord the Kyrie Warrior",
+   "from": "Card clarifications: Finn the Viking Champion",
+   "q": "Can Finn's Attack Aura affect a figure you control that has a range greater than 1 if that figure is attacking an adjacent figure?",
+   "a": "No, because the figure has a range greater than 1. Fire Elemental Champions of the Forgotten Realms See Errata section above."
+  },
+  {
+   "unit": "Taelord the Kyrie Warrior (2.0)",
+   "from": "Card clarifications: Finn the Viking Champion",
+   "q": "Can Finn's Attack Aura affect a figure you control that has a range greater than 1 if that figure is attacking an adjacent figure?",
+   "a": "No, because the figure has a range greater than 1. Fire Elemental Champions of the Forgotten Realms See Errata section above."
+  },
+  {
+   "unit": "Fire Elemental",
+   "from": "Card clarifications: Finn the Viking Champion",
+   "q": "If a Fire Elemental is on a water space but has other bonuses (Glyphs, height, etc) can it roll defense for those bonuses?",
+   "a": "No. When on a water space, a Fire Elemental cannot roll any defense dice."
+  },
+  {
+   "unit": "Isamu",
+   "from": "Card clarifications: Girushia, Grove Keeper",
+   "q": "If Isamu uses Vanish to escape an attack and moves adjacent to Girushia, what happens with Wicked Thorns?",
+   "a": "Vanish requires that Isamu does not end his movement adjacent to an enemy figure, so Girushia cannot roll for Wicked Thorns because Isamu is not on a space where he can end his movement."
+  },
+  {
+   "unit": "Isamu (2.0)",
+   "from": "Card clarifications: Girushia, Grove Keeper",
+   "q": "If Isamu uses Vanish to escape an attack and moves adjacent to Girushia, what happens with Wicked Thorns?",
+   "a": "Vanish requires that Isamu does not end his movement adjacent to an enemy figure, so Girushia cannot roll for Wicked Thorns because Isamu is not on a space where he can end his movement."
+  },
+  {
+   "unit": "Brunak",
+   "from": "Card clarifications: Girushia, Grove Keeper",
+   "q": "If Brunak uses Carry and places a Small or Medium figure next to Girushia, can Girushia roll for Wicked Thorns?",
+   "a": "Yes. Obviously it does not matter if the figure's movement ends, and that figure isn't taking a turn so the attack reduction does not matter. But Wicked Thorns may inflict a wound. The same ruling applies for figures that are placed from off of the battlefield, for example from the Zombies of Morindan's Zombies Rise Again Special Power."
+  },
+  {
+   "unit": "Zombies of Morindan",
+   "from": "Card clarifications: Girushia, Grove Keeper",
+   "q": "If Brunak uses Carry and places a Small or Medium figure next to Girushia, can Girushia roll for Wicked Thorns?",
+   "a": "Yes. Obviously it does not matter if the figure's movement ends, and that figure isn't taking a turn so the attack reduction does not matter. But Wicked Thorns may inflict a wound. The same ruling applies for figures that are placed from off of the battlefield, for example from the Zombies of Morindan's Zombies Rise Again Special Power."
+  },
+  {
+   "unit": "Girushia, Grove Keeper",
+   "from": "Card clarifications: Isamu",
+   "q": "If Isamu uses Vanish to escape an attack and moves adjacent to Girushia or Vrono, what happens with Wicked Thorns/Sharp Thorns?",
+   "a": "Vanish requires that Isamu does not end his movement adjacent to an enemy figure, so Girushia/Vrono cannot roll for Wicked/Sharp Thorns because Isamu is not on a space where he can end his movement."
+  },
+  {
+   "unit": "Isamu (2.0)",
+   "from": "Card clarifications: Isamu",
+   "q": "If Isamu uses Vanish to escape an attack and moves adjacent to Girushia or Vrono, what happens with Wicked Thorns/Sharp Thorns?",
+   "a": "Vanish requires that Isamu does not end his movement adjacent to an enemy figure, so Girushia/Vrono cannot roll for Wicked/Sharp Thorns because Isamu is not on a space where he can end his movement."
+  },
+  {
+   "unit": "Vrono the Brambletooth",
+   "from": "Card clarifications: Isamu",
+   "q": "If Isamu uses Vanish to escape an attack and moves adjacent to Girushia or Vrono, what happens with Wicked Thorns/Sharp Thorns?",
+   "a": "Vanish requires that Isamu does not end his movement adjacent to an enemy figure, so Girushia/Vrono cannot roll for Wicked/Sharp Thorns because Isamu is not on a space where he can end his movement."
+  },
+  {
+   "unit": "Morsbane",
+   "from": "Card clarifications: Jotun",
+   "q": "Jotun can only throw \"non-flying\" figures. If the wind glyph is in play and activated, or if Morsbane has negated the figure's special powers, and that figure cannot fly, are they considered \"non-flying\" figures and can Jotun throw them?",
+   "a": "Yes on both counts."
+  },
+  {
+   "unit": "Krakenling",
+   "from": "Card clarifications: The Kraken",
+   "q": "When revealing an Order Marker on a Krakenling to place a Kraken tentacle with Summon the Kraken, do you have to place that tentacle next to the Krakenling subsequently taking a turn?",
+   "a": "No. You can place the Kraken tentacle next to any Krakenling, as revealing the Order Marker on the Krakenling's card occurs before choosing which Krakenling to activate."
+  },
+  {
+   "unit": "Morinstein's Masterpiece",
+   "from": "Card clarifications: The Kraken",
+   "q": "If The Kraken uses Command the Kraken to take the extra turn generated by the Unbelievable Rage Special Power on Morinstein's Masterpiece, does it prevent me from taking another turn during my Player Turn?",
+   "a": "No. Morinstein's Masterpiece never takes a turn, so additional turns are not prevented by Unbelievable Rage."
+  },
+  {
+   "unit": "Marro Hive",
+   "from": "Card clarifications: Marro Drones",
+   "q": "If I only have 6 Marro Drones on the battlefield and I roll a 17-20, can I move with 6 of them, attack, and move with 3 again to meet the 9 requirement?",
+   "a": "No, you can only move and attack with as many Marro Drones as you have on the board. You cannot move & attack multiple times in one turn with any Marro Drones. Marro Hive Swarm of the Marro See Errata section above."
+  },
+  {
+   "unit": "Marro Hive",
+   "from": "Card clarifications: Marro Drones",
+   "q": "When using the Marro Hive's Hive Mind special power, can I use the Marro Drone's Hive Swarm power to activate Drones that are out of range of the Hive?",
+   "a": "No. All figures taking a turn instead of the Hive must be within 12 clear sight spaces of the Hive."
+  },
+  {
+   "unit": "Grimnak",
+   "from": "Card clarifications: Microcorp Agents",
+   "q": "Can the Microcorp Agents use Stealth Armor 15 to help against Grimnak's Chomp, or things like Massive Curse that \"destroy\" the figure?",
+   "a": "No. Stealth Armor 15 only works when the figure is taking a wound, not when they are \"destroyed\" or \"removed from the game.\""
+  },
+  {
+   "unit": "Mimring",
+   "from": "Card clarifications: Mika Connour",
+   "q": "If I place a shadow tile over a hex that has a terrain specific power (like a lava field tile), will it still have that power?",
+   "a": "No. That tile is now a shadow space. Mimring Rise of the Valkyrie See Errata section above."
+  },
+  {
+   "unit": "Mimring",
+   "from": "Card clarifications: Mika Connour",
+   "q": "Is Mimring's tail a hit zone?",
+   "a": "Yes."
+  },
+  {
+   "unit": "Mimring",
+   "from": "Card clarifications: Mika Connour",
+   "q": "Mimring uses his Fire Line Special Attack into multiple figures. Which figure rolls defense dice first?",
+   "a": "Affected figures roll defense dice separately, starting with the figure closest to Mimring and proceeding along the line in sequence until all figures have made their defense rolls."
+  },
+  {
+   "unit": "Morsbane",
+   "from": "Card clarifications: Misaerx the Kyrie Warrior",
+   "q": "If Misaerx is placed on an Army Card to give that card Life Drain, can Life Drain be negated by Morsbane's Rod of Negation?",
+   "a": "Yes, as the card has gained that Special Power."
+  },
+  {
+   "unit": "Zombies of Morindan",
+   "from": "Card clarifications: Molten Crustaceans",
+   "q": "What happens if a Zombie of Morindan destroys a Molten Crustacean?",
+   "a": "According to the text of Zombies Rise again, the Zombie of Morindan is placed \"immediately.\" Therefore, the Zombies Rise Again triggers first and a zombie is placed. Then, Volcanic Carapace triggers and a lava tile is placed under the Zombie. If a molten lava tile is placed, the Zombie must then roll to see whether it is destroyed."
+  },
+  {
+   "unit": "\"Blink\" Dawson",
+   "from": "Card clarifications: Necrotech Geistfire",
+   "q": "If a Necrotech Geistfire tries to attack \"Blink\" Dawson but Blink's Quickdraw 7 ability ends the attack, does the Geistfire have to roll for Unstable Blaster?",
+   "a": "No. For it to count as an attack, attack dice must be rolled. Because Blink's ability ends the attack before dice are rolled, the Geistfire does not have to roll for Unstable Blaster."
+  },
+  {
+   "unit": "Girushia, Grove Keeper",
+   "from": "Card clarifications: Necrotech Reavers",
+   "q": "If I use the Necrotech Reavers' Scavenged Parts Special Power to replace a Reaver with a Ghoulgrip and the figure is next to Girushia, Grove Keeper, does that count as moving adjacent to Girushia and therefore trigger Wicked Thorns?",
+   "a": "No. Replacing a figure is not movement."
+  },
+  {
+   "unit": "Parmenio",
+   "from": "Card clarifications: Omnicron Repulsors",
+   "q": "If a Soulborg Squad figure attacks an Omnicron Repulsor and EMP Response triggers, can the rest of the attacking squad still attack?",
+   "a": "No. The attacking figure's turn is over, including any Squad figures that have not yet attacked. Parmenio Zanafor's Discovery See Errata Section Above."
+  },
+  {
+   "unit": "Grimnak",
+   "from": "Card clarifications: Omnicron Repulsors",
+   "q": "Can Sacred Band Defy Death 15 help against Grimnak's Chomp, or things like Massive Curse that \"destroy\" the figure?",
+   "a": "No. Sacred Band Defy Death 15 only works when the adjacent Sacred Band figure is taking a wound, not when they are \"destroyed\" or \"removed from the game.\""
+  },
+  {
+   "unit": "Sacred Band",
+   "from": "Card clarifications: Omnicron Repulsors",
+   "q": "Can Sacred Band Defy Death 15 help against Grimnak's Chomp, or things like Massive Curse that \"destroy\" the figure?",
+   "a": "No. Sacred Band Defy Death 15 only works when the adjacent Sacred Band figure is taking a wound, not when they are \"destroyed\" or \"removed from the game.\""
+  },
+  {
+   "unit": "Parmenio",
+   "from": "Card clarifications: Omnicron Repulsors",
+   "q": "Can Sacred Band Defy Death 15 help to stop leaving engagement attacks and falling damage?",
+   "a": "Yes, but only if the Sacred Band figure is adjacent to Parmenio when they would take that damage. Remember, the damage from a leaving engagement attack is applied while the figure is in the space it is leaving, not the space it is entering."
+  },
+  {
+   "unit": "Sacred Band",
+   "from": "Card clarifications: Omnicron Repulsors",
+   "q": "Can Sacred Band Defy Death 15 help to stop leaving engagement attacks and falling damage?",
+   "a": "Yes, but only if the Sacred Band figure is adjacent to Parmenio when they would take that damage. Remember, the damage from a leaving engagement attack is applied while the figure is in the space it is leaving, not the space it is entering."
+  },
+  {
+   "unit": "Isamu",
+   "from": "Card clarifications: Rechets of Bogdan",
+   "q": "Does Lethal Sting allow a Ninja/Isamu to use Vanish or Disappear?",
+   "a": "No. When the Rechet rolls a skull on every die, the \"attack phase\" is over, and the figure is IMMEDIATELY destroyed. Much like other D20 destroy powers, things like Disappearing Ninja and Stealth Armor 15 do not help against it. It's an instant removal from the board."
+  },
+  {
+   "unit": "Isamu (2.0)",
+   "from": "Card clarifications: Rechets of Bogdan",
+   "q": "Does Lethal Sting allow a Ninja/Isamu to use Vanish or Disappear?",
+   "a": "No. When the Rechet rolls a skull on every die, the \"attack phase\" is over, and the figure is IMMEDIATELY destroyed. Much like other D20 destroy powers, things like Disappearing Ninja and Stealth Armor 15 do not help against it. It's an instant removal from the board."
+  },
+  {
+   "unit": "Ninjas of the Northern Wind",
+   "from": "Card clarifications: Rechets of Bogdan",
+   "q": "Does Lethal Sting allow a Ninja/Isamu to use Vanish or Disappear?",
+   "a": "No. When the Rechet rolls a skull on every die, the \"attack phase\" is over, and the figure is IMMEDIATELY destroyed. Much like other D20 destroy powers, things like Disappearing Ninja and Stealth Armor 15 do not help against it. It's an instant removal from the board."
+  },
+  {
+   "unit": "Sonlen (2.0)",
+   "from": "Card clarifications: Sonlen",
+   "q": "Can Sonlen use Dragon Healing and Dragon Swoop in the same turn?",
+   "a": "Yes."
+  },
+  {
+   "unit": "Taelord the Kyrie Warrior (2.0)",
+   "from": "Card clarifications: Taelord the Kyrie Warrior",
+   "q": "If Taelord gives Loviatäk a skull with Onslaught Aura, does it get doubled by Deadly Strike?",
+   "a": "Yes. The Onslaught Aura \"adds 1 skull to the roll\" and Deadly Strike says that \"each skull rolled counts for one additional skull.\""
+  },
+  {
+   "unit": "Shaolin Monks",
+   "from": "Card clarifications: Tandros Kreel",
+   "q": "If a special power gives me multiple attacks, do I have to resolve them all against Tandros?",
+   "a": "Yes, as long as Tandros is adjacent, each of these attacks must include him. If the power lists or implies that you can only attack a figure once (Shaolin Assault), you can only hit Tandros once, even if there are multiple targets, and cannot attack any other figures unless Tandros is destroyed."
+  },
+  {
+   "unit": "Templar Cavalry",
+   "from": "Card clarifications: Tanuki Tricksters",
+   "q": "Can a Tanuki Trickster figure that attacked but did not move be moved by Tanuki Aruki?",
+   "a": "Yes. Templar Cavalry Fields of Valor See Errata Section Above."
+  },
+  {
+   "unit": "Templar Cavalry",
+   "from": "Card clarifications: Tanuki Tricksters",
+   "q": "Can you use Galloping Charge and Righteous Smite in the same attack?",
+   "a": "Yes. You could even roll 7 attack dice if you managed to gain height advantage."
+  },
+  {
+   "unit": "Sgt. Drake Alexander (1.0)",
+   "from": "Card clarifications: Tor-Kul-Na",
+   "q": "Can Tor-Kul-Na start to use Trample Stomp even before he has moved 1 space? Let's say for example, he starts adjacent to Sgt. Drake Alexander, can he roll for Trample Stomp without even moving?",
+   "a": "Yes. A figure can move 0 spaces, and the Army Card states \"at any point while moving\". Tor-Kul-Na can stay where he is and use Trample Stomp as long as he could move onto the space that Drake occupied if the wound from Trample Stomp destroys Drake."
+  },
+  {
+   "unit": "Sgt. Drake Alexander (2.0)",
+   "from": "Card clarifications: Tor-Kul-Na",
+   "q": "Can Tor-Kul-Na start to use Trample Stomp even before he has moved 1 space? Let's say for example, he starts adjacent to Sgt. Drake Alexander, can he roll for Trample Stomp without even moving?",
+   "a": "Yes. A figure can move 0 spaces, and the Army Card states \"at any point while moving\". Tor-Kul-Na can stay where he is and use Trample Stomp as long as he could move onto the space that Drake occupied if the wound from Trample Stomp destroys Drake."
+  },
+  {
+   "unit": "Sgt. Drake Alexander (3.0)",
+   "from": "Card clarifications: Tor-Kul-Na",
+   "q": "Can Tor-Kul-Na start to use Trample Stomp even before he has moved 1 space? Let's say for example, he starts adjacent to Sgt. Drake Alexander, can he roll for Trample Stomp without even moving?",
+   "a": "Yes. A figure can move 0 spaces, and the Army Card states \"at any point while moving\". Tor-Kul-Na can stay where he is and use Trample Stomp as long as he could move onto the space that Drake occupied if the wound from Trample Stomp destroys Drake."
+  },
+  {
+   "unit": "Deathwalker 7000",
+   "from": "Card clarifications: Torin",
+   "q": "If Deathwalker 7000 is adjacent to Torin and is attacked by a ranged normal attack, do all shields rolled after the first count as unblockable wounds on the attacking figure?",
+   "a": "Yes."
+  },
+  {
+   "unit": "Deepwyrm Drow",
+   "from": "Card clarifications: Torin",
+   "q": "What happens if a Deepwyrm Drow is adjacent to Torin and rolls successfully for Hide in Darkness on a ranged attack?",
+   "a": "Nothing. The attack at that point is over. The hits were blocked with no excess."
+  },
+  {
+   "unit": "Deathwalker 9000",
+   "from": "Card clarifications: Torin",
+   "q": "If Tul-Bak-Ra is attacked with an AOE attack like Deathwalker 9000's Explosion Special Attack, or any special attack that notes which figures are affected before the attack roll happens, and he Teleports Reinforcements, will the teleported figure be affected by the attack as well?",
+   "a": "No, because in Explosion Special Attack (and some other special attacks), the targets are chosen/noted before the attack roll."
+  },
+  {
+   "unit": "Tul-Bak-Ra",
+   "from": "Card clarifications: Torin",
+   "q": "If Tul-Bak-Ra is attacked with an AOE attack like Deathwalker 9000's Explosion Special Attack, or any special attack that notes which figures are affected before the attack roll happens, and he Teleports Reinforcements, will the teleported figure be affected by the attack as well?",
+   "a": "No, because in Explosion Special Attack (and some other special attacks), the targets are chosen/noted before the attack roll."
+  },
+  {
+   "unit": "Vorid Glide Strikers",
+   "from": "Card clarifications: Wing Commander Tuck Harrigan",
+   "q": "I am playing an Army with Vorid Glide Strikers and Wing Commander Tuck Harrigan, both of which have effects that trigger \"before revealing an Order Marker\". If I place a Vorid Glide Striker using Glider Landing, then successfully roll for Tuck's Glide In, can I place Tuck and then move the Glide Strikers Order Marker to Tuck's Army Card?",
+   "a": "Yes. Both effects occur simultaneously, so as the active player you can choose the order in which you want those effects to occur."
+  },
+  {
+   "unit": "Tagawa Samurai",
+   "from": "Card clarifications: Wolves of Badru",
+   "q": "For figures like Cyprian Esenwein, Zombies of Morindan, and Tagawa Samurai, does the defending figure get \"credit\" for destroying the figure? They each have powers that trigger when destroying an opponent's figure.",
+   "a": "No. The defending figure does not get credit for the kill when a Wolf of Badru fails in its Pounce Special Attack."
+  },
+  {
+   "unit": "Zombies of Morindan",
+   "from": "Card clarifications: Wolves of Badru",
+   "q": "For figures like Cyprian Esenwein, Zombies of Morindan, and Tagawa Samurai, does the defending figure get \"credit\" for destroying the figure? They each have powers that trigger when destroying an opponent's figure.",
+   "a": "No. The defending figure does not get credit for the kill when a Wolf of Badru fails in its Pounce Special Attack."
+  },
+  {
+   "unit": "Kee-Mo-Shi",
+   "from": "Frequently asked questions: General",
+   "q": "The rules state that I cannot include more than one copy of a Unique Hero in my Army. Can I use Kee-Mo-Shi's Mind Shackle 19 Special Power to take control of an opponent's copy of that hero?",
+   "a": "No. You may never have two copies of a Unique Army Card with the same name in your Army."
+  }
+ ],
  "source": "Heroscape: Age of Annihilation All Time Format FAQ, October 2nd 2026",
  "missing": []
 }

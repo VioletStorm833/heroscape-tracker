@@ -8,7 +8,7 @@
 <meta name="description" content="Free Heroscape tracker: army card rankings, army builder, collection and terrain tracking, tournament maps, Swiss tournaments, game record and rules. No accounts; your data stays on your device.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=f56612fd54">
+<link rel="stylesheet" href="css/style.css?v=568ce43695">
 </head>
 <body>
 <div id="dash-root"><div class="hs">
@@ -44,11 +44,6 @@
     <button type="button" data-group="settings" data-page="settings"><span data-ek="page:settings">Colors &amp; custom cards</span></button>
     <button type="button" data-group="settings" data-page="data"><span data-ek="page:data">Save &amp; load</span></button>
   </nav>
-  <div class="hs-links">
-    <a href="https://heroscape.renegadegamestudios.com/" target="_blank" rel="noopener noreferrer"><span data-ek="t28dcfdc8">Buy Heroscape at Renegade ↗</span></a>
-    <a href="https://heroscape.org/ohs" target="_blank" rel="noopener noreferrer"><span data-ek="t25daa496">Play online at heroscape.org ↗</span></a>
-    <a href="https://www.heroscapers.com/" target="_blank" rel="noopener noreferrer"><span data-ek="t82f38576">Forums ↗</span></a>
-  </div>
   <div class="hs-card hs-ctl" id="filters" hidden>
     <div class="hs-controls">
       <div class="hs-field hs-f-mode"><span data-ek="tcd3105ac">Stats</span>
@@ -324,56 +319,83 @@
   <section class="hs-page" id="army" hidden>
     <div class="hs-grid">
       <div class="hs-card" id="army-list">
-        <div class="hs-armyadd hs-armybar">
-          <label class="hs-field"><span data-ek="tf46a55d9">Editing</span><select class="hs-armysel"></select></label>
-          <label class="hs-field"><span data-ek="t37ceed05">Name</span><input type="text" class="hs-armyname" maxlength="40"></label>
-          <label class="hs-field"><span data-ek="t724b2c65">Folder</span><select class="hs-armyfolder"></select></label>
-          <button type="button" class="hs-btn hs-newarmy"><span data-ek="t986cae43">New army</span></button>
-          <button type="button" class="hs-btn hs-duparmy"><span data-ek="t7b291fbb">Duplicate</span></button>
-          <button type="button" class="hs-btn hs-delarmy"><span data-ek="ta08de61f">Delete</span></button>
-          <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg)"><input type="checkbox" class="hs-cmpon"> <span data-ek="t4e0bc525">Compare armies</span></label>
-        </div>
-        <details class="hs-myarmies" open>
-          <summary><span data-ek="t7b8ba477">My armies</span></summary>
-          <div class="hs-armyadd">
-            <label class="hs-field"><span data-ek="t7df2f652">Sort</span><select class="hs-armysort"><option value="">My order</option><option value="name">Name A–Z</option><option value="hi">Points, high to low</option><option value="lo">Points, low to high</option></select></label>
-            <button type="button" class="hs-btn hs-newfolder"><span data-ek="tb26c9fcc">New folder</span></button>
+        <div class="ab-view ab-listview">
+          <div class="ab-listtop">
+            <input type="search" class="ab-q" placeholder="Search armies…" autocomplete="off" aria-label="Search armies">
+            <button type="button" class="hs-btn ab-primary ab-new"><span data-ek="t7f3fe5d8">+ New army</span></button>
           </div>
+          <details class="hs-myarmies ab-more">
+            <summary><span data-ek="t4b91f719">Sort, folders and compare</span></summary>
+            <div class="hs-armyadd">
+              <label class="hs-field"><span data-ek="t7df2f652">Sort</span><select class="hs-armysort"><option value="">My order</option><option value="name">Name A–Z</option><option value="hi">Points, high to low</option><option value="lo">Points, low to high</option></select></label>
+              <button type="button" class="hs-btn hs-newfolder"><span data-ek="tb26c9fcc">New folder</span></button>
+              <label class="hs-chk"><input type="checkbox" class="hs-cmpon"> <span data-ek="t4e0bc525">Compare armies</span></label>
+            </div>
+          </details>
           <div class="hs-folders"></div>
-        </details>
-        <h3 class="a-title"><span data-ek="t59836133">Army 1</span></h3>
-        <p class="hs-note"><span data-ek="t6e04efb0">Unique cards can be added once; common cards can be added more than once. Keep as many armies as you like with New army / Duplicate. Armies are kept in this browser only; use</span> <a href="#data" data-goto="data"><span data-ek="t215bfb38">Save &amp; load</span></a> <span data-ek="tc1cf43b2">to keep a backup file.</span></p>
-        <div class="hs-armyadd">
-          <label class="hs-field"><span data-ek="t602322fb">Add a unit</span><select class="hs-pick"></select></label>
-          <label class="hs-field"><span data-ek="t5a588e17">Point limit</span><input type="number" class="hs-limit hs-num" min="0" max="9999" step="50" value="500"></label>
-          <button type="button" class="hs-btn hs-clear"><span data-ek="t2430b7fb">Clear army</span></button>
-          <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg)"><input type="checkbox" class="hs-pickowned"> <span data-ek="t6f3a81a0">Only list units I own</span></label>
-          <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg)"><input type="checkbox" class="a-advon"> <span data-ek="t8cd5f56a">Advanced options</span></label>
+          <p class="hs-note"><span data-ek="t4b4c5a90">Armies are kept in this browser only; use</span> <a href="#data" data-goto="data"><span data-ek="t215bfb38">Save &amp; load</span></a> <span data-ek="tc1cf43b2">to keep a backup file.</span></p>
         </div>
-        <div class="hs-armyadd a-adv" hidden>
-          <label class="hs-chk"><input type="checkbox" class="hs-errata"> <span data-ek="t4e604774">Use FAQ errata (points updates and card text)</span></label>
-        </div>
-        <p class="hs-note hs-ownwarn" hidden></p>
-        <div class="hs-tiles" data-source="units">
-          <div class="hs-tile"><b class="a-pts"><span data-ek="t38b11dca">0</span></b><span data-ek="t273c7f2d">points used</span></div>
-          <div class="hs-tile"><b class="a-left"><span data-ek="t145fda91">500</span></b><span data-ek="t71afbf2b">points left</span></div>
-          <div class="hs-tile"><b class="a-figs"><span data-ek="t38b11dca-1">0</span></b><span data-ek="t1874d986">figures</span></div>
-          <div class="hs-tile"><b class="a-cards"><span data-ek="t38b11dca-2">0</span></b><span data-ek="t5c4eddfa">army cards</span></div>
-        </div>
-        <div class="a-body" data-source="units"></div>
-        <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg); margin-top: var(--cds-gap-sm)"><input type="checkbox" class="hs-armypics"> <span data-ek="td9bb672d">Show card pictures</span></label>
-        <div class="hs-gallery a-gallery" data-source="cards units" hidden></div>
-        <div class="hs-io" id="army-io">
-          <h3><span data-ek="t1543ef23">Export or import an army</span></h3>
-          <p class="hs-note"><span data-ek="t3eaa6bbd">Export and import work on the army you are editing. Export writes it as a plain list (one line per card, like “2x Greenshirts”). Copy it somewhere to keep it, or paste a list here and press Import to load it. Lines can be “2x Name”, “2 Name” or just “Name”.</span></p>
-          <textarea class="hs-iotext" spellcheck="false" aria-label="Army list" placeholder="2x Greenshirts&#10;Duke&#10;Isamu (2.0)"></textarea>
-          <div class="row">
-            <button type="button" class="hs-btn hs-export"><span data-ek="t0f3fd7aa">Export army</span></button>
-            <button type="button" class="hs-btn hs-copy"><span data-ek="tbbf8caef">Copy</span></button>
-            <button type="button" class="hs-btn hs-import"><span data-ek="tc3fcf629">Import (replace army)</span></button>
-            <button type="button" class="hs-btn hs-import-add"><span data-ek="teb3119d6">Import (add to army)</span></button>
-            <span class="msg" aria-live="polite"></span>
+        <div class="ab-view ab-editview" hidden>
+          <div class="ab-head">
+            <button type="button" class="hs-btn hs-sm ab-back" aria-label="Back to all armies"><span data-ek="t3e6665e4">← Armies</span></button>
+            <h3 class="a-title"><span data-ek="t59836133">Army 1</span></h3><span class="ab-badge ab-era"></span>
           </div>
+          <div class="hs-tiles ab-tiles" data-source="units">
+            <div class="hs-tile"><b class="a-cards"><span data-ek="t38b11dca">0</span></b><span data-ek="tf64ca99d">cards</span></div>
+            <div class="hs-tile"><b class="a-pts"><span data-ek="t38b11dca-1">0</span></b><span class="ab-of"><span data-ek="tbd61a1f6">/</span> <span class="ab-lim"><span data-ek="t145fda91">500</span></span> <span data-ek="td1eb20b7">pts</span></span></div>
+            <div class="hs-tile"><b class="a-left"><span data-ek="t145fda91-1">500</span></b><span data-ek="t71afbf2b">points left</span></div>
+            <div class="hs-tile"><b class="a-figs"><span data-ek="t38b11dca-2">0</span></b><span data-ek="t1874d986">figures</span></div>
+          </div>
+          <div class="ab-bar" role="progressbar" aria-label="Points used" aria-valuemin="0" aria-valuemax="100"><span></span></div>
+          <div class="ab-acts">
+            <button type="button" class="hs-btn ab-primary ab-addbtn" aria-expanded="false"><span data-ek="t0c784d34">+ Add card</span></button>
+            <button type="button" class="hs-btn ab-setbtn" aria-expanded="false"><span data-ek="ta8b7043f">Settings</span></button>
+          </div>
+          <div class="ab-panel ab-addpanel" hidden>
+            <div class="hs-armyadd">
+              <label class="hs-field"><span data-ek="t602322fb">Add a unit</span><select class="hs-pick"></select></label>
+              <label class="hs-chk"><input type="checkbox" class="hs-pickowned"> <span data-ek="t6f3a81a0">Only list units I own</span></label>
+            </div>
+            <p class="hs-note"><span data-ek="t55e02982">Unique cards can be added once; common cards can be added more than once. You can also use the + buttons on the Rankings page.</span></p>
+          </div>
+          <div class="ab-panel ab-setpanel" hidden>
+            <div class="hs-armyadd hs-armybar">
+              <label class="hs-field"><span data-ek="tf46a55d9">Editing</span><select class="hs-armysel"></select></label>
+              <label class="hs-field"><span data-ek="t37ceed05">Name</span><input type="text" class="hs-armyname" maxlength="40"></label>
+              <label class="hs-field"><span data-ek="t724b2c65">Folder</span><select class="hs-armyfolder"></select></label>
+              <label class="hs-field"><span data-ek="t619cd667">Point total</span><input type="number" class="hs-limit hs-num" min="0" max="9999" step="50" value="500"></label>
+              <label class="hs-field"><span data-ek="t9165540c">Legality</span><select class="ab-legal"><option value="now">Contemporary</option><option value="classic">Old school</option><option value="all">All time</option></select></label>
+            </div>
+            <div class="hs-armyadd">
+              <button type="button" class="hs-btn hs-newarmy"><span data-ek="t986cae43">New army</span></button>
+              <button type="button" class="hs-btn hs-duparmy"><span data-ek="t7b291fbb">Duplicate</span></button>
+              <button type="button" class="hs-btn hs-clear"><span data-ek="t2430b7fb">Clear army</span></button>
+              <button type="button" class="hs-btn hs-delarmy"><span data-ek="ta08de61f">Delete</span></button>
+            </div>
+            <div class="hs-armyadd">
+              <label class="hs-chk"><input type="checkbox" class="hs-armypics"> <span data-ek="td9bb672d">Show card pictures</span></label>
+              <label class="hs-chk"><input type="checkbox" class="a-advon"> <span data-ek="t8cd5f56a">Advanced options</span></label>
+            </div>
+            <div class="hs-armyadd a-adv" hidden>
+              <label class="hs-chk"><input type="checkbox" class="hs-errata"> <span data-ek="t4e604774">Use FAQ errata (points updates and card text)</span></label>
+            </div>
+            <details class="hs-io" id="army-io">
+              <summary><span data-ek="t25a13735">Export or import this army</span></summary>
+              <p class="hs-note"><span data-ek="tc948ec7d">Export writes the army as a plain list (one line per card, like “2x Greenshirts”). Copy it somewhere to keep it, or paste a list here and press Import to load it. Lines can be “2x Name”, “2 Name” or just “Name”.</span></p>
+              <textarea class="hs-iotext" spellcheck="false" aria-label="Army list" placeholder="2x Greenshirts&#10;Duke&#10;Isamu (2.0)"></textarea>
+              <div class="row">
+                <button type="button" class="hs-btn hs-export"><span data-ek="t0f3fd7aa">Export army</span></button>
+                <button type="button" class="hs-btn hs-copy"><span data-ek="tbbf8caef">Copy</span></button>
+                <button type="button" class="hs-btn hs-import"><span data-ek="tc3fcf629">Import (replace army)</span></button>
+                <button type="button" class="hs-btn hs-import-add"><span data-ek="teb3119d6">Import (add to army)</span></button>
+                <span class="msg" aria-live="polite"></span>
+              </div>
+            </details>
+          </div>
+          <p class="hs-note hs-ownwarn" hidden></p>
+          <h4 class="ab-cardsh"><span data-ek="t4baf3830">Army cards</span></h4>
+          <div class="a-body" data-source="units"></div>
+          <div class="hs-gallery a-gallery" data-source="cards units" hidden></div>
         </div>
       </div>
       <div class="hs-card" id="army-compare" hidden>
@@ -385,7 +407,7 @@
         </div>
         <table class="hs-a a-cmp" data-source="units"><thead><tr><th class="l"></th><th class="c1"></th><th class="c2"></th><th class="c3"><span data-ek="t26e59e95">Difference</span></th></tr></thead><tbody></tbody></table>
       </div>
-      <div class="hs-card" id="army-stats">
+      <div class="hs-card" id="army-stats" hidden>
         <h3 class="a-title2"><span data-ek="tf7f9133c">Army A per 100 points</span></h3>
         <p class="hs-note"><span data-ek="t3da99b04">The whole army's dice and life for every 100 points spent, in each stats mode.</span></p>
         <table class="hs-a a-per" data-source="units"><thead><tr><th class="l"></th><th><span data-ek="t5eb3558a">Atk/100</span></th><th><span data-ek="t2c503a33">Def/100</span></th><th><span data-ek="tc98f0f7b">Life/100</span></th><th><span data-ek="t40f2d54e">Atk+Def/100</span></th><th><span data-ek="t7520f159">Total/100</span></th></tr></thead><tbody></tbody></table>
@@ -882,7 +904,11 @@
   </section>
 
   <footer class="site-foot">
-    <p class="foot-links"><a href="https://heroscape.renegadegamestudios.com/" target="_blank" rel="noopener noreferrer"><span data-ek="teb4f19a1">Official Heroscape store (Renegade Game Studios)</span></a> <span data-ek="t56d61437">·</span> <a href="https://heroscape.org/ohs" target="_blank" rel="noopener noreferrer"><span data-ek="t18ae2b37">Play Heroscape online at heroscape.org</span></a> <span data-ek="t56d61437-1">·</span> <a href="https://heroscape.renegadegamestudios.com/how-to-play" target="_blank" rel="noopener noreferrer"><span data-ek="tf84daeb4">Official rules</span></a></p>
+    <div class="hs-links">
+    <a href="https://heroscape.renegadegamestudios.com/" target="_blank" rel="noopener noreferrer"><span data-ek="t28dcfdc8">Buy Heroscape at Renegade ↗</span></a>
+    <a href="https://heroscape.org/ohs" target="_blank" rel="noopener noreferrer"><span data-ek="t25daa496">Play online at heroscape.org ↗</span></a>
+    <a href="https://www.heroscapers.com/" target="_blank" rel="noopener noreferrer"><span data-ek="t82f38576">Forums ↗</span></a>
+    </div>
     <p><span data-ek="t870e672a">Product contents and tournament maps come from Renegade's product pages, scenario books and tournament map list, and from release reports by iCv2, Opinionated Gamers and Gaming Trend. Upcoming products can change before release.</span></p>
     <p><span data-ek="ta1c5a8dc">Fan-made and free. Not affiliated with or endorsed by Hasbro or Wizards of the Coast. Heroscape and its army cards belong to their owners.</span></p>
     <p><span data-ek="tfab7d592">Stats, ability text and card pictures were transcribed from Contemporary-format army cards. “With specials” and “With conditional” are this site's own estimates; open a card to see exactly what each one counts.</span></p>
@@ -890,9 +916,38 @@
   </footer>
 </div>
 
+<dialog class="hs-dlg ab-newdlg" aria-labelledby="abn-t">
+  <form class="hs-dlg-in" method="dialog">
+    <div class="hs-dlg-top"><h2 id="abn-t"><span data-ek="ta4e711c8">New army</span></h2><button type="button" class="hs-x abn-x" aria-label="Close"><span data-ek="t302d0079">×</span></button></div>
+    <label class="hs-field"><span data-ek="tcaee1cad">Name</span><input type="text" class="abn-name" maxlength="40" required></label>
+    <label class="hs-field"><span data-ek="td1d232c7">Point total</span><input type="number" class="abn-pts hs-num" min="0" max="9999" step="50" value="500"></label>
+    <div class="hs-field"><span data-ek="t7055d180">Legality</span>
+      <div class="hs-seg abn-era" role="group" aria-label="Legality">
+        <button type="button" data-v="now" aria-pressed="true"><span data-ek="t5d77794f">Contemporary</span></button>
+        <button type="button" data-v="classic" aria-pressed="false"><span data-ek="tfe156cb1">Old school</span></button>
+        <button type="button" data-v="all" aria-pressed="false"><span data-ek="t40ba6b9c">All time</span></button>
+      </div>
+    </div>
+    <div class="ab-acts abn-acts">
+      <button type="submit" class="hs-btn ab-primary abn-ok"><span data-ek="tf8c10a69">Create army</span></button>
+      <button type="button" class="hs-btn abn-cancel"><span data-ek="t01217838">Cancel</span></button>
+    </div>
+  </form>
+</dialog>
+<dialog class="hs-dlg ab-newdlg ab-askdlg" aria-labelledby="ask-t">
+  <form class="hs-dlg-in" method="dialog">
+    <div class="hs-dlg-top"><h2 id="ask-t"></h2><button type="button" class="hs-x ask-x" aria-label="Close"><span data-ek="t302d0079-1">×</span></button></div>
+    <p class="hs-note ask-msg"></p>
+    <input type="text" class="ask-in" maxlength="60" aria-labelledby="ask-t">
+    <div class="ab-acts abn-acts">
+      <button type="submit" class="hs-btn ab-primary ask-ok"><span data-ek="t93a2553a">OK</span></button>
+      <button type="button" class="hs-btn ask-cancel"><span data-ek="t01217838-1">Cancel</span></button>
+    </div>
+  </form>
+</dialog>
 <dialog class="hs-dlg hs-gdlg" aria-labelledby="gdlg-t">
   <div class="hs-dlg-in">
-    <div class="hs-dlg-top"><h2 id="gdlg-t"></h2><button type="button" class="hs-x hs-gx" aria-label="Close"><span data-ek="t302d0079">×</span></button></div>
+    <div class="hs-dlg-top"><h2 id="gdlg-t"></h2><button type="button" class="hs-x hs-gx" aria-label="Close"><span data-ek="t302d0079-2">×</span></button></div>
     <p class="hs-note hs-gnote"></p>
     <div class="hs-chart hs-gchart" style="min-height: 260px"></div>
   </div>
@@ -902,9 +957,10 @@
   <div class="hs-dlg-in">
     <div class="hs-dlg-top">
       <h2 id="dlg-name"></h2>
-      <button type="button" class="hs-x" aria-label="Close"><span data-ek="t302d0079-1">×</span></button>
+      <button type="button" class="hs-x" aria-label="Close"><span data-ek="t302d0079-3">×</span></button>
     </div>
-    <div class="hs-dlg-act"><button type="button" class="hs-btn hs-dlg-add"><span data-ek="tc7899456">Add to army</span></button> <span class="hs-dlg-inarmy hs-note"></span></div>
+    <div class="hs-dlg-act"><button type="button" class="hs-btn hs-dlg-add" aria-expanded="false"><span data-ek="t67378bc9">Add to army…</span></button> <span class="hs-dlg-inarmy hs-note"></span></div>
+    <div class="hs-dlg-pick" hidden><p class="hs-note"><span data-ek="t92659937">Add to which army?</span></p><div class="hs-dlg-armies"></div></div>
     <button type="button" class="hs-notebtn" aria-expanded="false" aria-controls="dlg-notes"><span data-ek="t98912075">Notes</span></button>
     <div class="hs-notes" id="dlg-notes" hidden>
       <label class="hs-field"><span data-ek="t77cc5c86">Note on this card</span><textarea class="dlg-cnote" rows="3" maxlength="1000"></textarea></label>
@@ -916,17 +972,24 @@
       <span class="hs-q2"><button type="button" class="dlg-own-m" aria-label="One fewer owned"><span data-ek="t41f63b35">−</span></button><b class="dlg-own-n"><span data-ek="t7cbf08df">0</span></b><button type="button" class="dlg-own-p" aria-label="One more owned"><span data-ek="tb15224fc">+</span></button></span>
       <button type="button" class="hs-btn dlg-want" aria-pressed="false"><span data-ek="ta9a24941">☆ Wishlist</span></button>
     </div>
-    <div class="hs-sub"></div>
-    <div class="hs-cardimg-box" data-source="cards"></div>
-    <div class="hs-basic"></div>
-    <div class="hs-stats"></div>
-    <div class="hs-special"></div>
-    <div class="hs-abs" data-source="abilities"></div>
+    <div class="hs-dtabs" role="tablist" aria-label="Unit page" hidden>
+      <button type="button" role="tab" class="hs-dtab" data-t="card" aria-selected="true"><span data-ek="t36254d0a">Card</span></button>
+      <button type="button" role="tab" class="hs-dtab" data-t="faq" aria-selected="false"><span data-ek="tda80cfa7">FAQ &amp; ERRATA</span></button>
+    </div>
+    <div class="hs-dcard" role="tabpanel">
+      <div class="hs-sub"></div>
+      <div class="hs-cardimg-box" data-source="cards"></div>
+      <div class="hs-basic"></div>
+      <div class="hs-stats"></div>
+      <div class="hs-special"></div>
+      <div class="hs-abs" data-source="abilities"></div>
+    </div>
+    <div class="hs-dfaq" role="tabpanel" hidden></div>
   </div>
 </dialog>
 </div>
 <script src="vendor/d3.v7.min.js"></script>
-<script src="js/data.js?v=f56612fd54"></script>
-<script src="js/app.js?v=f56612fd54"></script>
+<script src="js/data.js?v=568ce43695"></script>
+<script src="js/app.js?v=568ce43695"></script>
 </body>
 </html>

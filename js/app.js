@@ -26,7 +26,23 @@
   const maxEl = root.querySelector('.hs-max');
   const segBtns = root.querySelectorAll('.hs-seg [data-mode]');
   const viewBtns = root.querySelectorAll('.hs-seg [data-view]');
-  const dlg = document.querySelector('dialog.hs-dlg:not(.hs-gdlg)');
+  const dlg = document.querySelector('dialog.hs-dlg:not(.hs-gdlg):not(.ab-newdlg)');
+  // the site's own question box, used instead of the browser's prompt()/confirm(), which embedded pages and apps can block.
+  // ask({ title, msg, value, ok }) resolves to the typed text (with value) or true (without), or null when cancelled.
+  function ask(o) {
+    const d = document.querySelector('dialog.ab-askdlg'), inp = d.querySelector('.ask-in');
+    d.querySelector('#ask-t').textContent = o.title; d.querySelector('.ask-msg').textContent = o.msg || ''; d.querySelector('.ask-msg').hidden = !o.msg;
+    d.querySelector('.ask-ok').textContent = o.ok || 'OK'; d.querySelector('.ask-cancel').hidden = !!o.alert;
+    inp.hidden = o.value == null; inp.value = o.value == null ? '' : o.value;
+    return new Promise((res) => {
+      let done = false;
+      const end = (v) => { if (done) return; done = true; d.close(); res(v); };
+      d.querySelector('form').onsubmit = (e) => { e.preventDefault(); end(o.value == null ? true : inp.value); };
+      d.querySelector('.ask-cancel').onclick = d.querySelector('.ask-x').onclick = () => end(null);
+      d.oncancel = (e) => { e.preventDefault(); end(null); };
+      d.showModal(); if (!inp.hidden) inp.select();
+    });
+  }
 
   // column spec: key = state key, field(mode) = data column, cls = visibility class
   const COLS = [
@@ -90,14 +106,14 @@
     }
   }
 
-  let UNITS = [], ABIL = {}, SEARCH = {};
+  let UNITS = [], ALL_UNITS = [], ABIL = {}, SEARCH = {}; // UNITS: the cards the chosen era shows; ALL_UNITS: every card, for armies
   function index() {
     const u = dash.data('units'), a = dash.data('abilities');
-    UNITS = u.status === 'ok' ? [...u.data.filter(eraOk), ...customRows()].map((r) => ({ ...r })) : [];
-    errataPoints(UNITS);
-    addCustomAbilityNames(UNITS);
+    ALL_UNITS = u.status === 'ok' ? [...u.data, ...customRows()].map((r) => ({ ...r })) : [];
+    errataPoints(ALL_UNITS);
+    addCustomAbilityNames(ALL_UNITS);
     const w = state.w;
-    for (const r of UNITS) {
+    for (const r of ALL_UNITS) {
       for (const [m, k] of [['printed', 'p'], ['specials', 's'], ['conditional', 'c']]) {
         const F = MODES[m];
         const t100 = w.a * Number(r[F.atk100]) + w.d * Number(r[F.def100]) + w.l * Number(r.life100);
@@ -109,7 +125,8 @@
     ABIL = {};
     if (a.status === 'ok') for (const r of a.data) (ABIL[r.unit] = ABIL[r.unit] || []).push(r);
     for (const r of customAbilities()) (ABIL[r.unit] = ABIL[r.unit] || []).push(r);
-    errataText(UNITS);
+    errataText(ALL_UNITS);
+    UNITS = ALL_UNITS.filter((r) => r.custom || eraOk(r));
     SEARCH = {};
     for (const r of UNITS) {
       const t = [r.unit, r.bond === 'Yes' ? 'bonding' : '', r.faction, r.ctype, r.cls, r.species, r.pers, r.size, r.abilities, ...(ABIL[r.unit] || []).map((x) => x.text)].join(' ').toLowerCase();
@@ -304,6 +321,20 @@
     return el;
   }
 
+  // the full rules for keyword special powers, from the Master Game Guide (Special Power Keywords, page 11)
+  const FLYING_RULES = [
+    'A figure with the Flying Special Power never takes falling damage and may choose to fly at any point during a non-placement movement made by the figure’s controller or their teammate. When the figure chooses to fly, each figure it is engaged with may make a leaving engagement attack against it. While the figure is flying it ignores all elevations and is not considered to occupy any space that it passes over. This means that:',
+    ['It is not adjacent to (or engaged with) any figures.',
+      'It may pass over any figures, even figures that would normally disallow other figures from entering their space.',
+      'It ignores all terrain effects, such as water and molten lava. It may pass over any space occupied by an obstacle, such as a tree or bush.',
+      'It ignores effects of all Glyphs it passes over. That includes not having to stop in a space with a Power Glyph.',
+      'It is not affected by any special powers that require adjacency or clear sight or line of sight. For example, a flying figure is not affected by Cyberclaw or Engagement Strike while it is flying (Cyberclaw still prevents a figure from beginning to fly). Figures that are flying can ascend overhangs, but not pass through the bottom of them.'],
+    'When a flying figure ends its movement it must land on its current space. When doing so it enters that space and may trigger effects that occur when a figure enters a space, such as Girushia, Grove Keeper’s Wicked Thorns. It is also affected by the terrain it lands on, if that terrain has an effect on figures that enter its space. The figure is then considered to be on that space until it next starts to fly, and it may continue its movement.'
+  ];
+  const KEYWORD_RULES = {
+    'Flying': FLYING_RULES,
+    'Stealth Flying': ['A figure with the Stealth Flying Special Power has all of the same benefits as a figure with flying, except that it does not take any leaving engagement attacks when it starts to fly.', 'Flying:', ...FLYING_RULES]
+  };
   // the card picture on a unit's page; if the list of pictures is still loading, it is filled in when it arrives
   function dlgPic() {
     const ibox = dlg.querySelector('.hs-cardimg-box'), r = DLG_UNIT;
@@ -318,7 +349,9 @@
     }
   }
   function openCard(r, focusAbility) {
+    if (dlg.open) dqUnitChange(); // place a drawing in progress on the unit it was drawn on
     DLG_UNIT = r;
+    dlgPick.hidden = true;
     syncDlgAdd();
     notesBox.hidden = true; noteBtn.setAttribute('aria-expanded', 'false'); syncNotes();
     const w = { unit: r.unit };
@@ -376,14 +409,67 @@
       if (a.custom) h.appendChild(mk('span', 'hs-tag', 'Custom'));
       sec.appendChild(mk('p', '', a.text, { src: 'abilities', field: 'text', where: aw }));
       sec.appendChild(mk('div', 'n', a.note, { src: 'abilities', field: 'note', where: aw }));
+      const kw = KEYWORD_RULES[a.ability];
+      if (kw) {
+        const box = mk('div', 'hs-kw');
+        box.appendChild(mk('div', 'hs-kwh', 'Master rules: ' + a.ability));
+        for (const part of kw) {
+          if (Array.isArray(part)) { const ul = mk('ul'); for (const li of part) ul.appendChild(mk('li', '', li)); box.appendChild(ul); }
+          else box.appendChild(mk('p', '', part));
+        }
+        sec.appendChild(box);
+      }
       if (focusAbility === a.ability) target = sec;
       abs.appendChild(sec);
     }
     cardExtras(r);
+    faqTab(r);
     if (!dlg.open) dlg.showModal();
+    applyStickers();
     dlg.querySelector('.hs-dlg-in').scrollTop = 0;
     dlg.scrollTop = 0;
     if (target) target.scrollIntoView({ block: 'center' });
+  }
+
+  // the "FAQ & ERRATA" tab: only on units with a points update, card errata or their own FAQ entry (Card Clarifications);
+  // it also lists other FAQ answers that name the unit or one of its abilities
+  const dTabs = dlg.querySelector('.hs-dtabs'), dCard = dlg.querySelector('.hs-dcard'), dFaq = dlg.querySelector('.hs-dfaq');
+  function dTab(t) {
+    dTabs.querySelectorAll('.hs-dtab').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.t === t)));
+    dCard.hidden = t !== 'card'; dFaq.hidden = t !== 'faq';
+  }
+  dTabs.querySelectorAll('.hs-dtab').forEach((b) => b.addEventListener('click', () => dTab(b.dataset.t)));
+  function faqTab(r) {
+    const e = dash.data('errata'), d = e.status === 'ok' ? e.data : {};
+    const of = (k) => (d[k] || []).filter((x) => x.unit === r.unit);
+    const pts = of('points'), cards = of('cards'), clar = of('clar'), ment = of('mentions');
+    dTab('card'); dFaq.replaceChildren();
+    dTabs.hidden = !(pts.length || cards.length || clar.length);
+    if (dTabs.hidden) return;
+    const qaList = (items, from) => {
+      const box = mk('div', 'hs-qas');
+      for (const x of items) {
+        const q = mk('div', 'hs-qa');
+        if (from && x.from) q.appendChild(mk('div', 'hs-qafrom', x.from));
+        q.append(mk('p', 'hs-q', 'Q: ' + x.q), mk('p', 'hs-a', 'A: ' + (x.a || '')));
+        box.appendChild(q);
+      }
+      return box;
+    };
+    if (pts.length) {
+      dFaq.appendChild(mk('h3', '', 'Points update'));
+      for (const p of pts) dFaq.appendChild(mk('p', '', `${p.to > p.from ? 'Increased' : 'Decreased'} from ${p.from} to ${p.to} points.`));
+    }
+    if (cards.length) {
+      dFaq.appendChild(mk('h3', '', 'Card errata'));
+      for (const c of cards) {
+        for (const a of c.abilities) { const sec = mk('section', 'hs-ab'); sec.append(mk('h3', '', a.ability), mk('p', '', a.text)); dFaq.appendChild(sec); }
+        for (const n of c.notes) dFaq.appendChild(mk('p', '', n));
+      }
+    }
+    if (clar.length) { dFaq.appendChild(mk('h3', '', 'FAQ')); for (const c of clar) dFaq.appendChild(qaList(c.qa)); }
+    if (ment.length) { dFaq.appendChild(mk('h3', '', 'Also mentioned in the FAQ')); dFaq.appendChild(qaList(ment, true)); }
+    if (d.source) dFaq.appendChild(mk('p', 'hs-note', 'From the ' + d.source.replace(/^Heroscape: /, '') + '.'));
   }
 
   dlg.querySelector('.hs-x').addEventListener('click', () => dlg.close());
@@ -409,9 +495,15 @@
 
   // ---------- army ----------
   let FOLDERS = []; let ARMY_SORT = ''; // army folders (names, in order) and how armies are sorted in lists; each army may have .folder
+  // each army has its own point total (limit; the saved default when unset) and legality (era: which cards it may use)
+  let POINT_DEFAULT = 500;
+  const ERA_SHORT = { now: 'Contemp.', classic: 'Old school', all: 'All time' };
+  const armyLim = (a) => (a.limit != null ? a.limit : POINT_DEFAULT);
+  const armyEra = (a) => (ERA_SHORT[a.era] ? a.era : 'all');
+  function legalIn(x, e) { const u = (x && x.era) || 'now'; return e === 'all' || u === 'both' || u === e; }
   const ARMIES = [{ name: 'Army 1', map: new Map() }]; let CUR = 0; let ARMY = ARMIES[0].map; let CMP = [0, 0]; // map: unit -> qty
   const isUnique = (r) => String(r.ctype || '').startsWith('Unique');
-  const byName = (n) => UNITS.find((u) => u.unit === n);
+  const byName = (n) => ALL_UNITS.find((u) => u.unit === n); // armies keep every card, whatever era the site shows
   function addUnit(r) {
     const q = ARMY.get(r.unit) || 0;
     if (isUnique(r) && q >= 1) return;
@@ -451,20 +543,33 @@
   });
   cNote.addEventListener('input', () => { setColl(DLG_UNIT.unit, { note: noteStr(cNote.value, 1000) }); persist(); syncNotes(); });
   aNote.addEventListener('input', () => { ARMIES[CUR].note = noteStr(aNote.value, 1000); persist(); syncNotes(); });
+  // "Add to army…" on a unit's page asks which army: one button per army, plus a new one
+  const dlgPick = dlg.querySelector('.hs-dlg-pick'), dlgArmies = dlg.querySelector('.hs-dlg-armies');
   function syncDlgAdd() {
     if (!DLG_UNIT) return;
-    const q = ARMY.get(DLG_UNIT.unit) || 0;
-    const full = isUnique(DLG_UNIT) && q >= 1;
-    dlgAdd.textContent = full ? 'Remove from army' : (q ? 'Add another' : 'Add to army');
-    dlgIn.textContent = q ? `In your army: ${q}` : '';
+    const u = DLG_UNIT.unit, inA = ARMIES.filter((a) => a.map.get(u));
+    dlgIn.textContent = inA.length ? 'In ' + inA.map((a) => a.name + (a.map.get(u) > 1 ? ' (×' + a.map.get(u) + ')' : '')).join(', ') : '';
+    dlgAdd.setAttribute('aria-expanded', String(!dlgPick.hidden));
+    if (dlgPick.hidden) return;
+    const out = [];
+    for (const [f, list] of armyGroups()) for (const i of list) {
+      const a = ARMIES[i], q = a.map.get(u) || 0, full = isUnique(DLG_UNIT) && q >= 1;
+      const b = btn('', 'hs-sm hs-dlg-army' + (q ? ' on' : ''), () => {
+        if (full) a.map.delete(u); else a.map.set(u, q + 1);
+        persist(); draw(); syncDlgAdd();
+      });
+      b.append(mk('b', '', a.name), mk('span', 'hs-note', (f ? f + ' · ' : '') + armyPts(a) + ' / ' + armyLim(a) + ' pts · ' + ERA_SHORT[armyEra(a)] + (legalIn(DLG_UNIT, armyEra(a)) ? '' : ' (not legal there)') + (full ? ' · in it, tap to remove' : q ? ' · ×' + q + ', tap to add another' : '')));
+      out.push(b);
+    }
+    out.push(btn('+ New army', 'hs-sm', () => newArmyDlg((i) => { ARMIES[i].map.set(u, 1); persist(); draw(); syncDlgAdd(); })));
+    dlgArmies.replaceChildren(...out);
   }
-  dlgAdd.addEventListener('click', () => {
-    const q = ARMY.get(DLG_UNIT.unit) || 0;
-    if (isUnique(DLG_UNIT) && q >= 1) setQty(DLG_UNIT.unit, 0); else addUnit(DLG_UNIT);
-  });
+  dlgAdd.addEventListener('click', () => { dlgPick.hidden = !dlgPick.hidden; syncDlgAdd(); });
   const pick = root.querySelector('.hs-pick'), limEl = root.querySelector('.hs-limit');
   pick.addEventListener('change', () => { const r = byName(pick.value); if (r) addUnit(r); pick.value = ''; });
-  limEl.addEventListener('input', () => drawArmy());
+  limEl.addEventListener('input', () => { ARMIES[CUR].limit = Math.max(0, Math.min(9999, Math.round(Number(limEl.value) || 0))); persist(); drawArmy(); drawFolders(); });
+  const legalSel = root.querySelector('.ab-legal');
+  legalSel.addEventListener('change', () => { ARMIES[CUR].era = legalSel.value; persist(); draw(); });
   root.querySelector('.hs-clear').addEventListener('click', () => { ARMY.clear(); draw(); syncDlgAdd(); });
   const f1 = (v) => (Math.round(v * 10) / 10).toFixed(1);
   function drawArmy() {
@@ -472,7 +577,7 @@
     root.querySelector('.hs-subtabs .na').textContent = n ? String([...ARMY.values()].reduce((a, b) => a + b, 0)) : '';
     // picker
     const cur = pick.value;
-    const sorted = UNITS.filter((u) => !pickOwned.checked || ownedOf(u.unit) > 0).sort((a, b) => a.unit.localeCompare(b.unit));
+    const sorted = ALL_UNITS.filter((u) => (!pickOwned.checked || ownedOf(u.unit) > 0) && (u.custom || legalIn(u, armyEra(ARMIES[CUR])))).sort((a, b) => a.unit.localeCompare(b.unit));
     pick.replaceChildren(new Option(pickOwned.checked && !sorted.length ? 'You have no cards in your collection yet' : 'Choose a unit…', ''), ...sorted.map((u) => {
       const full = isUnique(u) && ARMY.has(u.unit);
       const o = new Option(`${u.unit} (${u.points})`, u.unit); o.disabled = full; return o;
@@ -481,35 +586,42 @@
     const items = [...ARMY.entries()].map(([nm, q]) => ({ r: byName(nm), q })).filter((x) => x.r);
     const pts = d3.sum(items, (x) => x.q * Number(x.r.points));
     const figs = d3.sum(items, (x) => x.q * Number(x.r.figures));
-    const lim = Number(limEl.value) || 0;
+    const lim = armyLim(ARMIES[CUR]), legal = armyEra(ARMIES[CUR]);
     const set = (c, v) => { root.querySelector(c).textContent = v; };
     set('.a-pts', d3.format(',')(pts)); set('.a-figs', d3.format(',')(figs));
     set('.a-cards', d3.format(',')(d3.sum(items, (x) => x.q)));
     const left = lim - pts; set('.a-left', lim ? d3.format(',')(left) : '—');
+    set('.ab-lim', lim ? d3.format(',')(lim) : '—');
+    const bar = root.querySelector('.ab-editview .ab-bar'), pct = lim ? Math.min(100, (pts / lim) * 100) : 0;
+    bar.firstElementChild.style.width = pct + '%'; bar.classList.toggle('over', lim && left < 0); bar.setAttribute('aria-valuenow', String(Math.round(pct)));
     root.querySelector('.a-left').classList.toggle('over', lim && left < 0);
     root.querySelector('.a-pts').classList.toggle('over', lim && left < 0);
     const body = root.querySelector('.a-body');
     body.replaceChildren();
     if (!items.length) {
-      body.appendChild(mk('div', 'hs-empty', 'No units yet. Pick one above, or use the + buttons on the Rankings page.'));
+      body.appendChild(mk('div', 'hs-empty', 'No units yet. Use Add card, or the + buttons on the Rankings page.'));
     } else {
-      const t = mk('table', 'hs-a');
-      const hr = t.createTHead().insertRow();
-      for (const [h, l] of [['Unit', 1], ['Count', 0], ['Points', 0], ['Figures', 0], ['', 0]]) { const th = document.createElement('th'); th.textContent = h; if (l) th.className = 'l'; hr.appendChild(th); }
-      const tb = t.createTBody();
+      // one row per card: small picture (once the pictures are loaded), name, type and faction, count, points
+      const C = dash.peek('cards') === 'ok' ? dash.data('cards').data : null;
+      const list = mk('div', 'ab-rows');
       items.sort((a, b) => b.r.points * b.q - a.r.points * a.q);
       for (const { r, q } of items) {
-        const tr = tb.insertRow();
-        const nm = mk('td', 'l nm', r.unit); nm.addEventListener('click', () => openCard(r)); tr.appendChild(nm);
-        const qc = mk('td'); const w = mk('span', 'hs-q2');
+        const row = mk('div', 'ab-row');
+        const img = C && C.find((x) => x.unit === r.unit);
+        if (img) { const im = document.createElement('img'); im.className = 'ab-thumb'; im.alt = ''; im.loading = 'lazy'; im.src = img.img; row.appendChild(im); }
+        const nm = mk('button', 'ab-unit'); nm.type = 'button';
+        nm.append(mk('b', '', r.unit), mk('span', 'ab-sub', [r.ctype, r.faction].filter(Boolean).join(' · ')), mk('span', 'ab-sub', `${q * r.figures} figure${q * r.figures === 1 ? '' : 's'}`));
+        if (!legalIn(r, legal)) nm.appendChild(mk('span', 'ab-illegal', 'Not legal in ' + ERAS[legal]));
+        nm.addEventListener('click', () => openCard(r));
+        const w = mk('span', 'hs-q2');
         const minus = mk('button', '', '−'); minus.type = 'button'; minus.setAttribute('aria-label', 'One fewer ' + r.unit); minus.addEventListener('click', () => setQty(r.unit, q - 1));
         const plus = mk('button', '', '+'); plus.type = 'button'; plus.setAttribute('aria-label', 'One more ' + r.unit); plus.disabled = isUnique(r); plus.addEventListener('click', () => addUnit(r));
-        w.append(minus, mk('span', '', String(q)), plus); qc.appendChild(w); tr.appendChild(qc);
-        tr.appendChild(mk('td', '', d3.format(',')(q * r.points)));
-        tr.appendChild(mk('td', '', String(q * r.figures)));
-        const rm = mk('td'); const x = mk('button', 'hs-add', '×'); x.type = 'button'; x.setAttribute('aria-label', 'Remove ' + r.unit); x.addEventListener('click', () => setQty(r.unit, 0)); rm.appendChild(x); tr.appendChild(rm);
+        w.append(minus, mk('span', '', String(q)), plus);
+        const side = mk('span', 'ab-side'); side.append(w, mk('span', 'ab-pts', d3.format(',')(q * r.points) + ' pts'));
+        const x = mk('button', 'ab-icon ab-rm', '×'); x.type = 'button'; x.setAttribute('aria-label', 'Remove ' + r.unit); x.title = 'Remove'; x.addEventListener('click', () => setQty(r.unit, 0));
+        row.append(nm, side, x); list.appendChild(row);
       }
-      body.appendChild(t);
+      body.appendChild(list);
     }
     // per-100 table (points-weighted average of each unit's per-100 numbers)
     const per = root.querySelector('.a-per tbody'); per.replaceChildren();
@@ -539,17 +651,55 @@
   const cmpOn = root.querySelector('.hs-cmpon'), cmp1 = root.querySelector('.hs-cmp1'), cmp2 = root.querySelector('.hs-cmp2');
   const nextName = () => { let i = ARMIES.length + 1; while (ARMIES.some((a) => a.name === 'Army ' + i)) i++; return 'Army ' + i; };
   function setCur(i) { CUR = Math.max(0, Math.min(ARMIES.length - 1, i)); ARMY = ARMIES[CUR].map; draw(); syncDlgAdd(); }
+  // the Army builder shows either the list of armies or the army being edited (not saved)
+  let AB_VIEW = 'list';
+  const abListEl = root.querySelector('.ab-listview'), abEditEl = root.querySelector('.ab-editview');
+  function abShow(v) { AB_VIEW = v; draw(); if (v === 'edit') root.querySelector('#army-list').scrollIntoView({ block: 'start' }); }
+  function openArmy(i) { AB_VIEW = 'edit'; setCur(i); root.querySelector('#army-list').scrollIntoView({ block: 'start' }); }
+  root.querySelector('.ab-back').addEventListener('click', () => abShow('list'));
+  // New army asks for a name, point total and legality first
+  const abn = document.querySelector('dialog.ab-newdlg:not(.ab-askdlg)'), abnName = abn.querySelector('.abn-name'), abnPts = abn.querySelector('.abn-pts');
+  let abnEra = 'now', abnAfter = null;
+  const abnSeg = () => abn.querySelectorAll('.abn-era button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === abnEra)));
+  abn.querySelectorAll('.abn-era button').forEach((b) => b.addEventListener('click', () => { abnEra = b.dataset.v; abnSeg(); }));
+  function newArmyDlg(after) {
+    abnAfter = after; abnName.value = nextName(); abnPts.value = String(POINT_DEFAULT); abnEra = state.era; abnSeg();
+    abn.showModal(); abnName.select();
+  }
+  abn.querySelector('form').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const name = abnName.value.replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 40) || nextName();
+    const limit = Math.max(0, Math.min(9999, Math.round(Number(abnPts.value) || 0)));
+    ARMIES.push({ name, map: new Map(), folder: AB_VIEW === 'edit' ? ARMIES[CUR].folder || '' : OPEN_FOLDER, limit, era: abnEra });
+    abn.close(); persist();
+    if (abnAfter) abnAfter(ARMIES.length - 1);
+  });
+  for (const c of ['.abn-x', '.abn-cancel']) abn.querySelector(c).addEventListener('click', () => abn.close());
+  // a new army stays in the list (in the open folder, if any), marked as the current one; tap it to edit
+  root.querySelector('.ab-new').addEventListener('click', () => newArmyDlg((i) => {
+    AB_VIEW = 'list'; setCur(i);
+    const t = foldList.querySelector('.ab-army.on'); if (t) { t.scrollIntoView({ block: 'nearest' }); t.classList.add('ab-fresh'); setTimeout(() => t.classList.remove('ab-fresh'), 1500); }
+  }));
+  const abQ = root.querySelector('.ab-q');
+  abQ.addEventListener('input', () => drawFolders());
+  // Add card and Settings open their own panel under the buttons
+  for (const [b, p] of [['.ab-addbtn', '.ab-addpanel'], ['.ab-setbtn', '.ab-setpanel']]) {
+    const btnEl = root.querySelector(b), panel = root.querySelector(p);
+    btnEl.addEventListener('click', () => { panel.hidden = !panel.hidden; btnEl.setAttribute('aria-expanded', String(!panel.hidden)); if (!panel.hidden && b === '.ab-addbtn') pick.focus(); });
+  }
+  function dupArmy(i) { const a = ARMIES[i]; ARMIES.push({ name: (a.name + ' copy').slice(0, 40), map: new Map(a.map), note: a.note || '', folder: a.folder || '', limit: a.limit, era: a.era }); }
+  function delArmy(i) {
+    if (ARMIES.length === 1) { ARMIES[0].map.clear(); setCur(0); return; }
+    ARMIES.splice(i, 1);
+    CMP = CMP.map((c) => Math.min(c === i ? 0 : c > i ? c - 1 : c, ARMIES.length - 1)); if (CMP[0] === CMP[1] && ARMIES.length > 1) CMP[1] = CMP[0] === 0 ? 1 : 0;
+    setCur(Math.min(CUR > i ? CUR - 1 : CUR, ARMIES.length - 1));
+  }
   armySel.addEventListener('change', () => setCur(Number(armySel.value)));
   armyName.addEventListener('input', () => { ARMIES[CUR].name = armyName.value.trim() || ('Army ' + (CUR + 1)); drawArmyMeta(); });
   armyName.addEventListener('blur', () => draw());
-  root.querySelector('.hs-newarmy').addEventListener('click', () => { ARMIES.push({ name: nextName(), map: new Map(), folder: ARMIES[CUR].folder || '' }); setCur(ARMIES.length - 1); });
-  root.querySelector('.hs-duparmy').addEventListener('click', () => { const a = ARMIES[CUR]; ARMIES.push({ name: (a.name + ' copy').slice(0, 40), map: new Map(a.map), note: a.note || '', folder: a.folder || '' }); setCur(ARMIES.length - 1); });
-  root.querySelector('.hs-delarmy').addEventListener('click', () => {
-    if (ARMIES.length === 1) { ARMIES[0].map.clear(); setCur(0); return; }
-    ARMIES.splice(CUR, 1);
-    CMP = CMP.map((c) => Math.min(c === CUR ? 0 : c > CUR ? c - 1 : c, ARMIES.length - 1)); if (CMP[0] === CMP[1] && ARMIES.length > 1) CMP[1] = CMP[0] === 0 ? 1 : 0;
-    setCur(Math.min(CUR, ARMIES.length - 1));
-  });
+  root.querySelector('.hs-newarmy').addEventListener('click', () => newArmyDlg((i) => setCur(i)));
+  root.querySelector('.hs-duparmy').addEventListener('click', () => { dupArmy(CUR); setCur(ARMIES.length - 1); });
+  root.querySelector('.hs-delarmy').addEventListener('click', async () => { if (ARMIES.length > 1 && !await ask({ title: `Delete the army "${ARMIES[CUR].name}"?`, ok: 'Delete' })) return; delArmy(CUR); if (ARMIES.length) abShow('list'); });
   cmpOn.addEventListener('change', () => {
     if (cmpOn.checked && CMP[0] === CMP[1] && ARMIES.length > 1) CMP = [CUR, CUR === 0 ? 1 : 0];
     draw();
@@ -579,30 +729,30 @@
     sel.value = String(val);
   }
   const folderSel = root.querySelector('.hs-armyfolder'), sortSel = root.querySelector('.hs-armysort'), foldList = root.querySelector('.hs-folders');
-  const FOLD_SHUT = new Set(); // folders collapsed in the list (not saved)
-  const folderName = (cur, msg) => {
-    const t = (prompt(msg, cur || '') || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 40);
+  let OPEN_FOLDER = ''; // the folder open in the army list ('' = the top level; not saved)
+  const folderName = async (cur, msg) => {
+    const t = ((await ask({ title: msg, value: cur || '', ok: cur ? 'Rename' : 'Create folder' })) || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 40);
     if (!t) return '';
-    if (FOLDERS.includes(t) && t !== cur) { alert('There is already a folder called ' + t + '.'); return ''; }
+    if (FOLDERS.includes(t) && t !== cur) { await ask({ title: 'There is already a folder called ' + t + '.', alert: true }); return ''; }
     return t;
   };
-  function newFolder(moveCur) {
+  async function newFolder(moveCur) {
     if (FOLDERS.length >= 100) return;
-    const t = folderName('', 'Name the new folder'); if (!t) { drawFolders(); return; }
+    const t = await folderName('', 'Name the new folder'); if (!t) { drawFolders(); return; }
     FOLDERS.push(t);
     if (moveCur) ARMIES[CUR].folder = t;
     persist(); draw();
   }
-  function renameFolder(f) {
-    const t = folderName(f, 'Rename the folder'); if (!t || t === f) return;
+  async function renameFolder(f) {
+    const t = await folderName(f, 'Rename the folder'); if (!t || t === f) return;
     FOLDERS[FOLDERS.indexOf(f)] = t;
     for (const a of ARMIES) if (a.folder === f) a.folder = t;
-    if (FOLD_SHUT.delete(f)) FOLD_SHUT.add(t);
+    if (OPEN_FOLDER === f) OPEN_FOLDER = t;
     persist(); draw();
   }
-  function deleteFolder(f) {
+  async function deleteFolder(f) {
     const n = ARMIES.filter((a) => a.folder === f).length;
-    if (!confirm(n ? `Delete the folder "${f}"? Its ${n} ${n === 1 ? 'army moves' : 'armies move'} to No folder; no army is deleted.` : `Delete the folder "${f}"?`)) return;
+    if (!await ask({ title: `Delete the folder "${f}"?`, msg: n ? `Its ${n} ${n === 1 ? 'army moves' : 'armies move'} to No folder; no army is deleted.` : '', ok: 'Delete' })) return;
     FOLDERS = FOLDERS.filter((x) => x !== f);
     for (const a of ARMIES) if (a.folder === f) a.folder = '';
     persist(); draw();
@@ -617,43 +767,71 @@
   });
   sortSel.addEventListener('change', () => { ARMY_SORT = sortSel.value in SORTS ? sortSel.value : ''; persist(); draw(); });
   root.querySelector('.hs-newfolder').addEventListener('click', () => newFolder(false));
-  // the "My armies" list: one box per folder, armies as buttons; drag an army onto a folder to move it
+  // the army list: folder tiles first, then armies that are in no folder; opening a folder shows only its armies
+  // (an army in a folder shows only there). Searching lists matching armies from every folder.
+  // Drag an army onto a folder tile to move it in, or onto "All armies" to take it out.
+  const dropArmy = (el, f) => {
+    el.addEventListener('dragover', (e) => { if ([...e.dataTransfer.types].includes('text/x-army')) { e.preventDefault(); el.classList.add('drop'); } });
+    el.addEventListener('dragleave', () => el.classList.remove('drop'));
+    el.addEventListener('drop', (e) => {
+      e.preventDefault(); el.classList.remove('drop');
+      const i = Number(e.dataTransfer.getData('text/x-army')); if (!ARMIES[i]) return;
+      ARMIES[i].folder = f; persist(); draw();
+    });
+  };
+  const ib = (t, label, fn) => { const b = btn(t, 'ab-icon', fn); b.setAttribute('aria-label', label); b.title = label; return b; };
+  function armyTile(i, showFolder) {
+    const a = ARMIES[i], pts = armyPts(a), n = d3.sum([...a.map.values()]), lim = armyLim(a);
+    const c = mk('div', 'ab-army' + (i === CUR ? ' on' : ''));
+    c.draggable = true;
+    c.addEventListener('dragstart', (e) => { e.dataTransfer.setData('text/x-army', String(i)); e.dataTransfer.effectAllowed = 'move'; });
+    const open = mk('button', 'ab-open'); open.type = 'button'; open.setAttribute('aria-label', 'Open ' + a.name);
+    const meta = mk('span', 'ab-meta', `${showFolder && a.folder ? '📁 ' + a.folder + ' · ' : ''}${n} card${n === 1 ? '' : 's'} · ${d3.format(',')(pts)}${lim ? ' / ' + d3.format(',')(lim) : ''} pts `);
+    meta.appendChild(mk('span', 'ab-badge', ERA_SHORT[armyEra(a)]));
+    open.append(mk('b', 'ab-name', a.name), meta);
+    const bar = mk('span', 'ab-bar' + (lim && pts > lim ? ' over' : '')); const fill = mk('span'); fill.style.width = (lim ? Math.min(100, (pts / lim) * 100) : 0) + '%'; bar.appendChild(fill); open.appendChild(bar);
+    open.addEventListener('click', () => openArmy(i));
+    const tools = mk('span', 'ab-tools');
+    tools.append(ib('✎', 'Edit ' + a.name, () => openArmy(i)), ib('⧉', 'Duplicate ' + a.name, () => { dupArmy(i); persist(); draw(); }),
+      ib('🗑', 'Delete ' + a.name, async () => { if (ARMIES.length > 1 && !await ask({ title: `Delete the army "${a.name}"?`, ok: 'Delete' })) return; delArmy(i); }));
+    c.append(open, tools);
+    return c;
+  }
+  function folderTile(f, list) {
+    const c = mk('div', 'ab-army ab-foldtile');
+    const open = mk('button', 'ab-open'); open.type = 'button'; open.setAttribute('aria-label', 'Open folder ' + f);
+    open.append(mk('b', 'ab-name', '📁 ' + f), mk('span', 'ab-meta', list.length ? list.length + (list.length === 1 ? ' army' : ' armies') : 'Empty'));
+    open.addEventListener('click', () => { OPEN_FOLDER = f; drawFolders(); foldList.scrollIntoView({ block: 'nearest' }); });
+    const tools = mk('span', 'ab-tools');
+    tools.append(ib('↑', 'Move folder ' + f + ' up', () => moveFolder(f, -1)), ib('↓', 'Move folder ' + f + ' down', () => moveFolder(f, 1)));
+    c.append(open, tools); dropArmy(c, f);
+    return c;
+  }
   function drawFolders() {
     folderSel.replaceChildren(new Option('No folder', ''), ...FOLDERS.map((f) => new Option(f, f)), new Option('New folder…', '\u0001new'));
     folderSel.value = FOLDERS.includes(ARMIES[CUR].folder) ? ARMIES[CUR].folder : '';
     sortSel.value = ARMY_SORT;
-    const boxes = [];
-    for (const [f, list] of armyGroups()) {
-      if (!f && !list.length && FOLDERS.length) continue;
-      const box = mk('details', 'hs-fold'); box.open = !FOLD_SHUT.has(f);
-      box.addEventListener('toggle', () => { if (box.open) FOLD_SHUT.delete(f); else FOLD_SHUT.add(f); });
-      const sum = mk('summary', 'hs-foldhead');
-      sum.append(mk('b', '', (f ? '📁 ' : '') + (f || (FOLDERS.length ? 'No folder' : 'All armies'))), mk('span', 'hs-note', list.length + (list.length === 1 ? ' army' : ' armies')));
-      if (f) {
-        const tools = mk('span', 'hs-foldtools');
-        const tb = (t, label, fn) => { const b = btn(t, 'hs-sm', (e) => { e.preventDefault(); fn(); }); b.setAttribute('aria-label', label); return b; };
-        tools.append(tb('↑', 'Move folder up', () => moveFolder(f, -1)), tb('↓', 'Move folder down', () => moveFolder(f, 1)), tb('Rename', 'Rename folder ' + f, () => renameFolder(f)), tb('Delete', 'Delete folder ' + f, () => deleteFolder(f)));
-        sum.appendChild(tools);
-      }
-      box.appendChild(sum);
-      const chips = mk('div', 'hs-foldarmies');
-      if (!list.length) chips.appendChild(mk('span', 'hs-note', 'Empty. Pick this folder under “Folder” or drag an army here.'));
-      for (const i of list) {
-        const b = btn(`${ARMIES[i].name} · ${armyPts(ARMIES[i])} pts`, 'hs-sm hs-foldarmy' + (i === CUR ? ' on' : ''), () => setCur(i));
-        b.draggable = true; b.setAttribute('aria-pressed', String(i === CUR));
-        b.addEventListener('dragstart', (e) => { e.dataTransfer.setData('text/x-army', String(i)); e.dataTransfer.effectAllowed = 'move'; });
-        chips.appendChild(b);
-      }
-      box.addEventListener('dragover', (e) => { if ([...e.dataTransfer.types].includes('text/x-army')) { e.preventDefault(); box.classList.add('drop'); } });
-      box.addEventListener('dragleave', () => box.classList.remove('drop'));
-      box.addEventListener('drop', (e) => {
-        e.preventDefault(); box.classList.remove('drop');
-        const i = Number(e.dataTransfer.getData('text/x-army')); if (!ARMIES[i]) return;
-        ARMIES[i].folder = f; persist(); draw();
-      });
-      box.appendChild(chips); boxes.push(box);
+    if (OPEN_FOLDER && !FOLDERS.includes(OPEN_FOLDER)) OPEN_FOLDER = '';
+    const out = [], q = abQ.value.trim().toLowerCase(), groups = armyGroups(), grid = mk('div', 'ab-armies');
+    if (q) {
+      const hits = groups.flatMap(([, l]) => l).filter((i) => ARMIES[i].name.toLowerCase().includes(q));
+      grid.append(...(hits.length ? hits.map((i) => armyTile(i, true)) : [mk('p', 'hs-note', 'No army matches.')]));
+    } else if (OPEN_FOLDER) {
+      const f = OPEN_FOLDER, list = groups.find((g) => g[0] === f)[1];
+      const head = mk('div', 'ab-head ab-foldbar');
+      const back = btn('← All armies', 'hs-sm', () => { OPEN_FOLDER = ''; drawFolders(); });
+      back.title = 'Back to all armies (drop an army here to take it out of the folder)'; dropArmy(back, '');
+      const tools = mk('span', 'hs-foldtools');
+      const tb = (t, label, fn) => { const b = btn(t, 'hs-sm', fn); b.setAttribute('aria-label', label); return b; };
+      tools.append(tb('Rename', 'Rename folder ' + f, () => renameFolder(f)), tb('Delete', 'Delete folder ' + f, () => deleteFolder(f)));
+      head.append(back, mk('h4', 'ab-foldname', '📁 ' + f), tools);
+      out.push(head);
+      grid.append(...(list.length ? list.map((i) => armyTile(i)) : [mk('p', 'hs-note', 'Empty. Use + New army here, pick this folder in an army’s Settings, or drag an army onto the folder.')]));
+    } else {
+      grid.append(...groups.filter(([f]) => f).map(([f, list]) => folderTile(f, list)), ...groups.find(([f]) => !f)[1].map((i) => armyTile(i)));
     }
-    foldList.replaceChildren(...boxes);
+    out.push(grid);
+    foldList.replaceChildren(...out);
   }
   function drawArmyMeta() {
     fillSel(armySel, CUR);
@@ -661,7 +839,12 @@
     if (document.activeElement !== armyName) armyName.value = ARMIES[CUR].name;
     root.querySelector('.a-title').textContent = ARMIES[CUR].name;
     root.querySelector('.a-title2').textContent = `${ARMIES[CUR].name} per 100 points`;
-    root.querySelector('.hs-delarmy').textContent = ARMIES.length === 1 ? 'Empty army' : 'Delete';
+    root.querySelector('.hs-delarmy').hidden = ARMIES.length === 1; // Clear army does the same for a last army
+    abListEl.hidden = AB_VIEW !== 'list'; abEditEl.hidden = AB_VIEW !== 'edit';
+    if (document.activeElement !== limEl) limEl.value = String(armyLim(ARMIES[CUR]));
+    legalSel.value = armyEra(ARMIES[CUR]);
+    root.querySelector('.ab-era').textContent = ERA_SHORT[armyEra(ARMIES[CUR])];
+    document.getElementById('army-stats').hidden = AB_VIEW !== 'edit';
   }
   function armyStats(map) {
     const items = [...map.entries()].map(([nm, q]) => ({ r: byName(nm), q })).filter((x) => x.r);
@@ -1484,10 +1667,10 @@
   function snapshot() {
     return {
       app: 'heroscape-tracker', format: 1, saved: new Date().toISOString(),
-      armies: ARMIES.map((a) => ({ name: a.name, units: Object.fromEntries(a.map), ...(a.note ? { note: a.note } : {}), ...(a.folder ? { folder: a.folder } : {}) })),
+      armies: ARMIES.map((a) => ({ name: a.name, units: Object.fromEntries(a.map), ...(a.note ? { note: a.note } : {}), ...(a.folder ? { folder: a.folder } : {}), ...(a.limit != null ? { limit: a.limit } : {}), ...(a.era ? { era: a.era } : {}) })),
       folders: FOLDERS.slice(), armySort: ARMY_SORT,
       current: CUR,
-      pointLimit: Number(limEl.value) || 0,
+      pointLimit: POINT_DEFAULT,
       collection: Object.fromEntries([...COLL].map(([n, c]) => [n, { owned: c.owned, want: c.want, note: c.note }])),
       settings: { weights: { ...state.w }, mode: state.mode, view: state.view, lastBackup: LAST_BACKUP },
       ...Object.fromEntries(SAVED.map((m) => [m.key, m.get()]))
@@ -1502,7 +1685,7 @@
     const armies = (Array.isArray(o.armies) ? o.armies : []).slice(0, 200).map((a, i) => {
       const map = new Map();
       if (a && a.units && typeof a.units === 'object') for (const [n, q] of Object.entries(a.units).slice(0, 500)) { const k = cnt(q, 99); if (k) map.set(str(n, 120), k); }
-      return { name: str(a && a.name, 40).trim() || 'Army ' + (i + 1), map, note: noteStr(a && a.note, 1000).trim(), folder: str(a && a.folder, 40).trim() };
+      return { name: str(a && a.name, 40).trim() || 'Army ' + (i + 1), map, note: noteStr(a && a.note, 1000).trim(), folder: str(a && a.folder, 40).trim(), limit: a && a.limit != null ? cnt(a.limit, 9999) : undefined, era: a && ['now', 'classic', 'all'].includes(a.era) ? a.era : undefined };
     });
     // folders: the saved list, plus any folder an army names that the list is missing
     const folders = [];
@@ -1531,7 +1714,7 @@
       COLL.clear(); for (const [n, v] of c.coll) COLL.set(n, v);
       CUR = Math.min(c.current, ARMIES.length - 1);
       FOLDERS = (c.folders || []).slice(); ARMY_SORT = c.armySort || '';
-      if (c.pointLimit !== null) limEl.value = String(c.pointLimit);
+      if (c.pointLimit !== null) POINT_DEFAULT = c.pointLimit;
       if (c.weights) state.w = c.weights;
       if (c.mode) state.mode = c.mode;
       if (c.view) state.view = c.view;
@@ -1542,7 +1725,7 @@
       for (const a of c.armies) {
         let nm = a.name; while (ARMIES.some((x) => x.name === nm)) nm = (nm + ' (imported)').slice(0, 40);
         if (ARMIES.some((x) => x.name === nm)) nm = nextName();
-        ARMIES.push({ name: nm, map: a.map, note: a.note, folder: a.folder });
+        ARMIES.push({ name: nm, map: a.map, note: a.note, folder: a.folder, limit: a.limit, era: a.era });
       }
       for (const f of c.folders || []) if (!FOLDERS.includes(f) && FOLDERS.length < 100) FOLDERS.push(f);
       for (const [n, v] of c.coll) {
@@ -1816,7 +1999,7 @@
     sideList.appendChild(g);
   }
   const ext = mk('div', 'side-grp'); ext.appendChild(mk('div', 'side-h', 'Elsewhere'));
-  for (const [t, h] of [['Buy Heroscape at Renegade ↗', 'https://heroscape.renegadegamestudios.com/'], ['Play online at heroscape.org ↗', 'https://heroscape.org/ohs']]) { const a = mk('a', '', t); a.href = h; a.target = '_blank'; a.rel = 'noopener noreferrer'; ext.appendChild(a); }
+  for (const [t, h] of [['Buy Heroscape at Renegade ↗', 'https://heroscape.renegadegamestudios.com/'], ['Play online at heroscape.org ↗', 'https://heroscape.org/ohs'], ['Forums ↗', 'https://www.heroscapers.com/']]) { const a = mk('a', '', t); a.href = h; a.target = '_blank'; a.rel = 'noopener noreferrer'; ext.appendChild(a); }
   sideList.appendChild(ext);
   function setMenu(open) {
     side.hidden = scrim.hidden = !open;
@@ -3734,13 +3917,13 @@
     touchX = null;
     if (Math.abs(dx) > 50 && RB.zoom <= 1) turn(dx < 0 ? 1 : -1);
   });
-  rb('rb-mark').addEventListener('click', () => {
+  rb('rb-mark').addEventListener('click', async () => {
     if (!RB.doc) return;
     const pages = spreadOf(RULES.page);
     const hit = RULES.marks.filter((m) => pages.includes(m.p));
     if (hit.length) RULES.marks = RULES.marks.filter((m) => !pages.includes(m.p));
     else {
-      const t = (prompt('Name this bookmark', 'Page ' + pages[0]) || '').trim();
+      const t = ((await ask({ title: 'Name this bookmark', value: 'Page ' + pages[0], ok: 'Save' })) || '').trim();
       if (!t) return;
       RULES.marks = RULES.marks.concat({ p: pages[0], t: t.slice(0, 60) }).sort((a, b) => a.p - b.p);
     }
@@ -3810,7 +3993,7 @@
     // free art: pictures placed anywhere. at = what it sticks to; x, y = its middle in % of that; w = width in % of it
     const num = (v, lo, hi, d) => { const n = Number(v); return Number.isFinite(n) ? Math.min(hi, Math.max(lo, n)) : d; };
     e.stickers = (Array.isArray(o.stickers) ? o.stickers : []).filter((k) => k && !k.gone && ((IMG_RE.test(String(k.src)) && k.src.length < 3000000) || ASSET_RE.test(String(k.src)))).slice(0, 40).map((k) => ({
-      id: /^[\w-]{1,30}$/.test(k.id) ? k.id : uid(), src: k.src, page: /^[\w-]{0,30}$/.test(k.page || '') ? k.page || '' : '',
+      id: /^[\w-]{1,30}$/.test(k.id) ? k.id : uid(), src: k.src, page: /^[\w-]{0,30}$/.test(k.page || '') || /^unit:[^\u0000-\u001f<>]{1,80}$/.test(k.page) ? k.page || '' : '',
       at: ['screen', 'header', 'page', 'block'].includes(k.at) ? k.at : 'page', block: Math.round(num(k.block, 0, 200, 0)),
       layer: k.layer === 'back' ? 'back' : 'front', px: !!k.px,
       // u 'px': drawings keep exact pixel spots (x from the page's middle, y from its top), so pieces never drift apart
@@ -4404,12 +4587,17 @@
   let STK_SEL = '', STK_MOVE = false, STK_PICK = false, STK_SIG = '';
   const stkLayers = {};
   for (const l of ['back', 'front']) { const d = mk('div', 'stk-screen ' + l); d.setAttribute('aria-hidden', 'true'); document.body.appendChild(d); stkLayers[l] = d; }
+  // a unit's own page (its card pop-up) keeps its own drawings, under the page name "unit:<name>"
+  const unitPage = () => (dlg.open && DLG_UNIT ? 'unit:' + DLG_UNIT.unit : '');
+  const drawPage = () => unitPage() || state.page;
+  const isUnitPage = (p) => typeof p === 'string' && p.startsWith('unit:');
   function effStickers() {
-    const t = siteTheme();
-    return [...EDITS.stickers.filter((k) => !k.gone).map((k) => [k, EDITS]), ...(t ? (t.stickers || []).map((k) => [k, t]) : []).filter(([k]) => !k.gone), ...DOODLES.map((k) => [k, DOODLES])].filter(([k]) => !k.gone && (!k.page || k.page === state.page));
+    const t = siteTheme(), up = unitPage();
+    return [...EDITS.stickers.filter((k) => !k.gone).map((k) => [k, EDITS]), ...(t ? (t.stickers || []).map((k) => [k, t]) : []).filter(([k]) => !k.gone), ...DOODLES.map((k) => [k, DOODLES])].filter(([k]) => !k.gone && (!k.page || k.page === state.page || (up && k.page === up)));
   }
   function stkHost(k) {
     if (k.at === 'screen') return stkLayers[k.layer];
+    if (isUnitPage(k.page)) return dlg.querySelector('.hs-dlg-in');
     if (k.at === 'header') return root.querySelector('.site-head');
     const sec = root.querySelector('section.hs-page#' + (k.page || state.page)) || root.querySelector('section.hs-page#' + state.page);
     if (k.at === 'block' && sec) { const b = sec.querySelectorAll('.hs-card')[k.block]; if (b) return b; }
@@ -4417,7 +4605,7 @@
   }
   function applyStickers() {
     const list = effStickers(), owner = tgt();
-    const sig = JSON.stringify([state.page, STK_SEL, STK_MOVE, edActive(), list.map(([k, o]) => [k.id, k.src.length, k.at, k.block, k.x, k.y, k.w, k.u, k.layer, k.px, o === owner])]);
+    const sig = JSON.stringify([state.page, unitPage(), STK_SEL, STK_MOVE, edActive(), list.map(([k, o]) => [k.id, k.src.length, k.at, k.block, k.x, k.y, k.w, k.u, k.layer, k.px, o === owner])]);
     const placed = document.querySelectorAll('img.stk');
     if (sig === STK_SIG && [...placed].every((i) => i.isConnected && i.parentElement)) return;
     STK_SIG = sig;
@@ -4465,7 +4653,7 @@
   });
   function addDoodle(src, place) {
     if (DOODLES.length >= 60) DOODLES.shift(); // the oldest goes, so drawing never just stops working
-    const k = { id: uid(), src, page: state.page, at: 'page', block: 0, x: 50, y: 50, w: 30, layer: 'front', px: false };
+    const k = { id: uid(), src, page: drawPage(), at: 'page', block: 0, x: 50, y: 50, w: 30, layer: 'front', px: false };
     placeAt(k, place);
     DOODLES.push(k);
     let ok = persist();
@@ -4486,14 +4674,15 @@
   }
   function setDrawnSrc(id, src) { const k = findDrawn(id); if (!k) return; k.src = src; delete k.gone; changedDrawn(); }
   function clearDoodles(page) { DOODLES = DOODLES.filter((k) => k.page !== page); persist(); applyStickers(); }
-  // the visitor's choice to show the drawing square (Settings)
+  // the visitor's choice to show the drawing square (Settings; shown unless they turned it off; "set" marks a
+  // choice they made, so saves from before it was on by default show it too)
   // and where they dragged it: which side of the screen, and how far down (% of the screen height)
-  const DRAWSQ = { on: false, side: 'right', y: 50, layer: 'front' };
+  const DRAWSQ = { on: true, set: false, side: 'right', y: 50, layer: 'front' };
   registerSaved({
     key: 'drawsq', label: 'drawing square setting',
     get: () => ({ ...DRAWSQ }),
-    clean: (o) => ({ on: !!(o && o.on), side: o && o.side === 'left' ? 'left' : 'right', y: Math.min(95, Math.max(5, Number(o && o.y) || 50)), layer: o && o.layer === 'back' ? 'back' : 'front' }),
-    apply: (v) => { Object.assign(DRAWSQ, { on: false, side: 'right', y: 50, layer: 'front' }, v || {}); if (typeof syncDrawSquare === 'function') syncDrawSquare(); }
+    clean: (o) => ({ on: o && o.set ? !!o.on : true, set: !!(o && o.set), side: o && o.side === 'left' ? 'left' : 'right', y: Math.min(95, Math.max(5, Number(o && o.y) || 50)), layer: o && o.layer === 'back' ? 'back' : 'front' }),
+    apply: (v) => { Object.assign(DRAWSQ, { on: true, set: false, side: 'right', y: 50, layer: 'front' }, v || {}); if (typeof syncDrawSquare === 'function') syncDrawSquare(); }
   });
   function stickerRow() {
     const row = mk('div', 'ed-row ed-stk');
@@ -4575,7 +4764,7 @@
   root.querySelector('.st-themein').addEventListener('click', () => themeIn.click());
   root.querySelector('.st-mine').addEventListener('click', () => { const t = siteTheme(); startMaker(t && t.mine ? t.id : ''); });
   root.querySelector('.st-newmine').addEventListener('click', () => startMaker('new'));
-  root.querySelector('.st-dq input').addEventListener('change', (e) => { DRAWSQ.on = e.target.checked; if (!DRAWSQ.on && DQ.open && !edActive()) closeDraw(); persist(); syncDrawSquare(); });
+  root.querySelector('.st-dq input').addEventListener('change', (e) => { DRAWSQ.on = e.target.checked; DRAWSQ.set = true; if (!DRAWSQ.on && DQ.open && !edActive()) closeDraw(); persist(); syncDrawSquare(); });
 
   // ---------- art maker: pixel art (edit mode and the theme maker) ----------
   // Draw on a small grid (or paint, see paint.js), then place the drawing in any image spot or as the site background, or download it.
@@ -5134,13 +5323,14 @@
     // remember where the page was when drawing started, so the art lands in the right place later
     DS.view.addEventListener('pointerdown', () => {
       if (DS.anchor) return;
-      const r = root.querySelector('section.hs-page#' + state.page).getBoundingClientRect();
-      DS.anchor = { page: state.page, left: r.left, top: r.top, width: r.width, height: r.height };
+      const page = drawPage(), el = isUnitPage(page) ? dlg.querySelector('.hs-dlg-in') : root.querySelector('section.hs-page#' + state.page);
+      const r = el.getBoundingClientRect();
+      DS.anchor = { page, left: r.left, top: r.top, width: r.width, height: r.height };
     }, true);
     DS.onErase = eraseDrawn; DS.onEraseEnd = eraseDrawnEnd;
     ptBind(DS);
     // a scroll wheel still scrolls: the drawing so far is placed first, then the page moves
-    DS.view.addEventListener('wheel', (e) => { e.preventDefault(); commitDraw(); window.scrollBy(e.deltaX, e.deltaY); }, { passive: false });
+    DS.view.addEventListener('wheel', (e) => { e.preventDefault(); commitDraw(); (dlg.open ? dlg : window).scrollBy(e.deltaX, e.deltaY); }, { passive: false });
     DS.y0 = window.scrollY;
     // drawing behind: the top canvas only catches the pen and stays see-through, and a copy behind the page shows the strokes
     DS.back = document.createElement('canvas'); DS.back.className = 'pd-back'; DS.back.width = DS.w; DS.back.height = DS.h; DS.back.setAttribute('aria-hidden', 'true');
@@ -5264,7 +5454,7 @@
       const { rows } = ptToolRows(DS, drawDrawUI, true);
       const adv = mk('div', 'dq-adv'); adv.append(...rows);
       adv.appendChild(btn('Redo', 'hs-sm', () => DS && ptRedo(DS)));
-      if (!edActive()) adv.appendChild(btn('Erase my drawings on this page', 'hs-sm', (e) => { if (!armed('dqclear', e.currentTarget, 'Tap again to erase them')) return; clearDoodles(state.page); drawDrawUI(); }));
+      if (!edActive()) adv.appendChild(btn('Erase my drawings on this page', 'hs-sm', (e) => { if (!armed('dqclear', e.currentTarget, 'Tap again to erase them')) return; clearDoodles(drawPage()); drawDrawUI(); }));
       if (edActive()) adv.appendChild(btn('Open the art maker', 'hs-sm', () => { closeDraw(); openPixel(); }));
       dqPop.appendChild(adv);
     }
@@ -5276,6 +5466,19 @@
   window.addEventListener('scroll', () => { if (DS && DS.anchor && Math.abs(window.scrollY - DS.y0) > 1) commitDraw(); if (DS) DS.y0 = window.scrollY; }, { passive: true });
   window.addEventListener('resize', () => { if (DS) { commitDraw(); dqSurface(); if (!DQ.drawing) dqLayer.hidden = true; } });
   window.addEventListener('hashchange', () => { if (DS) commitDraw(); });
+  // a unit's page is a pop-up on top of everything, so while it is open the drawing tools move into it;
+  // what was drawn so far is placed first, on the page it was drawn on
+  function dqUnitChange() { if (DS) commitDraw(); }
+  function dqHome() {
+    const host = dlg.open ? dlg : document.body;
+    if (dqBtn.parentElement === host) return;
+    if (DS) commitDraw();
+    host.append(dqBack, dqLayer, dqBtn, dqPop);
+    STK_SIG = ''; applyStickers(); placePop();
+  }
+  new MutationObserver(dqHome).observe(dlg, { attributes: true, attributeFilter: ['open'] });
+  dlg.addEventListener('close', dqHome);
+  dlg.addEventListener('scroll', () => { if (DS && DS.anchor) commitDraw(); }, { capture: true, passive: true });
   document.addEventListener('keydown', (e) => {
     if (!DQ.open || !DS) return;
     if (e.key === 'Escape') closeDraw();

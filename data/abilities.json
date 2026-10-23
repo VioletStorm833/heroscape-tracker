@@ -3668,7 +3668,7 @@
  {
   "unit": "Raelin the Kyrie Warrior (1.0)",
   "ability": "Flying",
-  "text": "When counting spaces for Raelin the Kyrie Warrior (1.0)'s movement, ignore elevations. Raelin the Kyrie Warrior (1.0) may fly over water without stopping, pass over figures without becoming engaged, and fly over obstacles such as ruins. When Raelin the Kyrie Warrior (1.0) starts to fly, if engaged, this figure will take any leaving engagement attacks.",
+  "text": "When counting spaces for Raelin the Kyrie Warrior's movement, ignore elevations. Raelin the Kyrie Warrior may fly over water without stopping, pass over figures without becoming engaged, and fly over obstacles such as ruins. When Raelin the Kyrie Warrior starts to fly, if engaged, this figure will take any leaving engagement attacks.",
   "note": "",
   "era": "classic"
  },
@@ -3689,7 +3689,7 @@
  {
   "unit": "Raelin the Kyrie Warrior (2.0)",
   "ability": "Flying",
-  "text": "When counting spaces for Raelin the Kyrie Warrior (2.0)'s movement, ignore elevations. Raelin the Kyrie Warrior (2.0) may fly over water without stopping, pass over figures without becoming engaged, and fly over obstacles such as ruins. When Raelin the Kyrie Warrior (2.0) starts to fly, if engaged, this figure will take any leaving engagement attacks.",
+  "text": "When counting spaces for Raelin the Kyrie Warrior's movement, ignore elevations. Raelin the Kyrie Warrior may fly over water without stopping, pass over figures without becoming engaged, and fly over obstacles such as ruins. When Raelin the Kyrie Warrior starts to fly, if engaged, this figure will take any leaving engagement attacks.",
   "note": "",
   "era": "classic"
  },
@@ -5439,7 +5439,7 @@
  {
   "unit": "Zelrig (1.0)",
   "ability": "Flying",
-  "text": "When counting spaces for Zelrig (1.0)'s movement, ignore elevations. Zelrig (1.0) may fly over water without stopping, pass over figures without becoming engaged, and fly over obstacles such as ruins. When Zelrig (1.0) starts to fly, if engaged, this figure will take any leaving engagement attacks.",
+  "text": "When counting spaces for Zelrig's movement, ignore elevations. Zelrig may fly over water without stopping, pass over figures without becoming engaged, and fly over obstacles such as ruins. When Zelrig starts to fly, if engaged, this figure will take any leaving engagement attacks.",
   "note": "",
   "era": "classic"
  },
