@@ -803,3 +803,13 @@ dialog.hs-dlg.ab-newdlg { width: min(26rem, calc(100vw - 2rem)); height: fit-con
 .dlg-pic-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .dlg-pic-sw { display: inline-flex; align-items: center; gap: 6px; }
 .dlg-pic-col { width: 40px; height: 32px; padding: 0; border: 0; background: none; }
+.m-pieces summary { cursor: pointer; font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.m-pieces ul { margin: 4px 0 0; padding-left: 1.2em; font-size: var(--cds-font-size-caption); }
+.m-mine h4 { margin: var(--cds-gap-sm) 0 4px; }
+.mm-prow { display: flex; align-items: center; gap: 8px; padding: 2px 0; }
+.mm-prow .hs-num { width: 4.5rem; }
+.mm-prow span { flex: 1 1 auto; }
+.mm-note { white-space: pre-wrap; }
+dialog.m-pdfdlg { width: min(96vw, 70rem); max-width: none; }
+.mpdf-pages { display: grid; gap: 10px; justify-items: center; overflow: auto; margin-top: 8px; }
+.mpdf-pages canvas { max-width: none; background: #fff; border: 1px solid var(--color-border-line); border-radius: 6px; }

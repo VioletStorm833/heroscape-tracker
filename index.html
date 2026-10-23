@@ -8,7 +8,7 @@
 <meta name="description" content="Free Heroscape tracker: army card rankings, army builder, collection and terrain tracking, tournament maps, Swiss tournaments, game record and rules. No accounts; your data stays on your device.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=543f86e290">
+<link rel="stylesheet" href="css/style.css?v=7617968ab3">
 </head>
 <body>
 <div id="dash-root"><div class="hs">
@@ -586,8 +586,13 @@
   </section>
 
   <section class="hs-page" id="maps" hidden>
+    <div class="hs-seg m-tab" role="group" aria-label="Which maps" style="margin-bottom: var(--cds-gap-md)">
+      <button type="button" data-tab="" aria-pressed="true"><span data-ek="t33049794">Tournament maps</span></button>
+      <button type="button" data-tab="mine" aria-pressed="false"><span data-ek="t751eec98">My maps</span></button>
+    </div>
+    <div class="m-tour">
     <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
-      <h3 style="margin-top: 0"><span data-ek="t33049794">Tournament maps</span></h3>
+      <h3 style="margin-top: 0"><span data-ek="t33049794-1">Tournament maps</span></h3>
       <p class="hs-note"><span data-ek="t19730ee7">The maps on Renegade's official tournament list, with the products each one needs. A map counts as buildable when you own every product it lists. Premier maps are legal at Premier and Relaxed events; Relaxed maps only at Relaxed events.</span></p>
       <div class="hs-tiles">
         <div class="hs-tile"><b class="m-can"><span data-ek="tdd6fbee4">0</span></b><span data-ek="teb0f6df6">maps you can build</span></div>
@@ -617,6 +622,8 @@
       <div class="hs-card">
         <h3 style="margin-top: 0"><span data-ek="t6e7a7100">Most maps at once</span></h3>
         <p class="hs-note"><span data-ek="t8edf5185">The largest group of maps you can have built at the same time with the products you own, for running several tables.</span></p>
+        <label class="hs-chk"><input type="checkbox" class="m-sizeonly"> <span data-ek="te6764bd1">Ignore hex type, count only size</span></label>
+        <p class="hs-note m-sizenote"><span data-ek="tbf4fe635">With this on, hexes of any type count together by size, and trees count together whatever their kind. Maps marked “pieces counted” use the pieces read from their PDF; other maps need every piece in their listed products.</span></p>
         <div class="m-best"></div>
       </div>
       <div class="hs-card">
@@ -626,6 +633,46 @@
       </div>
     </div>
     <div class="m-list"></div>
+    </div>
+    <div class="m-mine" hidden>
+      <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
+        <h3 style="margin-top: 0 " class="mm-title"><span data-ek="tf6a17fdb">Add a map</span></h3>
+        <form class="mm-form" autocomplete="off">
+          <div class="hs-armyadd">
+            <label class="hs-field"><span data-ek="t03765632">Name</span><input type="text" class="mm-name" maxlength="60" required></label>
+            <label class="hs-field"><span data-ek="t5d41cbad">Designer</span><input type="text" class="mm-designer" maxlength="40"></label>
+            <label class="hs-field"><span data-ek="t17f8a860">Map PDF</span><input type="file" class="mm-pdf" accept="application/pdf,.pdf"></label>
+            <span class="hs-note mm-pdfname"></span>
+          </div>
+          <label class="hs-field"><span data-ek="t0a365434">Notes</span><textarea class="mm-note" rows="2" maxlength="1000"></textarea></label>
+          <h4><span data-ek="tb54a8041">Terrain kits used</span></h4>
+          <div class="m-editgrid mm-kits"></div>
+          <h4><span data-ek="t9f77db15">Terrain pieces</span></h4>
+          <div class="mm-pieces"></div>
+          <div class="hs-armyadd">
+            <label class="hs-field"><span data-ek="te7323679">Terrain</span><select class="mm-ptype"></select></label>
+            <label class="hs-field"><span data-ek="t7a7ae8bd">Size</span><select class="mm-psize"></select></label>
+            <label class="hs-field"><span data-ek="t28f38801">How many</span><input type="number" class="hs-num mm-pn" min="1" max="99" value="1"></label>
+            <button type="button" class="hs-btn mm-padd"><span data-ek="teba97cb4">Add pieces</span></button>
+          </div>
+          <div class="m-act">
+            <button type="submit" class="hs-btn hs-primary mm-save"><span data-ek="t414e6670">Save map</span></button>
+            <button type="button" class="hs-btn mm-cancel" hidden><span data-ek="t67e8ba31">Cancel editing</span></button>
+            <span class="hs-note mm-msg" aria-live="polite"></span>
+          </div>
+        </form>
+      </div>
+      <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
+        <h3 style="margin-top: 0"><span data-ek="t87d847f1">Share your maps</span></h3>
+        <p class="hs-note"><span data-ek="tf255c8d0">The export file holds your maps and their PDFs. Your maps (without the PDFs) are also in your full backup on the Save &amp; load page.</span></p>
+        <div class="m-act">
+          <button type="button" class="hs-btn mm-export"><span data-ek="t4b71152d">Export my maps</span></button>
+          <label class="hs-btn"><span data-ek="t23eae16c">Import maps</span><input type="file" class="mm-import" accept=".json,application/json" hidden></label>
+          <span class="hs-note mm-iomsg" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="mm-list"></div>
+    </div>
   </section>
 
   <section class="hs-page" id="tournament" hidden>
@@ -856,14 +903,13 @@
 <button type="button" class="hs-btn st-reset"><span data-ek="t8d7bfbab">Back to the standard colors</span></button></div>
       </div>
       <div class="hs-card">
-        <h3 style="margin-top: 0"><span data-ek="tf820ef9c">Add an ability to any card</span></h3>
-        <p class="hs-note"><span data-ek="t08afbe1d">House rules or new abilities. They show on the card with a “Custom” tag.</span></p>
-        <form class="ca-form" autocomplete="off">
-          <label class="hs-field"><span data-ek="tbe6c51ab">Card</span><select class="ca-unit" required></select></label>
-          <label class="hs-field"><span data-ek="tcca9c37c">Ability name</span><input type="text" class="ca-name" maxlength="60" required></label>
-          <label class="hs-field"><span data-ek="t8a59fcea">Ability text</span><textarea class="ca-text" rows="3" maxlength="600" required></textarea></label>
-          <div class="row" style="display: flex; gap: 8px; align-items: center; margin-top: 8px"><button type="submit" class="hs-btn hs-primary"><span data-ek="tceca189b">Add ability</span></button><span class="hs-note ca-msg" aria-live="polite"></span></div>
-        </form>
+        <h3 style="margin-top: 0"><span data-ek="td84c047c">Edit any card</span></h3>
+        <p class="hs-note"><span data-ek="tc833c515">Change any army card's stats and abilities, or add errata. Save the changes over the original card, or keep the original and save them as a new unit.</span></p>
+        <div class="hs-armyadd">
+          <label class="hs-field"><span data-ek="tbe6c51ab">Card</span><select class="ca-unit"></select></label>
+          <button type="button" class="hs-btn hs-primary ca-load"><span data-ek="t070740ad">Edit this card</span></button>
+          <span class="hs-note ca-msg" aria-live="polite"></span>
+        </div>
         <div class="ca-list"></div>
       </div>
     </div>
@@ -891,6 +937,13 @@
           <label class="hs-field"><span data-ek="t6e5c9a9b">Defense</span><input type="number" class="hs-num cu-f" data-k="defense" min="0" max="20" value="3"></label>
         </div>
         <div class="cu-abs"></div>
+        <div class="cu-editof" hidden>
+          <label class="hs-field"><span data-ek="tf1ea1a90">Errata note (optional, shown on the card)</span><textarea class="cu-errnote" rows="2" maxlength="600"></textarea></label>
+          <div class="hs-seg cu-saveas" role="group" aria-label="How to save">
+            <button type="button" data-v="over" aria-pressed="true"><span data-ek="t77ed1f6c">Save over the original</span></button>
+            <button type="button" data-v="new" aria-pressed="false"><span data-ek="te5fa8c40">Save as a new unit</span></button>
+          </div>
+        </div>
         <div class="row" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 8px">
           <button type="button" class="hs-btn cu-addab"><span data-ek="tf1cb6313">Add an ability line</span></button>
           <button type="submit" class="hs-btn hs-primary cu-save"><span data-ek="t0b27cfe2">Save card</span></button>
@@ -1002,9 +1055,16 @@
     <div class="hs-dfaq" role="tabpanel" hidden></div>
   </div>
 </dialog>
+<dialog class="hs-dlg m-pdfdlg" aria-labelledby="mpdf-t">
+  <div class="hs-dlg-in">
+    <div class="hs-dlg-top"><h2 id="mpdf-t"></h2><button type="button" class="hs-x mpdf-x" aria-label="Close"><span data-ek="t302d0079-4">×</span></button></div>
+    <div class="m-act"><button type="button" class="hs-btn mpdf-zout" aria-label="Zoom out"><span data-ek="t41f63b35-1">−</span></button><button type="button" class="hs-btn mpdf-zin" aria-label="Zoom in"><span data-ek="tb15224fc-1">+</span></button><a class="mpdf-dl" download><span data-ek="t07d2faf5">Download PDF</span></a><span class="hs-note mpdf-msg" aria-live="polite"></span></div>
+    <div class="mpdf-pages"></div>
+  </div>
+</dialog>
 </div>
 <script src="vendor/d3.v7.min.js"></script>
-<script src="js/data.js?v=543f86e290"></script>
-<script src="js/app.js?v=543f86e290"></script>
+<script src="js/data.js?v=7617968ab3"></script>
+<script src="js/app.js?v=7617968ab3"></script>
 </body>
 </html>

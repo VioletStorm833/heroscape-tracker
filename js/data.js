@@ -2,7 +2,7 @@
 // the only network requests are for these files, from the same place the page came from.
 (function () {
   const FILES = { units: 'data/units.json', abilities: 'data/abilities.json', cards: 'data/cards.json', products: 'data/products.json', terrain: 'data/terrain.json', maps: 'data/maps.json', errata: 'data/errata.json' };
-  const V = '543f86e290'; // the build puts a version tag here, so an update never mixes old cached data with new code
+  const V = '7617968ab3'; // the build puts a version tag here, so an update never mixes old cached data with new code
   const LAZY = new Set(); // anything large can be listed here to load on first use (card pictures are now separate small files)
   const S = {};
   const subs = [];

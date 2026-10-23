@@ -111,6 +111,7 @@
     const u = dash.data('units'), a = dash.data('abilities');
     ALL_UNITS = u.status === 'ok' ? [...u.data, ...customRows()].map((r) => ({ ...r })) : [];
     errataPoints(ALL_UNITS);
+    applyCardEdits(ALL_UNITS);
     addCustomAbilityNames(ALL_UNITS);
     const w = state.w;
     for (const r of ALL_UNITS) {
@@ -125,7 +126,8 @@
     ABIL = {};
     if (a.status === 'ok') for (const r of a.data) (ABIL[r.unit] = ABIL[r.unit] || []).push(r);
     for (const r of customAbilities()) (ABIL[r.unit] = ABIL[r.unit] || []).push(r);
-    errataText(ALL_UNITS);
+    errataText(ALL_UNITS.filter((r) => !r.edited));
+    for (const r of ALL_UNITS) if (r.edited) ABIL[r.unit] = editedAbilities(r.unit);
     UNITS = ALL_UNITS.filter((r) => r.custom || eraOk(r));
     SEARCH = {};
     for (const r of UNITS) {
@@ -406,7 +408,7 @@
       const aw = { unit: a.unit, ability: a.ability };
       const sec = mk('section', 'hs-ab' + (focusAbility === a.ability ? ' hl' : ''));
       const h = sec.appendChild(mk('h3', '', a.ability, { src: 'abilities', field: 'ability', where: aw }));
-      if (a.custom) h.appendChild(mk('span', 'hs-tag', 'Custom'));
+      if (a.custom) h.appendChild(mk('span', 'hs-tag', a.mine ? 'Edited' : 'Custom'));
       sec.appendChild(mk('p', '', a.text, { src: 'abilities', field: 'text', where: aw }));
       sec.appendChild(mk('div', 'n', a.note, { src: 'abilities', field: 'note', where: aw }));
       const kw = KEYWORD_RULES[a.ability];
@@ -2426,10 +2428,10 @@
 
   // ---------- tournament maps ----------
   const MAP_REQ = {}; // map id -> your own list of products [{id: n}] for maps whose PDF has no readable list
-  const MSTATE = { level: '', show: '', q: '', rand: null, edit: null, rlevel: '' };
+  const MSTATE = { level: '', show: '', q: '', rand: null, edit: null, rlevel: '', sizeOnly: false, tab: '' };
   registerSaved({
     key: 'maps', label: 'map notes',
-    get: () => ({ requirements: JSON.parse(JSON.stringify(MAP_REQ)) }),
+    get: () => ({ requirements: JSON.parse(JSON.stringify(MAP_REQ)), sizeOnly: MSTATE.sizeOnly }),
     clean: (o) => {
       const requirements = {};
       if (o && o.requirements && typeof o.requirements === 'object') for (const [k, v] of Object.entries(o.requirements).slice(0, 300)) {
@@ -2437,19 +2439,54 @@
         for (const [p, n] of Object.entries(v).slice(0, 30)) { const q = cnt(n, 9); if (q) r[str(p, 40)] = q; }
         if (Object.keys(r).length) requirements[str(k, 20)] = r;
       }
-      return { requirements };
+      return { requirements, sizeOnly: !!(o && o.sizeOnly) };
     },
     apply: (v, merge) => {
       if (!merge) for (const k of Object.keys(MAP_REQ)) delete MAP_REQ[k];
       if (v) for (const [k, r] of Object.entries(v.requirements)) if (!merge || !MAP_REQ[k]) MAP_REQ[k] = r;
+      if (v && !merge) MSTATE.sizeOnly = v.sizeOnly;
     }
   });
   const mapOptions = (m) => MAP_REQ[m.id] ? [MAP_REQ[m.id]] : m.options;
   const canBuildWith = (opt, have) => Object.entries(opt).every(([p, n]) => (have[p] || 0) >= n);
   const mapCan = (m, have) => mapOptions(m).some((o) => canBuildWith(o, have || PROD_OWN));
   const mapKnown = (m) => mapOptions(m).length > 0;
+  // "Count hexes by size only": land and water hexes of any type count together by size (24, 7, 3, 2, 1 ...),
+  // trees of any kind count together, and so do rock outcrops; walls and other objects still count by type.
+  // A map with pieces read from its PDF (m.pieces) needs those; any other map needs every piece in its products.
+  const TREES = new Set(['tree', 'evergreen', 'laurtree', 'underbrush', 'snowtree', 'swampbrush']);
+  const pieceKey = (t, s) => (TREES.has(t) ? 'tree|' : /outcrop|lavarock/.test(t) ? 'outcrop|' + s : /^\d+$/.test(s) ? 'hex|' + s : t + '|' + s);
+  function piecesOf(o, m) {
+    const need = {};
+    const add = (t, s, n) => { const k = pieceKey(t, s); need[k] = (need[k] || 0) + n; };
+    if (m && m.pieces && !MAP_REQ[m.id]) for (const [k, n] of Object.entries(m.pieces)) { const [t, sz] = k.split('|'); add(t, sz, n); }
+    else for (const [p, n] of Object.entries(o)) for (const x of (prodById(p) || {}).terrain || []) add(x.t, x.s, x.n * n);
+    return need;
+  }
+  function piecePool() { const pool = {}; for (const [k, n] of terrainOwned()) { const [t, s] = k.split('|'); const q = pieceKey(t, s); pool[q] = (pool[q] || 0) + n; } return pool; }
+  function bestBySize(maps) {
+    const pool = piecePool();
+    const cand = maps.filter((m) => mapKnown(m)).map((m) => ({ m, opts: mapOptions(m).map((o) => ({ o, need: piecesOf(o, m) })).filter((x) => canBuildWith(x.need, pool)) })).filter((c) => c.opts.length);
+    cand.sort((a, b) => d3.sum(Object.values(a.opts[0].need)) - d3.sum(Object.values(b.opts[0].need)));
+    let best = [], steps = 0;
+    const left = { ...pool };
+    (function go(i, chosen) {
+      if (++steps > 200000) return;
+      if (chosen.length > best.length) best = chosen.slice();
+      if (i >= cand.length || chosen.length + (cand.length - i) <= best.length) return;
+      for (const { o, need } of cand[i].opts) {
+        if (!canBuildWith(need, left)) continue;
+        for (const [k, n] of Object.entries(need)) left[k] -= n;
+        chosen.push({ m: cand[i].m, o }); go(i + 1, chosen); chosen.pop();
+        for (const [k, n] of Object.entries(need)) left[k] += n;
+      }
+      go(i + 1, chosen);
+    })(0, []);
+    return best;
+  }
   // largest group of maps that can stand at the same time (each map picks one of its options)
   function bestSet(maps) {
+    if (MSTATE.sizeOnly) return bestBySize(maps);
     const cand = maps.filter((m) => mapKnown(m) && mapCan(m));
     cand.sort((a, b) => d3.sum(Object.values(mapOptions(a)[0])) - d3.sum(Object.values(mapOptions(b)[0])));
     let best = [], steps = 0;
@@ -2469,6 +2506,9 @@
     })(0, []);
     return best;
   }
+  const mSize = root.querySelector('.m-sizeonly');
+  mSize.addEventListener('change', () => { MSTATE.sizeOnly = mSize.checked; persist(); drawMaps(); });
+  segBind('.m-tab', 'tab', (v) => { MSTATE.tab = v; });
   segBind('.m-level', 'l', (v) => { MSTATE.level = v; });
   segBind('.m-show', 's', (v) => { MSTATE.show = v; });
   const mQ = root.querySelector('.m-q');
@@ -2493,6 +2533,58 @@
     }
     return w;
   }
+  const PIECE_NAMES = { tree: 'Jungle tree', evergreen: 'Evergreen tree', rockoutcrop: 'Rock outcrop' };
+  const pieceName = (t) => PIECE_NAMES[t] || ((RAW('terrain') || { types: [] }).types.find((x) => x.id === t) || { name: t }).name;
+  const sizeName = (s) => (/^\d+$/.test(s) ? s + '-hex' : s.replace(/^(\d+)H$/, 'height $1'));
+  // a folded list of a map's pieces, grouped by terrain
+  function piecesBox(pieces, title) {
+    const d = mk('details', 'm-pieces');
+    d.appendChild(mk('summary', '', `${title} (${d3.sum(Object.values(pieces))})`));
+    const by = d3.groups(Object.entries(pieces), ([k]) => k.split('|')[0]);
+    const ul = mk('ul', '');
+    for (const [t, items] of by) ul.appendChild(mk('li', '', pieceName(t) + ': ' + items.sort((a, b) => (parseInt(b[0].split('|')[1]) || 0) - (parseInt(a[0].split('|')[1]) || 0)).map(([k, n]) => `${n}× ${sizeName(k.split('|')[1])}`).join(', ')));
+    d.appendChild(ul);
+    return d;
+  }
+  // map PDF viewer: every page drawn with pdf.js (the rulebook's reader), zoomable
+  const PV = { doc: null, zoom: 1, url: null };
+  const pdlg = document.querySelector('dialog.m-pdfdlg');
+  const pq = (c) => pdlg.querySelector('.' + c);
+  function closePdf() { if (PV.doc) { PV.doc.destroy(); PV.doc = null; } if (PV.url) { URL.revokeObjectURL(PV.url); PV.url = null; } pq('mpdf-pages').replaceChildren(); }
+  pq('mpdf-x').addEventListener('click', () => pdlg.close());
+  pdlg.addEventListener('click', (e) => { if (e.target === pdlg) pdlg.close(); });
+  pdlg.addEventListener('close', closePdf);
+  pq('mpdf-zin').addEventListener('click', () => { PV.zoom = Math.min(4, PV.zoom * 1.5); drawPdf(); });
+  pq('mpdf-zout').addEventListener('click', () => { PV.zoom = Math.max(1, PV.zoom / 1.5); drawPdf(); });
+  async function drawPdf() {
+    const box = pq('mpdf-pages'); box.replaceChildren();
+    if (!PV.doc) return;
+    const w = Math.max(280, box.clientWidth || pdlg.clientWidth - 40) * PV.zoom, dpr = Math.min(2, window.devicePixelRatio || 1);
+    for (let i = 1; i <= PV.doc.numPages; i++) {
+      const page = await PV.doc.getPage(i); if (!PV.doc) return;
+      const vp0 = page.getViewport({ scale: 1 }), vp = page.getViewport({ scale: (w / vp0.width) * dpr });
+      const cv = document.createElement('canvas'); cv.width = vp.width; cv.height = vp.height; cv.style.width = (vp.width / dpr) + 'px';
+      box.appendChild(cv);
+      await page.render({ canvasContext: cv.getContext('2d'), viewport: vp }).promise;
+    }
+  }
+  // src: a file on the site, or the bytes of one of your own maps
+  async function viewPdf(title, src) {
+    closePdf();
+    pdlg.querySelector('#mpdf-t').textContent = title;
+    PV.zoom = 1;
+    if (!pdlg.open) pdlg.showModal();
+    pq('mpdf-msg').textContent = 'Opening…';
+    try {
+      const bytes = typeof src === 'string' ? new Uint8Array(await (await fetch(src)).arrayBuffer()) : src;
+      PV.url = URL.createObjectURL(new Blob([bytes], { type: 'application/pdf' }));
+      const dl = pq('mpdf-dl'); dl.href = PV.url; dl.download = title.replace(/[^\w .-]+/g, '') + '.pdf';
+      const lib = await pdfLib();
+      PV.doc = await lib.getDocument({ data: bytes.slice(0), isEvalSupported: false }).promise;
+      pq('mpdf-msg').textContent = '';
+      await drawPdf();
+    } catch (e) { pq('mpdf-msg').textContent = 'The map could not be opened (' + (e.message || e) + ').'; }
+  }
   function mapCard(m, big) {
     const c = mk('div', 'm-card' + (big ? ' big' : ''));
     const head = mk('div', 'm-head');
@@ -2506,8 +2598,10 @@
     opts.forEach((o, i) => { const d = mk('div', 'm-opt'); if (opts.length > 1) d.appendChild(mk('span', 'hs-note', (i ? 'or ' : '') + 'Build ' + (i + 1) + ': ')); d.appendChild(reqChips(o)); c.appendChild(d); });
     if (MAP_REQ[m.id]) c.appendChild(mk('div', 'hs-note', 'Using the terrain you recorded.'));
     if (m.note && !MAP_REQ[m.id]) c.appendChild(mk('div', 'hs-note', m.note));
+    if (m.pieces) c.appendChild(piecesBox(m.pieces, 'Pieces counted from the PDF'));
     const act = mk('div', 'm-act');
-    act.appendChild(link('Open map PDF ↗', m.pdf));
+    if (m.file) act.appendChild(btn('View map', 'hs-sm hs-primary', () => viewPdf(m.name, m.file)));
+    act.appendChild(link(m.file ? 'Renegade’s copy ↗' : 'Open map PDF ↗', m.pdf));
     act.appendChild(btn(MSTATE.edit === m.id ? 'Close' : 'Set terrain', 'hs-sm', () => { MSTATE.edit = MSTATE.edit === m.id ? null : m.id; drawMaps(); }));
     c.appendChild(act);
     if (MSTATE.edit === m.id) {
@@ -2532,7 +2626,11 @@
   }
   function drawMaps() {
     const M = DATA('maps'); if (!M || !DATA('products')) return;
+    segSync('.m-tab', 'tab', MSTATE.tab);
+    root.querySelector('#maps .m-tour').hidden = MSTATE.tab === 'mine'; root.querySelector('#maps .m-mine').hidden = MSTATE.tab !== 'mine';
+    if (MSTATE.tab === 'mine') { drawMine(); return; }
     segSync('.m-level', 'l', MSTATE.level); segSync('.m-show', 's', MSTATE.show);
+    mSize.checked = MSTATE.sizeOnly; root.querySelector('.m-sizenote').hidden = !MSTATE.sizeOnly;
     const can = M.filter((m) => mapCan(m)), best = bestSet(M);
     root.querySelector('.m-can').textContent = String(can.length);
     root.querySelector('.m-total').textContent = String(M.length);
@@ -2561,6 +2659,164 @@
     box.appendChild(grid);
     if (MSTATE.rand) { const m = M.find((x) => x.id === MSTATE.rand); if (m) root.querySelector('.m-randout').replaceChildren(mapCard(m, true)); }
   }
+
+  // ---------- my maps ----------
+  // Maps you add yourself: name, designer, notes, the terrain kits and pieces they use, and a PDF.
+  // The list goes in the backup file; each PDF is kept in this browser (IndexedDB) and goes in the
+  // "Export my maps" file, which holds the maps with their PDFs.
+  const MYMAPS = [];
+  const cleanMyMap = (m) => {
+    const kits = {}, pieces = {};
+    if (m && m.kits && typeof m.kits === 'object') for (const [k, n] of Object.entries(m.kits).slice(0, 40)) { const q = cnt(n, 9); if (q) kits[str(k, 40)] = q; }
+    if (m && m.pieces && typeof m.pieces === 'object') for (const [k, n] of Object.entries(m.pieces).slice(0, 200)) { const q = cnt(n, 999); if (q && /^[^|]{1,40}\|[^|]{1,40}$/.test(k)) pieces[k] = q; }
+    return { id: /^[\w-]{1,30}$/.test(m && m.id) ? m.id : uid(), name: str(m && m.name, 60).trim() || 'My map', designer: str(m && m.designer, 40).trim(), note: noteStr(m && m.note, 1000).trim(), kits, pieces, pdf: str(m && m.pdf, 120) };
+  };
+  registerSaved({
+    key: 'mymaps', label: 'your own maps',
+    get: () => MYMAPS.map((m) => ({ ...m, kits: { ...m.kits }, pieces: { ...m.pieces } })),
+    clean: (v) => (Array.isArray(v) ? v : []).slice(0, 300).map(cleanMyMap),
+    apply: (v, merge) => {
+      if (!merge) MYMAPS.length = 0;
+      for (const m of v || []) { const i = MYMAPS.findIndex((x) => x.id === m.id); if (i < 0) MYMAPS.push(m); else if (!merge) MYMAPS[i] = m; }
+    }
+  });
+  const pdfKey = (id) => 'mymap:' + id;
+  ON_ERASE.push(() => { for (const m of MYMAPS) IDB.del(pdfKey(m.id)).catch(() => {}); });
+  const mm = (c) => root.querySelector('#maps .' + c);
+  const MM = { edit: null, kits: {}, pieces: {}, file: null, msg: '' };
+  function mmReset() {
+    MM.edit = null; MM.kits = {}; MM.pieces = {}; MM.file = null;
+    mm('mm-form').reset(); mm('mm-cancel').hidden = true; mm('mm-title').textContent = 'Add a map'; mm('mm-pdfname').textContent = '';
+  }
+  const terrainProds = () => (DATA('products') || []).filter((p) => (p.terrain || []).length);
+  function mmSizes(t) {
+    const T = RAW('terrain'); const tt = T.types.find((x) => x.id === t);
+    const from = [...new Set((RAW('products') || []).flatMap((p) => p.terrain || []).filter((x) => x.t === t).map((x) => x.s))];
+    const tiled = tt && !/Trees|Outcrops/.test(tt.group) && from.some((x) => /^\d+$/.test(x));
+    return [...new Set([...(tiled ? T.sizes : []), ...from])].sort((a, b) => (parseInt(b) || 0) - (parseInt(a) || 0) || a.localeCompare(b));
+  }
+  function drawMmForm() {
+    const T = RAW('terrain'); if (!T) return;
+    const sel = mm('mm-ptype');
+    if (!sel.options.length) {
+      for (const t of T.types) { const o = document.createElement('option'); o.value = t.id; o.textContent = t.name; sel.appendChild(o); }
+      sel.addEventListener('change', fillSizes); fillSizes();
+    }
+    const grid = mm('mm-kits'); grid.replaceChildren();
+    for (const p of terrainProds()) {
+      const l = mk('label', 'hs-field', p.name); const i = document.createElement('input'); i.type = 'number'; i.min = '0'; i.max = '9'; i.className = 'hs-num'; i.value = String(MM.kits[p.id] || 0);
+      i.addEventListener('change', () => { const n = cnt(i.value, 9); if (n) MM.kits[p.id] = n; else delete MM.kits[p.id]; });
+      l.appendChild(i); grid.appendChild(l);
+    }
+    const box = mm('mm-pieces'); box.replaceChildren();
+    const keys = Object.keys(MM.pieces);
+    if (!keys.length) box.appendChild(mk('p', 'hs-note', 'No pieces yet.'));
+    for (const k of keys) {
+      const [t, s] = k.split('|'); const row = mk('div', 'mm-prow');
+      const i = document.createElement('input'); i.type = 'number'; i.min = '0'; i.max = '999'; i.className = 'hs-num'; i.value = String(MM.pieces[k]); i.setAttribute('aria-label', pieceName(t) + ' ' + sizeName(s));
+      i.addEventListener('change', () => { const n = cnt(i.value, 999); if (n) MM.pieces[k] = n; else { delete MM.pieces[k]; drawMmForm(); } });
+      row.append(i, mk('span', '', `${pieceName(t)}, ${sizeName(s)}`), btn('Remove', 'hs-sm', () => { delete MM.pieces[k]; drawMmForm(); }));
+      box.appendChild(row);
+    }
+  }
+  function fillSizes() {
+    const sz = mm('mm-psize'); sz.replaceChildren();
+    for (const s of mmSizes(mm('mm-ptype').value)) { const o = document.createElement('option'); o.value = s; o.textContent = sizeName(s); sz.appendChild(o); }
+  }
+  mm('mm-padd').addEventListener('click', () => {
+    const t = mm('mm-ptype').value, s = mm('mm-psize').value, n = cnt(mm('mm-pn').value, 999);
+    if (!t || !s || !n) return;
+    const k = t + '|' + s; MM.pieces[k] = Math.min(999, (MM.pieces[k] || 0) + n); drawMmForm();
+  });
+  mm('mm-pdf').addEventListener('change', (e) => { const f = e.target.files && e.target.files[0]; MM.file = f || null; });
+  mm('mm-cancel').addEventListener('click', () => { mmReset(); drawMine(); });
+  mm('mm-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const old = MM.edit ? MYMAPS.find((m) => m.id === MM.edit) : null;
+    const m = cleanMyMap({ id: old ? old.id : uid(), name: mm('mm-name').value, designer: mm('mm-designer').value, note: mm('mm-note').value, kits: MM.kits, pieces: MM.pieces, pdf: old ? old.pdf : '' });
+    if (MM.file) {
+      try { await IDB.put(pdfKey(m.id), { name: MM.file.name, bytes: new Uint8Array(await MM.file.arrayBuffer()) }); m.pdf = str(MM.file.name, 120); }
+      catch (err) { MM.msg = 'The PDF could not be kept in this browser.'; }
+    }
+    if (old) MYMAPS[MYMAPS.indexOf(old)] = m; else MYMAPS.push(m);
+    MM.msg = (old ? 'Saved ' : 'Added ') + m.name + '.';
+    mmReset(); persist(); drawMine();
+  });
+  function editMine(m) {
+    mmReset(); MM.edit = m.id; MM.kits = { ...m.kits }; MM.pieces = { ...m.pieces };
+    mm('mm-name').value = m.name; mm('mm-designer').value = m.designer; mm('mm-note').value = m.note;
+    mm('mm-pdfname').textContent = m.pdf ? 'Kept: ' + m.pdf + ' (choose a file to replace it)' : '';
+    mm('mm-title').textContent = 'Edit ' + m.name; mm('mm-cancel').hidden = false;
+    drawMine(); mm('mm-form').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  async function viewMine(m) {
+    const v = await IDB.get(pdfKey(m.id)).catch(() => null);
+    if (v && v.bytes) viewPdf(m.name, v.bytes); else ask({ title: 'No PDF in this browser', msg: 'This map’s PDF isn’t kept in this browser. Edit the map to add it, or import an export file that has it.', alert: true });
+  }
+  function drawMine() {
+    drawMmForm();
+    mm('mm-msg').textContent = MM.msg; MM.msg = '';
+    const box = mm('mm-list'); box.replaceChildren();
+    if (!MYMAPS.length) { box.appendChild(mk('div', 'hs-card hs-empty', 'No maps of your own yet.')); return; }
+    const grid = mk('div', 'm-grid');
+    for (const m of MYMAPS) {
+      const c = mk('div', 'm-card'), head = mk('div', 'm-head');
+      head.appendChild(mk('b', 'm-name', m.name));
+      if (Object.keys(m.kits).length) { const can = canBuildWith(m.kits, PROD_OWN); head.appendChild(mk('span', 'hs-pill ' + (can ? 'ok' : 'bad'), can ? 'You can build it' : 'Missing products')); }
+      c.appendChild(head);
+      if (m.designer) c.appendChild(mk('div', 'hs-note', 'By ' + m.designer));
+      if (m.note) c.appendChild(mk('div', 'hs-note mm-note', m.note));
+      if (Object.keys(m.kits).length) { const d = mk('div', 'm-opt'); d.appendChild(reqChips(m.kits)); c.appendChild(d); }
+      if (Object.keys(m.pieces).length) c.appendChild(piecesBox(m.pieces, 'Pieces'));
+      const act = mk('div', 'm-act');
+      if (m.pdf) act.appendChild(btn('View map', 'hs-sm hs-primary', () => viewMine(m)));
+      act.appendChild(btn('Edit', 'hs-sm', () => editMine(m)));
+      act.appendChild(btn('Delete', 'hs-sm', async () => {
+        if (!await ask({ title: 'Delete ' + m.name + '?', msg: 'This removes the map and its PDF from this browser.', ok: 'Delete' })) return;
+        MYMAPS.splice(MYMAPS.indexOf(m), 1); IDB.del(pdfKey(m.id)).catch(() => {});
+        if (MM.edit === m.id) mmReset();
+        persist(); drawMine();
+      }));
+      c.appendChild(act);
+      grid.appendChild(c);
+    }
+    box.appendChild(grid);
+  }
+  // export / import: the maps plus their PDFs (base64) in one file
+  const b64 = (u8) => { let s = ''; for (let i = 0; i < u8.length; i += 0x8000) s += String.fromCharCode.apply(null, u8.subarray(i, i + 0x8000)); return btoa(s); };
+  const unb64 = (s) => { const b = atob(s); const u = new Uint8Array(b.length); for (let i = 0; i < b.length; i++) u[i] = b.charCodeAt(i); return u; };
+  mm('mm-export').addEventListener('click', async () => {
+    if (!MYMAPS.length) { mm('mm-iomsg').textContent = 'You have no maps to export yet.'; return; }
+    const maps = [];
+    for (const m of MYMAPS) {
+      const v = m.pdf ? await IDB.get(pdfKey(m.id)).catch(() => null) : null;
+      maps.push({ ...m, ...(v && v.bytes ? { pdfData: b64(v.bytes) } : {}) });
+    }
+    const name = `heroscape-my-maps-${today()}.json`;
+    const url = URL.createObjectURL(new Blob([JSON.stringify({ app: 'heroscape-tracker-maps', format: 1, maps })], { type: 'application/json' }));
+    const a = document.createElement('a'); a.href = url; a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 2000);
+    mm('mm-iomsg').textContent = 'Saved ' + name + '.';
+  });
+  mm('mm-import').addEventListener('change', async (e) => {
+    const f = e.target.files && e.target.files[0]; e.target.value = '';
+    if (!f) return;
+    try {
+      const o = JSON.parse(await f.text());
+      if (!o || o.app !== 'heroscape-tracker-maps' || !Array.isArray(o.maps)) throw new Error('This is not a maps file from Heroscape Tracker.');
+      let n = 0;
+      for (const raw of o.maps.slice(0, 300)) {
+        const m = cleanMyMap(raw);
+        if (MYMAPS.some((x) => x.id === m.id)) m.id = uid();
+        if (typeof raw.pdfData === 'string' && raw.pdfData.length < 40e6) {
+          try { await IDB.put(pdfKey(m.id), { name: m.pdf || m.name + '.pdf', bytes: unb64(raw.pdfData) }); m.pdf = m.pdf || m.name + '.pdf'; } catch (err) { m.pdf = ''; }
+        } else m.pdf = '';
+        MYMAPS.push(m); n++;
+      }
+      persist(); drawMine();
+      mm('mm-iomsg').textContent = `Added ${n} map${n === 1 ? '' : 's'}.`;
+    } catch (err) { mm('mm-iomsg').textContent = err.message || 'That file could not be read.'; }
+  });
   // ---------- colors ----------
   const THEME = { mode: '', colors: {}, fiddles: 0, unlocked: false, pride: '', site: '' };
   // site themes made by the site owner in edit mode (edit.js fills these); a visitor's own colors still win
@@ -2748,7 +3004,7 @@
       size: ['Small', 'Medium', 'Large', 'Huge'].includes(u.size) ? u.size : 'Medium', sizenum: CNUM(u.sizenum, 1, 20, 5),
       points: CNUM(u.points, 1, 999, 100), figures: CNUM(u.figures, 1, 12, 1), life: CNUM(u.life, 1, 20, 1), move: CNUM(u.move, 0, 20, 5), range: CNUM(u.range, 1, 20, 1),
       attack: CNUM(u.attack, 0, 20, 3), defense: CNUM(u.defense, 0, 20, 3),
-      abilities: (Array.isArray(u.abilities) ? u.abilities : []).slice(0, 12).map((a) => ({ ability: CTEXT(a && a.ability, 60), text: CTEXT(a && a.text, 600) })).filter((a) => a.ability)
+      abilities: (Array.isArray(u.abilities) ? u.abilities : []).slice(0, 16).map((a) => ({ ability: CTEXT(a && a.ability, 60), text: CTEXT(a && a.text, 1500) })).filter((a) => a.ability)
     };
   }
   registerSaved({
@@ -2765,6 +3021,53 @@
       for (const a of v.abilities) if (!CUSTOM_ABILS.some((x) => x.unit === a.unit && x.ability === a.ability)) CUSTOM_ABILS.push(a);
     }
   });
+  // your edits to existing cards ("Edit any card", saved over the original): unit -> the whole card as you edited it
+  const CARD_EDITS = {};
+  registerSaved({
+    key: 'cardedits', label: 'card edits',
+    get: () => JSON.parse(JSON.stringify(CARD_EDITS)),
+    clean: (o) => {
+      const out = {};
+      if (o && typeof o === 'object') for (const [n, e] of Object.entries(o).slice(0, 400)) {
+        const u = cleanUnit({ ...e, unit: n }); if (!u) continue;
+        u.unit = CTEXT(n, 120); u.errata = CTEXT(e && e.errata, 600); out[u.unit] = u;
+      }
+      return out;
+    },
+    apply: (v, merge) => {
+      if (!merge) for (const k of Object.keys(CARD_EDITS)) delete CARD_EDITS[k];
+      for (const [n, e] of Object.entries(v || {})) if (!merge || !CARD_EDITS[n]) CARD_EDITS[n] = e;
+    }
+  });
+  // the card's stats in the same shape as the real card data (per-100 numbers worked out from the printed stats)
+  function cardStats(u) {
+    const k = (v) => Math.round(v * u.figures / u.points * 1000) / 10;
+    const r = {
+      points: u.points, card_points: u.points, figures: u.figures, life: u.life, attack: u.attack, defense: u.defense,
+      faction: u.faction, species: u.species, ctype: u.ctype, cls: u.cls, pers: u.pers, size: u.size, sizenum: u.sizenum, size_full: u.size + ' ' + u.sizenum,
+      abilities: u.abilities.map((a) => a.ability).join('; '), life100: k(u.life)
+    };
+    for (const s of ['p', 's', 'c']) {
+      r['move_' + s] = u.move; r['range_' + s] = u.range;
+      r['ad_' + s] = u.attack + u.defense; r['tot_' + s] = u.attack + u.defense + u.life;
+      r['atk100_' + s] = k(u.attack); r['def100_' + s] = k(u.defense); r['atkdef100_' + s] = k(u.attack + u.defense); r['total100_' + s] = k(u.attack + u.defense + u.life);
+    }
+    r.atk_s = r.atk_c = u.attack; r.def_s = r.def_c = u.defense;
+    return r;
+  }
+  // apply your edits to the card rows (after the FAQ points errata, so yours win)
+  function applyCardEdits(rows) {
+    for (const r of rows) {
+      const e = CARD_EDITS[r.unit]; if (!e) continue;
+      Object.assign(r, cardStats(e), { edited: true, errataPts: false, aoe: '', special: '', cond: '', mr_note: '' });
+    }
+  }
+  const editedAbilities = (n) => {
+    const e = CARD_EDITS[n]; if (!e) return null;
+    const out = e.abilities.map((a) => ({ unit: n, ability: a.ability, text: a.text, note: 'Edited by you.', custom: true, mine: true }));
+    if (e.errata) out.push({ unit: n, ability: 'Your errata', text: e.errata, note: '', custom: true, mine: true });
+    return out;
+  };
   // a custom card in the same shape as the real card data, so every page can use it
   function customRows() {
     return CUSTOM_UNITS.map((u) => {
@@ -2801,26 +3104,37 @@
   function abLine(a) {
     const row = mk('div', 'hs-armyadd cu-ab');
     const l1 = mk('label', 'hs-field', 'Ability name'); const n = document.createElement('input'); n.type = 'text'; n.maxLength = 60; n.className = 'cu-abn'; n.value = a ? a.ability : ''; l1.appendChild(n);
-    const l2 = mk('label', 'hs-field cu-abt', 'Ability text'); const t = document.createElement('textarea'); t.rows = 2; t.maxLength = 600; t.className = 'cu-abx'; t.value = a ? a.text : ''; l2.appendChild(t);
+    const l2 = mk('label', 'hs-field cu-abt', 'Ability text'); const t = document.createElement('textarea'); t.rows = 2; t.maxLength = 1500; t.className = 'cu-abx'; t.value = a ? a.text : ''; l2.appendChild(t);
     row.append(l1, l2, btn('Remove', 'hs-sm', () => row.remove()));
     cuAbs.appendChild(row);
   }
   root.querySelector('.cu-addab').addEventListener('click', () => abLine());
   const cuMsg = (t, bad) => { const e = root.querySelector('.cu-msg'); e.textContent = t; e.classList.toggle('bad', !!bad); };
   function fillCuForm(u) {
-    if (u) cuForm.querySelectorAll('.cu-f').forEach((el) => { el.value = String(u[el.dataset.k]); });
+    if (u) cuForm.querySelectorAll('.cu-f').forEach((el) => { el.value = String(u[el.dataset.k] == null ? '' : u[el.dataset.k]); });
     else cuForm.reset();
+    if (!u || !CU_OF) {
+      CU_OF = null; root.querySelector('.cu-editof').hidden = true; cuForm.querySelector('[data-k="unit"]').disabled = false;
+      cuForm.closest('.hs-card').querySelector('h3').textContent = 'Your own army cards';
+    }
     cuAbs.replaceChildren(); (u ? u.abilities : [null]).forEach(abLine);
     root.querySelector('.cu-cancel').hidden = !u;
     root.querySelector('.cu-save').textContent = u ? 'Save changes' : 'Save card';
   }
-  root.querySelector('.cu-cancel').addEventListener('click', () => { CU_EDIT = null; fillCuForm(null); cuMsg(''); });
+  root.querySelector('.cu-cancel').addEventListener('click', () => { CU_EDIT = null; CU_OF = null; fillCuForm(null); cuMsg(''); });
   cuForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const o = {}; cuForm.querySelectorAll('.cu-f').forEach((el) => { o[el.dataset.k] = el.value; });
     o.abilities = [...cuAbs.querySelectorAll('.cu-ab')].map((r) => ({ ability: r.querySelector('.cu-abn').value, text: r.querySelector('.cu-abx').value }));
+    if (CU_OF && CU_SAVEAS === 'over') o.unit = CU_OF;
     const u = cleanUnit(o);
     if (!u) { cuMsg('Give the card a name.', true); return; }
+    if (CU_OF && CU_SAVEAS === 'over') {
+      u.unit = CU_OF; u.errata = CTEXT(root.querySelector('.cu-errnote').value, 600);
+      CARD_EDITS[CU_OF] = u; cuMsg(`Saved your changes to ${CU_OF}.`);
+      CU_OF = null; fillCuForm(null); draw(); return;
+    }
+    if (CU_OF) { const note = CTEXT(root.querySelector('.cu-errnote').value, 600); if (note) u.abilities.push({ ability: 'Errata', text: note }); }
     const clash = (dash.data('units').data || []).some((x) => x.unit === u.unit) || CUSTOM_UNITS.some((x) => x.unit === u.unit && x.unit !== CU_EDIT);
     if (clash) { cuMsg('A card with that name already exists. Pick another name.', true); return; }
     if (CU_EDIT) {
@@ -2829,29 +3143,59 @@
       CUSTOM_UNITS[i] = u;
     } else CUSTOM_UNITS.push(u);
     cuMsg(CU_EDIT ? 'Saved.' : `Added ${u.unit}.`);
-    CU_EDIT = null; fillCuForm(null); draw();
+    CU_EDIT = null; CU_OF = null; fillCuForm(null); draw();
   });
   function renameEverywhere(from, to) {
     for (const a of ARMIES) if (a.map.has(from)) { a.map.set(to, a.map.get(from)); a.map.delete(from); }
     if (COLL.has(from)) { COLL.set(to, COLL.get(from)); COLL.delete(from); }
   }
-  // form: ability on any card
-  const caForm = root.querySelector('.ca-form'), caUnit = root.querySelector('.ca-unit');
-  caForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const a = { unit: caUnit.value, ability: CTEXT(root.querySelector('.ca-name').value, 60), text: CTEXT(root.querySelector('.ca-text').value, 600) };
-    const m = root.querySelector('.ca-msg');
-    if (!a.unit || !a.ability) { m.textContent = 'Pick a card and name the ability.'; return; }
-    if (CUSTOM_ABILS.some((x) => x.unit === a.unit && x.ability === a.ability)) { m.textContent = 'That card already has an ability with this name.'; return; }
-    CUSTOM_ABILS.push(a); m.textContent = `Added to ${a.unit}.`;
-    root.querySelector('.ca-name').value = ''; root.querySelector('.ca-text').value = '';
-    draw();
-  });
+  // "Edit any card": load a card into the card form below; save over the original or as a new unit
+  const caUnit = root.querySelector('.ca-unit');
+  let CU_OF = null, CU_SAVEAS = 'over'; // the existing card being edited, and how to save it
+  const cuSaveSeg = () => root.querySelectorAll('.cu-saveas button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.v === CU_SAVEAS)));
+  root.querySelectorAll('.cu-saveas button').forEach((b) => b.addEventListener('click', () => {
+    CU_SAVEAS = b.dataset.v; cuSaveSeg();
+    const nm = cuForm.querySelector('[data-k="unit"]');
+    nm.disabled = CU_SAVEAS === 'over';
+    if (CU_SAVEAS === 'over') nm.value = CU_OF; else if (nm.value === CU_OF) { nm.value = (CU_OF + ' (mine)').slice(0, 60); nm.select(); }
+  }));
+  function cardForm(n) {
+    const r = ALL_UNITS.find((x) => x.unit === n); if (!r) return null;
+    const e = CARD_EDITS[n];
+    if (e) return { ...e };
+    return {
+      unit: n, faction: r.faction, ctype: r.ctype, species: r.species || '', cls: r.cls || '', pers: r.pers || '', size: r.size || 'Medium', sizenum: r.sizenum || 5,
+      points: r.points, figures: r.figures, life: r.life, move: r.move_p, range: r.range_p, attack: r.attack, defense: r.defense,
+      abilities: (ABIL[n] || []).filter((a) => a.ability !== 'Your errata').map((a) => ({ ability: a.ability, text: a.text })), errata: ''
+    };
+  }
+  function editCard(n) {
+    const f = cardForm(n); if (!f) return;
+    CU_EDIT = null; CU_OF = n; CU_SAVEAS = 'over'; cuSaveSeg();
+    fillCuForm(f);
+    cuForm.querySelector('[data-k="unit"]').disabled = true;
+    root.querySelector('.cu-errnote').value = f.errata || '';
+    root.querySelector('.cu-editof').hidden = false;
+    root.querySelector('.cu-cancel').hidden = false;
+    root.querySelector('.cu-save').textContent = 'Save';
+    cuForm.closest('.hs-card').querySelector('h3').textContent = 'Editing ' + n;
+    cuForm.scrollIntoView({ block: 'start' });
+  }
+  root.querySelector('.ca-load').addEventListener('click', () => { if (caUnit.value) editCard(caUnit.value); else root.querySelector('.ca-msg').textContent = 'Choose a card first.'; });
   function drawCustomLists() {
-    const names = UNITS.map((u) => u.unit).sort((a, b) => a.localeCompare(b));
+    const names = UNITS.filter((u) => !u.custom).map((u) => u.unit).sort((a, b) => a.localeCompare(b));
     if (caUnit.options.length !== names.length + 1) { const v = caUnit.value; caUnit.replaceChildren(new Option('Choose a card…', ''), ...names.map((n) => new Option(n, n))); caUnit.value = v; }
     const dl = root.querySelector('#cu-facs'); dl.replaceChildren(...[...new Set(UNITS.map((u) => u.faction))].sort().map((f) => new Option(f)));
     const cl = root.querySelector('.ca-list'); cl.replaceChildren();
+    const edited = Object.keys(CARD_EDITS).sort((a, b) => a.localeCompare(b));
+    if (edited.length) cl.appendChild(mk('div', 'hs-note', 'Cards you edited:'));
+    for (const n of edited) {
+      const d = mk('div', 'cu-item'); d.append(mk('b', '', n), document.createTextNode(' '));
+      d.append(btn('Edit', 'hs-sm', () => editCard(n), 'Edit ' + n), document.createTextNode(' '),
+        btn('Undo my changes', 'hs-sm', async () => { if (!await ask({ title: `Go back to the original ${n}?`, ok: 'Undo changes' })) return; delete CARD_EDITS[n]; draw(); }, 'Undo changes to ' + n));
+      cl.appendChild(d);
+    }
+    if (CUSTOM_ABILS.length) cl.appendChild(mk('div', 'hs-note', 'Abilities you added:'));
     for (const a of CUSTOM_ABILS) {
       const d = mk('div', 'cu-item'); d.append(mk('b', '', a.ability), document.createTextNode(' on ' + a.unit + ' '));
       d.appendChild(btn('Delete', 'hs-sm', () => { CUSTOM_ABILS.splice(CUSTOM_ABILS.indexOf(a), 1); draw(); }, 'Delete ' + a.ability));
@@ -3497,10 +3841,12 @@
     const dl = mk('dl', 'pc-stats');
     for (const [k, v] of cardLines(s)) dl.append(mk('dt', '', k), mk('dd', '', v));
     body.appendChild(dl);
-    const shown = PROFILE.badges.map((id) => BADGES.find((b) => b[0] === id)).filter((b) => b && b[4](s));
+    const shown = cardBadges(s);
     if (shown.length) { const r = mk('div', 'pc-badges'); for (const b of shown) r.appendChild(badgeEl(b, true, true)); body.appendChild(r); }
     box.appendChild(body);
   }
+  // the player card shows up to six earned achievements, in the order they are listed
+  const cardBadges = (s) => BADGES.filter((b) => b[4](s)).slice(0, 6);
   function drawPlayer() {
     const setv = (c, v) => { const e = root.querySelector(c); if (document.activeElement !== e) e.value = v; };
     setv('.pl-name', PROFILE.name); setv('.pl-title', PROFILE.title); setv('.pl-home', PROFILE.home); setv('.pl-bio', PROFILE.bio); setv('.pl-color', PROFILE.color);
@@ -3513,20 +3859,13 @@
     for (const b of BADGES) {
       const earned = b[4](s);
       if (b[7] === 'classic' && state.era === 'now' && !earned) continue;
-      const d = badgeEl(b, earned);
-      if (earned) {
-        const c = document.createElement('input'); c.type = 'checkbox'; c.checked = PROFILE.badges.includes(b[0]); c.setAttribute('aria-label', 'Show ' + b[1] + ' on my card');
-        c.disabled = !c.checked && PROFILE.badges.length >= 6;
-        c.addEventListener('change', () => { if (c.checked) PROFILE.badges.push(b[0]); else PROFILE.badges = PROFILE.badges.filter((x) => x !== b[0]); draw(); });
-        d.appendChild(c);
-      }
-      grid.appendChild(d);
+      grid.appendChild(badgeEl(b, earned));
     }
   }
   // the card as a PNG, drawn on a canvas
   root.querySelector('.pl-dl').addEventListener('click', () => {
     const s = allStats(), W = 600, lines = cardLines(s);
-    const shown = PROFILE.badges.map((id) => BADGES.find((b) => b[0] === id)).filter((b) => b && b[4](s));
+    const shown = cardBadges(s);
     const H = 210 + lines.length * 34 + (PROFILE.bio ? 40 : 0) + (shown.length ? 80 : 0) + 30;
     const c = document.createElement('canvas'); c.width = W * 2; c.height = H * 2;
     const g = c.getContext('2d'); g.scale(2, 2);
