@@ -56,17 +56,22 @@
    "to": 160
   },
   {
-   "unit": "Zelrig",
+   "unit": "Hatamoto Taro",
+   "from": 130,
+   "to": 100
+  },
+  {
+   "unit": "Zelrig (1.0)",
    "from": 185,
    "to": 180
   },
   {
-   "unit": "Ashigaru Yari",
+   "unit": "Ashigaru Yari (1.0)",
    "from": 40,
    "to": 30
   },
   {
-   "unit": "Ashigaru Harquebus",
+   "unit": "Ashigaru Harquebus (1.0)",
    "from": 60,
    "to": 80
   }
@@ -341,6 +346,13 @@
     }
    ],
    "notes": []
+  },
+  {
+   "unit": "Hatamoto Taro",
+   "abilities": [],
+   "notes": [
+    "ADJACENT TOUGH changed to ADJACENT EINAR RESOLVE: When Hatamoto Taro defends, if he is adjacent to at least 1 Einar figure you control, add 1 automatic shield to whatever is rolled."
+   ]
   },
   {
    "unit": "Horned Skull Brutes",
@@ -857,8 +869,5 @@
   }
  ],
  "source": "Heroscape: Age of Annihilation All Time Format FAQ, October 2nd 2026",
- "missing": [
-  "Hatamoto Taro",
-  "Hatamoto Taro"
- ]
+ "missing": []
 }

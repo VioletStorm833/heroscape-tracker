@@ -5379,5 +5379,82 @@
   "text": "If a Zombie of Morindan that you control destroys an opponent's small or medium figure, replace that figure immediately, if possible, with one of your own previously destroyed Zombies of Morindan. Newly placed Zombies of Morindan cannot attack this turn. Undead are not affected by Zombies Rise Again.",
   "note": "",
   "era": "classic"
+ },
+ {
+  "unit": "Hatamoto Taro",
+  "ability": "Heroic Defense Aura",
+  "text": "When defending against a normal attack by an adjacent figure with any Samurai or Ashigaru figures you control within 8 clear sight spaces of Hatamoto Taro, you may roll Einar Valkyrie dice. Each Einar symbol rolled counts as an additional shield. Heroic Defense Aura does not affect Hatamoto Taro.",
+  "note": "",
+  "era": "classic"
+ },
+ {
+  "unit": "Hatamoto Taro",
+  "ability": "Adjacent Tough 1",
+  "text": "When rolling defense dice for Hatamoto Taro, if Hatamoto Taro is adjacent to at least one figure you control who follows Einar, add one automatic shield to the defense roll.",
+  "note": "",
+  "era": "classic"
+ },
+ {
+  "unit": "Heavy Gruts",
+  "ability": "Orc Champion Bonding",
+  "text": "Before taking a turn with Heavy Gruts, you may first take a turn with any Orc Champion you control.",
+  "note": "",
+  "era": "classic"
+ },
+ {
+  "unit": "Heavy Gruts",
+  "ability": "Disengage",
+  "text": "Heavy Gruts are never attacked when leaving an engagement.",
+  "note": "",
+  "era": "classic"
+ },
+ {
+  "unit": "Heirloom",
+  "ability": "Force Orb Special Attack",
+  "text": "Range 5. Attack 3. Choose an opponent's figure to attack. Each opponent's figure adjacent to the chosen figure is also affected by Force Orb Special Attack. Roll attack dice once for all affected figures. Each figure rolls defense dice separately.",
+  "note": "",
+  "era": "classic"
+ },
+ {
+  "unit": "Heirloom",
+  "ability": "Mage Hand",
+  "text": "After moving and before attacking with Heirloom, you may choose a Treasure Glyph on an unoccupied space within 4 spaces of Heirloom. You may move that Treasure Glyph onto any empty same-level space adjacent to Heirloom. Symbol-side-up Treasure Glyphs cannot be revealed, and power-side-up Treasure Glyphs must be placed power-side up when moved by Mage Hand.",
+  "note": "",
+  "era": "classic"
+ },
+ {
+  "unit": "Heirloom",
+  "ability": "Warforged Resolve",
+  "text": "When rolling defense dice against a normal or special attack, Heirloom always adds 1 automatic shield to whatever is rolled.",
+  "note": "",
+  "era": "classic"
+ },
+ {
+  "unit": "Zelrig (1.0)",
+  "ability": "Majestic Fires Special Attack",
+  "text": "Range 7. Attack 3. Choose a figure to attack. Any figures adjacent to the targeted figure are also affected by Majestic Fires Special Attack. Common Squad figures roll 2 less defense dice against Majestic Fires Special Attack. Roll attack dice once for all affected figures. Each figure rolls defense dice separately. Zelrig cannot be affected by his own Majestic Fires Special Attack.",
+  "note": "",
+  "era": "classic"
+ },
+ {
+  "unit": "Zelrig (1.0)",
+  "ability": "Flying",
+  "text": "When counting spaces for Zelrig (1.0)'s movement, ignore elevations. Zelrig (1.0) may fly over water without stopping, pass over figures without becoming engaged, and fly over obstacles such as ruins. When Zelrig (1.0) starts to fly, if engaged, this figure will take any leaving engagement attacks.",
+  "note": "",
+  "era": "classic"
+ },
+ {
+  "unit": "Ashigaru Yari (1.0)",
+  "ability": "Encircle Special Attack",
+  "text": "Range 1. Attack 6. If 3 Ashigaru Yari you control are adjacent to the same enemy figure, they may roll their attack dice as one combined attack. The defending figure compares height to the lowest Ashigaru Yari to determine any height advantage. If Encircle Special Attack is used, the 4th figure that moved this turn cannot attack.",
+  "note": "",
+  "era": "classic"
+ },
+ {
+  "unit": "Ashigaru Harquebus (1.0)",
+  "ability": "Wait Then Fire",
+  "text": "If none of the Ashigaru Harquebus move this turn, add 1 die to their attack.",
+  "note": "",
+  "era": "classic"
  }
 ]

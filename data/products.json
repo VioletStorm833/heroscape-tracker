@@ -2189,6 +2189,7 @@
   "units": [
    "Tagawa Samurai Archers",
    "The Einar Imperium",
+   "Heavy Gruts",
    "Shades of Bleakewoode",
    "Zombies of Morindan",
    "Kee-Mo-Shi",
@@ -2208,8 +2209,8 @@
   "wave": "Hasbro wave 7",
   "era": "classic",
   "units": [
-   "Ashigaru Yari",
-   "Ashigaru Harquebus",
+   "Ashigaru Yari (1.0)",
+   "Ashigaru Harquebus (1.0)",
    "Templar Cavalry",
    "Rechets of Bogdan",
    "Iskra Esenwein",
@@ -2341,6 +2342,7 @@
    "Kurrok the Elementalist",
    "Rhogar Dragonspine",
    "Mika Connour",
+   "Heirloom",
    "Shurrak"
   ],
   "terrain": [],
@@ -2415,7 +2417,7 @@
    "Wo-Sa-Ga",
    "Sujoah",
    "Zetacron",
-   "Zelrig",
+   "Zelrig (1.0)",
    "Gurei-Oni"
   ],
   "terrain": [],
@@ -2432,7 +2434,8 @@
    "Sir Gilbert",
    "Ornak",
    "Acolarh",
-   "Laglor"
+   "Laglor",
+   "Hatamoto Taro"
   ],
   "terrain": [],
   "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
