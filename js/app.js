@@ -2944,7 +2944,8 @@
     clean: (o) => (Array.isArray(o) ? o.slice(0, 300).map((x) => str(x, 20)) : null),
     apply: (v, merge) => { SEEN = merge && SEEN ? [...new Set([...SEEN, ...(v || [])])] : v ? v.slice() : null; }
   });
-  const BADGE_SOUND = ''; // the pop-up's sound effect: a file path such as 'assets/achievement.mp3' (empty = no sound)
+  let lastSound = 0; // several achievements at once play the sound only once
+  const BADGE_SOUND = 'assets/achievement.mp3'; // the pop-up's sound effect: a file path such as 'assets/achievement.mp3' (empty = no sound)
   const toastBox = mk('div', 'bd-toasts'); toastBox.setAttribute('role', 'status'); toastBox.setAttribute('aria-live', 'polite');
   document.body.appendChild(toastBox);
   let badgeT = null;
@@ -2978,7 +2979,7 @@
     });
     while (toastBox.children.length >= 3) toastBox.firstChild.remove(); // keep at most three on screen
     toastBox.appendChild(t);
-    if (BADGE_SOUND) { try { const a = new Audio(BADGE_SOUND); a.volume = 0.6; a.play().catch(() => {}); } catch (e) { /* no audio */ } }
+    if (BADGE_SOUND && Date.now() - lastSound > 1500) { lastSound = Date.now(); try { const a = new Audio(BADGE_SOUND); a.volume = 0.6; a.play().catch(() => {}); } catch (e) { /* no audio */ } }
   }
   function allStats() {
     const s = recStats();
