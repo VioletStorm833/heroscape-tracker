@@ -693,3 +693,14 @@ body.ed-bg .hs-page > p { padding: 6px 10px; }
 body.ed-bg .hs-links { width: fit-content; margin-left: auto; padding: 4px 12px; }
 body.ed-bg .site-foot { padding: 12px 16px; }
 @media (max-width: 560px) { body.ed-bg .hs-links { margin-left: 0; } }
+
+/* ---------- army folders ---------- */
+.hs-myarmies { margin: var(--cds-gap-sm) 0; border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: 6px 10px; }
+.hs-myarmies > summary { cursor: pointer; font-weight: 600; }
+.hs-folders { display: grid; gap: 6px; margin-top: 6px; }
+.hs-fold { border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: 4px 8px; background: var(--color-bg); }
+.hs-fold.drop { outline: 2px dashed var(--accent); }
+.hs-foldhead { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; cursor: pointer; }
+.hs-foldtools { display: inline-flex; gap: 4px; margin-left: auto; }
+.hs-foldarmies { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 0 2px; }
+.hs-foldarmy.on { background: var(--accent); color: var(--color-bg); border-color: var(--accent); }

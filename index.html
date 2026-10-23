@@ -316,11 +316,20 @@
         <div class="hs-armyadd hs-armybar">
           <label class="hs-field"><span data-ek="tf46a55d9">Editing</span><select class="hs-armysel"></select></label>
           <label class="hs-field"><span data-ek="t37ceed05">Name</span><input type="text" class="hs-armyname" maxlength="40"></label>
+          <label class="hs-field"><span data-ek="t724b2c65">Folder</span><select class="hs-armyfolder"></select></label>
           <button type="button" class="hs-btn hs-newarmy"><span data-ek="t986cae43">New army</span></button>
           <button type="button" class="hs-btn hs-duparmy"><span data-ek="t7b291fbb">Duplicate</span></button>
           <button type="button" class="hs-btn hs-delarmy"><span data-ek="ta08de61f">Delete</span></button>
           <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg)"><input type="checkbox" class="hs-cmpon"> <span data-ek="t4e0bc525">Compare armies</span></label>
         </div>
+        <details class="hs-myarmies" open>
+          <summary><span data-ek="t7b8ba477">My armies</span></summary>
+          <div class="hs-armyadd">
+            <label class="hs-field"><span data-ek="t7df2f652">Sort</span><select class="hs-armysort"><option value="">My order</option><option value="name">Name A–Z</option><option value="hi">Points, high to low</option><option value="lo">Points, low to high</option></select></label>
+            <button type="button" class="hs-btn hs-newfolder"><span data-ek="tb26c9fcc">New folder</span></button>
+          </div>
+          <div class="hs-folders"></div>
+        </details>
         <h3 class="a-title"><span data-ek="t59836133">Army 1</span></h3>
         <p class="hs-note"><span data-ek="t6e04efb0">Unique cards can be added once; common cards can be added more than once. Keep as many armies as you like with New army / Duplicate. Armies are kept in this browser only; use</span> <a href="#data" data-goto="data"><span data-ek="t215bfb38">Save &amp; load</span></a> <span data-ek="tc1cf43b2">to keep a backup file.</span></p>
         <div class="hs-armyadd">

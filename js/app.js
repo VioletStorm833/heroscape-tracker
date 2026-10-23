@@ -401,6 +401,7 @@
   }
 
   // ---------- army ----------
+  let FOLDERS = []; let ARMY_SORT = ''; // army folders (names, in order) and how armies are sorted in lists; each army may have .folder
   const ARMIES = [{ name: 'Army 1', map: new Map() }]; let CUR = 0; let ARMY = ARMIES[0].map; let CMP = [0, 0]; // map: unit -> qty
   const isUnique = (r) => String(r.ctype || '').startsWith('Unique');
   const byName = (n) => UNITS.find((u) => u.unit === n);
@@ -534,8 +535,8 @@
   armySel.addEventListener('change', () => setCur(Number(armySel.value)));
   armyName.addEventListener('input', () => { ARMIES[CUR].name = armyName.value.trim() || ('Army ' + (CUR + 1)); drawArmyMeta(); });
   armyName.addEventListener('blur', () => draw());
-  root.querySelector('.hs-newarmy').addEventListener('click', () => { ARMIES.push({ name: nextName(), map: new Map() }); setCur(ARMIES.length - 1); });
-  root.querySelector('.hs-duparmy').addEventListener('click', () => { const a = ARMIES[CUR]; ARMIES.push({ name: (a.name + ' copy').slice(0, 40), map: new Map(a.map), note: a.note || '' }); setCur(ARMIES.length - 1); });
+  root.querySelector('.hs-newarmy').addEventListener('click', () => { ARMIES.push({ name: nextName(), map: new Map(), folder: ARMIES[CUR].folder || '' }); setCur(ARMIES.length - 1); });
+  root.querySelector('.hs-duparmy').addEventListener('click', () => { const a = ARMIES[CUR]; ARMIES.push({ name: (a.name + ' copy').slice(0, 40), map: new Map(a.map), note: a.note || '', folder: a.folder || '' }); setCur(ARMIES.length - 1); });
   root.querySelector('.hs-delarmy').addEventListener('click', () => {
     if (ARMIES.length === 1) { ARMIES[0].map.clear(); setCur(0); return; }
     ARMIES.splice(CUR, 1);
@@ -548,12 +549,108 @@
   });
   cmp1.addEventListener('change', () => { CMP[0] = Number(cmp1.value); draw(); });
   cmp2.addEventListener('change', () => { CMP[1] = Number(cmp2.value); draw(); });
+  // ---------- army folders and sorting ----------
+  const armyPts = (a) => d3.sum([...a.map].map(([n, q]) => q * (byName(n)?.points || 0)));
+  const SORTS = { '': null, name: (a, b) => a.name.localeCompare(b.name, undefined, { numeric: true }), hi: (a, b) => armyPts(b) - armyPts(a), lo: (a, b) => armyPts(a) - armyPts(b) };
+  // [folder name ('' = no folder), [army indexes]] in display order; empty folders are listed too
+  function armyGroups() {
+    const idx = ARMIES.map((a, i) => i);
+    if (SORTS[ARMY_SORT]) idx.sort((i, j) => SORTS[ARMY_SORT](ARMIES[i], ARMIES[j]) || i - j);
+    const g = [...FOLDERS.map((f) => [f, []]), ['', []]];
+    for (const i of idx) { const f = FOLDERS.includes(ARMIES[i].folder) ? ARMIES[i].folder : ''; g.find((x) => x[0] === f)[1].push(i); }
+    return g;
+  }
   function fillSel(sel, val) {
-    sel.replaceChildren(...ARMIES.map((a, i) => new Option(`${a.name} (${d3.sum([...a.map].map(([n, q]) => q * (byName(n)?.points || 0)))} pts)`, String(i))));
+    const opt = (i) => new Option(`${ARMIES[i].name} (${armyPts(ARMIES[i])} pts)`, String(i));
+    const out = [];
+    for (const [f, list] of armyGroups()) {
+      if (!list.length) continue;
+      if (!FOLDERS.length) { out.push(...list.map(opt)); continue; }
+      const og = document.createElement('optgroup'); og.label = f || 'No folder'; og.append(...list.map(opt)); out.push(og);
+    }
+    sel.replaceChildren(...out);
     sel.value = String(val);
+  }
+  const folderSel = root.querySelector('.hs-armyfolder'), sortSel = root.querySelector('.hs-armysort'), foldList = root.querySelector('.hs-folders');
+  const FOLD_SHUT = new Set(); // folders collapsed in the list (not saved)
+  const folderName = (cur, msg) => {
+    const t = (prompt(msg, cur || '') || '').replace(/[\u0000-\u001f]/g, ' ').trim().slice(0, 40);
+    if (!t) return '';
+    if (FOLDERS.includes(t) && t !== cur) { alert('There is already a folder called ' + t + '.'); return ''; }
+    return t;
+  };
+  function newFolder(moveCur) {
+    if (FOLDERS.length >= 100) return;
+    const t = folderName('', 'Name the new folder'); if (!t) { drawFolders(); return; }
+    FOLDERS.push(t);
+    if (moveCur) ARMIES[CUR].folder = t;
+    persist(); draw();
+  }
+  function renameFolder(f) {
+    const t = folderName(f, 'Rename the folder'); if (!t || t === f) return;
+    FOLDERS[FOLDERS.indexOf(f)] = t;
+    for (const a of ARMIES) if (a.folder === f) a.folder = t;
+    if (FOLD_SHUT.delete(f)) FOLD_SHUT.add(t);
+    persist(); draw();
+  }
+  function deleteFolder(f) {
+    const n = ARMIES.filter((a) => a.folder === f).length;
+    if (!confirm(n ? `Delete the folder "${f}"? Its ${n} ${n === 1 ? 'army moves' : 'armies move'} to No folder; no army is deleted.` : `Delete the folder "${f}"?`)) return;
+    FOLDERS = FOLDERS.filter((x) => x !== f);
+    for (const a of ARMIES) if (a.folder === f) a.folder = '';
+    persist(); draw();
+  }
+  function moveFolder(f, d) {
+    const i = FOLDERS.indexOf(f), j = i + d; if (j < 0 || j >= FOLDERS.length) return;
+    [FOLDERS[i], FOLDERS[j]] = [FOLDERS[j], FOLDERS[i]]; persist(); draw();
+  }
+  folderSel.addEventListener('change', () => {
+    if (folderSel.value === '\u0001new') { newFolder(true); return; }
+    ARMIES[CUR].folder = folderSel.value; persist(); draw();
+  });
+  sortSel.addEventListener('change', () => { ARMY_SORT = sortSel.value in SORTS ? sortSel.value : ''; persist(); draw(); });
+  root.querySelector('.hs-newfolder').addEventListener('click', () => newFolder(false));
+  // the "My armies" list: one box per folder, armies as buttons; drag an army onto a folder to move it
+  function drawFolders() {
+    folderSel.replaceChildren(new Option('No folder', ''), ...FOLDERS.map((f) => new Option(f, f)), new Option('New folder…', '\u0001new'));
+    folderSel.value = FOLDERS.includes(ARMIES[CUR].folder) ? ARMIES[CUR].folder : '';
+    sortSel.value = ARMY_SORT;
+    const boxes = [];
+    for (const [f, list] of armyGroups()) {
+      if (!f && !list.length && FOLDERS.length) continue;
+      const box = mk('details', 'hs-fold'); box.open = !FOLD_SHUT.has(f);
+      box.addEventListener('toggle', () => { if (box.open) FOLD_SHUT.delete(f); else FOLD_SHUT.add(f); });
+      const sum = mk('summary', 'hs-foldhead');
+      sum.append(mk('b', '', (f ? '📁 ' : '') + (f || (FOLDERS.length ? 'No folder' : 'All armies'))), mk('span', 'hs-note', list.length + (list.length === 1 ? ' army' : ' armies')));
+      if (f) {
+        const tools = mk('span', 'hs-foldtools');
+        const tb = (t, label, fn) => { const b = btn(t, 'hs-sm', (e) => { e.preventDefault(); fn(); }); b.setAttribute('aria-label', label); return b; };
+        tools.append(tb('↑', 'Move folder up', () => moveFolder(f, -1)), tb('↓', 'Move folder down', () => moveFolder(f, 1)), tb('Rename', 'Rename folder ' + f, () => renameFolder(f)), tb('Delete', 'Delete folder ' + f, () => deleteFolder(f)));
+        sum.appendChild(tools);
+      }
+      box.appendChild(sum);
+      const chips = mk('div', 'hs-foldarmies');
+      if (!list.length) chips.appendChild(mk('span', 'hs-note', 'Empty. Pick this folder under “Folder” or drag an army here.'));
+      for (const i of list) {
+        const b = btn(`${ARMIES[i].name} · ${armyPts(ARMIES[i])} pts`, 'hs-sm hs-foldarmy' + (i === CUR ? ' on' : ''), () => setCur(i));
+        b.draggable = true; b.setAttribute('aria-pressed', String(i === CUR));
+        b.addEventListener('dragstart', (e) => { e.dataTransfer.setData('text/x-army', String(i)); e.dataTransfer.effectAllowed = 'move'; });
+        chips.appendChild(b);
+      }
+      box.addEventListener('dragover', (e) => { if ([...e.dataTransfer.types].includes('text/x-army')) { e.preventDefault(); box.classList.add('drop'); } });
+      box.addEventListener('dragleave', () => box.classList.remove('drop'));
+      box.addEventListener('drop', (e) => {
+        e.preventDefault(); box.classList.remove('drop');
+        const i = Number(e.dataTransfer.getData('text/x-army')); if (!ARMIES[i]) return;
+        ARMIES[i].folder = f; persist(); draw();
+      });
+      box.appendChild(chips); boxes.push(box);
+    }
+    foldList.replaceChildren(...boxes);
   }
   function drawArmyMeta() {
     fillSel(armySel, CUR);
+    drawFolders();
     if (document.activeElement !== armyName) armyName.value = ARMIES[CUR].name;
     root.querySelector('.a-title').textContent = ARMIES[CUR].name;
     root.querySelector('.a-title2').textContent = `${ARMIES[CUR].name} per 100 points`;
@@ -1376,7 +1473,8 @@
   function snapshot() {
     return {
       app: 'heroscape-tracker', format: 1, saved: new Date().toISOString(),
-      armies: ARMIES.map((a) => ({ name: a.name, units: Object.fromEntries(a.map), ...(a.note ? { note: a.note } : {}) })),
+      armies: ARMIES.map((a) => ({ name: a.name, units: Object.fromEntries(a.map), ...(a.note ? { note: a.note } : {}), ...(a.folder ? { folder: a.folder } : {}) })),
+      folders: FOLDERS.slice(), armySort: ARMY_SORT,
       current: CUR,
       pointLimit: Number(limEl.value) || 0,
       collection: Object.fromEntries([...COLL].map(([n, c]) => [n, { owned: c.owned, want: c.want, note: c.note }])),
@@ -1393,8 +1491,12 @@
     const armies = (Array.isArray(o.armies) ? o.armies : []).slice(0, 200).map((a, i) => {
       const map = new Map();
       if (a && a.units && typeof a.units === 'object') for (const [n, q] of Object.entries(a.units).slice(0, 500)) { const k = cnt(q, 99); if (k) map.set(str(n, 120), k); }
-      return { name: str(a && a.name, 40).trim() || 'Army ' + (i + 1), map, note: noteStr(a && a.note, 1000).trim() };
+      return { name: str(a && a.name, 40).trim() || 'Army ' + (i + 1), map, note: noteStr(a && a.note, 1000).trim(), folder: str(a && a.folder, 40).trim() };
     });
+    // folders: the saved list, plus any folder an army names that the list is missing
+    const folders = [];
+    for (const f of [...(Array.isArray(o.folders) ? o.folders : []), ...armies.map((a) => a.folder)]) { const t = str(f, 40).trim(); if (t && !folders.includes(t) && folders.length < 100) folders.push(t); }
+    for (const a of armies) if (!folders.includes(a.folder)) a.folder = '';
     const coll = new Map();
     if (o.collection && typeof o.collection === 'object') for (const [n, c] of Object.entries(o.collection).slice(0, 2000)) {
       if (!c || typeof c !== 'object') continue;
@@ -1406,7 +1508,7 @@
     const mods = {};
     for (const m of SAVED) if (o[m.key] !== undefined && o[m.key] !== null) { try { mods[m.key] = m.clean(o[m.key]); } catch (e) { /* skip a damaged section */ } }
     return {
-      mods, armies, coll, current: cnt(o.current, 199), pointLimit: o.pointLimit == null ? null : cnt(o.pointLimit, 9999),
+      mods, armies, coll, folders, armySort: ['', 'name', 'hi', 'lo'].includes(o.armySort) ? o.armySort : '', current: cnt(o.current, 199), pointLimit: o.pointLimit == null ? null : cnt(o.pointLimit, 9999),
       weights: w && ['a', 'd', 'l'].every((k) => Number.isFinite(Number(w[k])) && Number(w[k]) >= 0) ? { a: +w.a, d: +w.d, l: +w.l } : null,
       mode: MODES[s.mode] ? s.mode : null, view: ['per', 'raw'].includes(s.view) ? s.view : null,
       lastBackup: typeof s.lastBackup === 'string' ? str(s.lastBackup, 40) : null
@@ -1417,6 +1519,7 @@
       ARMIES.splice(0, ARMIES.length, ...(c.armies.length ? c.armies : [{ name: 'Army 1', map: new Map() }]));
       COLL.clear(); for (const [n, v] of c.coll) COLL.set(n, v);
       CUR = Math.min(c.current, ARMIES.length - 1);
+      FOLDERS = (c.folders || []).slice(); ARMY_SORT = c.armySort || '';
       if (c.pointLimit !== null) limEl.value = String(c.pointLimit);
       if (c.weights) state.w = c.weights;
       if (c.mode) state.mode = c.mode;
@@ -1428,8 +1531,9 @@
       for (const a of c.armies) {
         let nm = a.name; while (ARMIES.some((x) => x.name === nm)) nm = (nm + ' (imported)').slice(0, 40);
         if (ARMIES.some((x) => x.name === nm)) nm = nextName();
-        ARMIES.push({ name: nm, map: a.map, note: a.note });
+        ARMIES.push({ name: nm, map: a.map, note: a.note, folder: a.folder });
       }
+      for (const f of c.folders || []) if (!FOLDERS.includes(f) && FOLDERS.length < 100) FOLDERS.push(f);
       for (const [n, v] of c.coll) {
         const cur = COLL.get(n) || { owned: 0, want: false, note: '' };
         COLL.set(n, { owned: Math.max(cur.owned, v.owned), want: cur.want || v.want, note: cur.note || v.note });
