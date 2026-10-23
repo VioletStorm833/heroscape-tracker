@@ -4381,6 +4381,7 @@
       gc.addEventListener('change', () => { PX.grid = gc.checked; pxPaint(); }); gl.append(gc, document.createTextNode(' Grid'));
       tools.appendChild(gl);
       tools.append(btn('Undo', 'hs-sm', pxUndo), btn('Redo', 'hs-sm', pxRedo), btn('Clear', 'hs-sm', () => { pxPush(); PX.px = pxBlank(PX.n); pxSave(); pxPaint(); }));
+      tools.appendChild(artResizeRow(pxScaleArt));
       box.appendChild(tools);
       box.appendChild(pxColorRow());
       // canvas
@@ -4444,6 +4445,33 @@
   function pxPush() { PX.undo.push({ n: PX.n, px: PX.px.slice() }); if (PX.undo.length > 100) PX.undo.shift(); PX.redo = []; }
   function pxUndo() { const s = PX.undo.pop(); if (!s) return; PX.redo.push({ n: PX.n, px: PX.px.slice() }); const resized = s.n !== PX.n; PX.n = s.n; PX.px = s.px; pxSave(); if (resized) drawPixelUI(); else pxPaint(); }
   function pxRedo() { const s = PX.redo.pop(); if (!s) return; PX.undo.push({ n: PX.n, px: PX.px.slice() }); const resized = s.n !== PX.n; PX.n = s.n; PX.px = s.px; pxSave(); if (resized) drawPixelUI(); else pxPaint(); }
+  // "Resize art": a percent picker and button, shared by both kinds of art
+  function artResizeRow(apply) {
+    const w = mk('span', 'px-resize');
+    const s = document.createElement('select'); s.setAttribute('aria-label', 'Resize the art by');
+    for (const p of [25, 50, 75, 90, 110, 125, 150, 200, 300]) s.append(new Option(p + '%', String(p)));
+    s.value = '50';
+    w.append(s, btn('Resize art', 'hs-sm', () => apply(+s.value / 100)));
+    return w;
+  }
+  // scales the drawing itself (not the grid) around its middle; anything pushed past the edge is cut off
+  function pxScaleArt(k) {
+    const n = PX.n;
+    let x0 = n, y0 = n, x1 = -1, y1 = -1;
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) if (PX.px[y * n + x]) { x0 = Math.min(x0, x); y0 = Math.min(y0, y); x1 = Math.max(x1, x); y1 = Math.max(y1, y); }
+    if (x1 < 0) { edMsg('Draw something first.'); return; }
+    const w = x1 - x0 + 1, h = y1 - y0 + 1;
+    const nw = Math.max(1, Math.round(w * k)), nh = Math.max(1, Math.round(h * k));
+    const ox = Math.round(x0 + w / 2 - nw / 2), oy = Math.round(y0 + h / 2 - nh / 2);
+    pxPush();
+    const out = pxBlank(n);
+    for (let y = 0; y < nh; y++) for (let x = 0; x < nw; x++) {
+      const tx = ox + x, ty = oy + y;
+      if (tx < 0 || ty < 0 || tx >= n || ty >= n) continue;
+      out[ty * n + tx] = PX.px[(y0 + Math.floor(y * h / nh)) * n + x0 + Math.floor(x * w / nw)] || '';
+    }
+    PX.px = out; pxSave(); pxPaint();
+  }
   function pxResize(px, from, to) {
     const out = pxBlank(to);
     for (let y = 0; y < to; y++) for (let x = 0; x < to; x++) { const sx = Math.floor(x * from / to), sy = Math.floor(y * from / to); out[y * to + x] = px[sy * from + sx] || ''; }
@@ -4645,7 +4673,7 @@
       const [w, h] = sz.value.split('x').map(Number), old = document.createElement('canvas'); old.width = ART.w; old.height = ART.h; old.getContext('2d').drawImage(ART.art, 0, 0);
       ptResize(ART, w, h); ART.art.getContext('2d').drawImage(old, 0, 0); ART.save(); drawPixelUI();
     });
-    opt.append(sz, btn('Undo', 'hs-sm', () => ptUndo(ART)), btn('Redo', 'hs-sm', () => ptRedo(ART)), btn('Clear', 'hs-sm', () => ptClear(ART)));
+    opt.append(sz, btn('Undo', 'hs-sm', () => ptUndo(ART)), btn('Redo', 'hs-sm', () => ptRedo(ART)), btn('Clear', 'hs-sm', () => ptClear(ART)), artResizeRow(ptScaleArt));
     box.append(...rows, pxColorRow());
     const stage = mk('div', 'px-stage');
     ART.view = document.createElement('canvas'); ART.view.className = 'px-canvas pt-canvas'; ART.view.width = ART.w; ART.view.height = ART.h; ART.view.setAttribute('aria-label', 'Painting');
@@ -4757,6 +4785,17 @@
     const c = document.createElement('canvas'); c.width = x1 - x0 + 1; c.height = y1 - y0 + 1;
     c.getContext('2d').drawImage(S.art, -x0, -y0);
     return { c, x0, y0 };
+  }
+  // scales the painting itself (not the canvas) around its middle; anything pushed past the edge is cut off
+  function ptScaleArt(k) {
+    const t = ptTrim(ART);
+    if (!t) { edMsg('Draw something first.'); return; }
+    ptPush(ART);
+    const w = t.c.width, h = t.c.height, g = ART.art.getContext('2d');
+    g.clearRect(0, 0, ART.w, ART.h);
+    g.imageSmoothingQuality = 'high';
+    g.drawImage(t.c, t.x0 + w / 2 - w * k / 2, t.y0 + h / 2 - h * k / 2, w * k, h * k);
+    ART.save(); ptShow(ART);
   }
   function ptCanvas(trim) { if (!trim) return ART.art; const t = ptTrim(ART); return t && t.c; }
   // the smaller of PNG and WebP (both keep see-through parts), shrunk until it fits the size limit
