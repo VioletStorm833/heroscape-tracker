@@ -1987,6 +1987,8 @@
     c.appendChild(ul); homeIdx.appendChild(c);
   }
   // side menu with the same links, from any page
+  // the Android app serves this same site from its own address; it has no use for the APK download link
+  if (location.hostname === 'appassets.androidplatform.net') root.querySelectorAll('.apk-link').forEach((x) => { x.hidden = true; });
   const menuBtn = root.querySelector('.menu-btn'), side = root.querySelector('.side-menu'), scrim = root.querySelector('.side-scrim');
   const sideList = side.querySelector('.side-list');
   sideList.dataset.eorder = 'sections';
