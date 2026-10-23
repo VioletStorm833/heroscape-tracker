@@ -1,0 +1,864 @@
+{
+ "points": [
+  {
+   "unit": "Major Q9",
+   "from": 180,
+   "to": 250
+  },
+  {
+   "unit": "Nilfheim",
+   "from": 185,
+   "to": 240
+  },
+  {
+   "unit": "Raelin the Kyrie Warrior (1.0)",
+   "from": 80,
+   "to": 125
+  },
+  {
+   "unit": "Marro Warriors",
+   "from": 50,
+   "to": 105
+  },
+  {
+   "unit": "Grimnak",
+   "from": 120,
+   "to": 160
+  },
+  {
+   "unit": "Me-Burq-Sa",
+   "from": 50,
+   "to": 70
+  },
+  {
+   "unit": "Deathreavers",
+   "from": 40,
+   "to": 60
+  },
+  {
+   "unit": "Sir Gilbert",
+   "from": 105,
+   "to": 150
+  },
+  {
+   "unit": "Knights of Weston",
+   "from": 70,
+   "to": 80
+  },
+  {
+   "unit": "MacDirk Warriors",
+   "from": 80,
+   "to": 65
+  },
+  {
+   "unit": "Kato Katsuro",
+   "from": 200,
+   "to": 160
+  },
+  {
+   "unit": "Zelrig",
+   "from": 185,
+   "to": 180
+  },
+  {
+   "unit": "Ashigaru Yari",
+   "from": 40,
+   "to": 30
+  },
+  {
+   "unit": "Ashigaru Harquebus",
+   "from": 60,
+   "to": 80
+  }
+ ],
+ "cards": [
+  {
+   "unit": "Acolarh",
+   "abilities": [
+    {
+     "ability": "Leaf of the Home Tree Aura",
+     "text": "When any Elf you control within 8 clear sight spaces of Acolarh would take enough wounds to be destroyed, you may roll 10 Ullar Valkyrie dice before removing the figure. If you roll at least 3 Ullar symbols, ignore any wounds that figure would have taken. Acolarh's Leaf of the Home Tree Aura does not affect Acolarh."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Agent Skahen",
+   "abilities": [
+    {
+     "ability": "Cover Fire",
+     "text": "After Agent Skahen attacks with a normal attack, if she inflicted one or more wounds, you may move one Vydar Tricky figure you control within 8 clear sight spaces of Agent Skahen up to 4 spaces. You cannot use Cover Fire to move Agent Skahen."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Airborne Elite",
+   "abilities": [
+    {
+     "ability": "Grenade Special Attack",
+     "text": "Range 5. Attack 2. Explosion 1. The Airborne Elite may only use Grenade Special Attack once per game. If they do, all attacking Airborne Elite must use Grenade Special Attack. If neither the attacking Airborne Elite nor the targeted figure are under an overhang, no line of sight is needed."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Anubian Wolves",
+   "abilities": [
+    {
+     "ability": "Unleashed Fury",
+     "text": "At the start of Anubian Wolves' turn, roll the 20-sided die. If you roll a 1, choose an Anubian Wolf you control and destroy it. If you roll any other result, increase the Attack Value of this card until the end of the Anubian Wolves' turn, as follows. If you roll 2-6, add 1 to its Attack Value. If you roll a 12-15, add 3 to its Attack Value. If you roll a 16-19, add 4 to its Attack Value. If you roll a 20, add 8 to its Attack Value."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Atlaga the Kyrie Warrior",
+   "abilities": [],
+   "notes": [
+    "Atlaga's wings are not a Hit Zone."
+   ]
+  },
+  {
+   "unit": "Blastatrons",
+   "abilities": [
+    {
+     "ability": "Homing Device",
+     "text": "When attacking a non-adjacent figure, add 1 to that Blastatron's Attack Value for every Vydar Soulborg you control adjacent to the defending figure."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Brandis Skyhunter",
+   "abilities": [
+    {
+     "ability": "Archer's Glory",
+     "text": "After taking a turn with Brandis Skyhunter, if he destroyed an opponent's non-adjacent Unique Hero, you may take another turn with Brandis."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Brave Arrow",
+   "abilities": [
+    {
+     "ability": "Concealment 10",
+     "text": "If Brave Arrow is targeted and would take 1 or more wounds from an attacking figure that is not adjacent, roll the 20-sided die. Count the minimum number of spaces between the attacker and Brave Arrow. Add this number to your roll. If you roll a 10 or higher, ignore those wounds."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Brunak",
+   "abilities": [
+    {
+     "ability": "Carry",
+     "text": "Before moving normally with Brunak, you may choose an unengaged friendly Small or Medium figure adjacent to Brunak. After you move Brunak, you may place the chosen figure adjacent to Brunak."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Chardris",
+   "abilities": [
+    {
+     "ability": "Fire Strike Special Attack",
+     "text": "Range 6. Attack 2 + Special. When Chardris attacks with Fire Strike Special Attack, add 1 to Chardris' attack dice for every additional Elf Wizard you control within 3 clear sight spaces of Chardris, up to a maximum of +3 dice."
+    }
+   ],
+   "notes": [
+    "Chardris' Fireball is not a Hit Zone."
+   ]
+  },
+  {
+   "unit": "Charos",
+   "abilities": [
+    {
+     "ability": "Improved Counter Strike",
+     "text": "When Charos successfully defends against a normal attack from an adjacent figure, that figure takes 1 wound for each excess shield."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Crixus",
+   "abilities": [
+    {
+     "ability": "One Shield Defense",
+     "text": "When comparing Crixus's shield results to an attacker's skull results, if there are more skull results then shield results and at least one shield was rolled, Crixus blocks all skulls except for 1."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Deathreavers",
+   "abilities": [
+    {
+     "ability": "Scatter",
+     "text": "After a Deathreaver you control is attacked by an opponent's figure with a normal attack, you may move any 2 Deathreavers you control up to 4 spaces each."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Death Chasers of Thesk",
+   "abilities": [],
+   "notes": [
+    "The flowing cloak on the cloaked Death Chaser is a Hit Zone. The bandana on the other Death Chaser is not a Hit Zone."
+   ]
+  },
+  {
+   "unit": "Death Knights of Valkrill",
+   "abilities": [],
+   "notes": [
+    "The Death Knights' cloaks are Hit Zones."
+   ]
+  },
+  {
+   "unit": "Deathstalkers",
+   "abilities": [
+    {
+     "ability": "Maul",
+     "text": "When making a normal attack against a Small or Medium figure, if you roll a skull on every die, the defending figure cannot roll defense dice."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Deathwalker 9000",
+   "abilities": [
+    {
+     "ability": "Range Enhancement",
+     "text": "Soulborg Guards you control with a Range Value of 4 or more that are adjacent to Deathwalker 9000 add 2 to their Range Value."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Decker the Burrowbreaker",
+   "abilities": [
+    {
+     "ability": "Underground Movement",
+     "text": "Instead of moving normally with Decker the Burrowbreaker, you may place him onto an empty non-water space within 4 spaces of Decker that is no higher than 6 levels above or 3 levels below Decker's level. When Decker chooses to use Underground Movement, each figure he is engaged with may make a leaving engagement attack against him."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Dreadnoughts of Caraway Cavern",
+   "abilities": [
+    {
+     "ability": "The Captain's Way",
+     "text": "At the start of the game, choose a Unique Captain in your Army to be the Dreadnoughts of Caraway Cavern's Captain for this game. When attacked by a non-adjacent figure, add 1 to the Defense Value of a Dreadnought of Caraway Cavern if their chosen Captain is within 4 clear sight spaces."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Dünd",
+   "abilities": [
+    {
+     "ability": "Crippling Gaze",
+     "text": "At the start of Dünd's turn, you may choose a figure within 5 clear sight spaces of Dünd. Roll the 20-sided die. If you roll a 15 or higher, remove all Order Markers on the chosen figure's Army Card."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Earth Elemental",
+   "abilities": [
+    {
+     "ability": "Underground Movement",
+     "text": "Instead of moving normally with an Earth Elemental, you may place it onto an empty non-water space within 4 spaces of that Earth Elemental that is no higher than 6 levels above or 3 levels below that Earth Elemental's level. When an Earth Elemental chooses to use Underground Movement, each figure it is engaged with may make a leaving engagement attack against it."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Estivara",
+   "abilities": [
+    {
+     "ability": "Venom Ray Special Attack",
+     "text": "Range 5. Attack 3. If Venom Ray Special Attack would inflict at least 1 wound, roll the 20-sided die for Venom Damage.\n● If you roll a 10-19, add 1 to the number of wounds inflicted and roll again for Venom Damage.\n● If you roll a 20, destroy the defending figure."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Fire Elemental",
+   "abilities": [],
+   "notes": [
+    "The Target Point for a Fire Elemental is just below the top flame on its head, where the indentations for its eyes are."
+   ]
+  },
+  {
+   "unit": "Girushia, Grove Keeper",
+   "abilities": [
+    {
+     "ability": "Gift of the Forest",
+     "text": "At the end of a round, if Girushia is within 1 space of a tree or bush, you may remove 1 Wound Marker from this Army Card."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Glinerva the Kyrie Warrior",
+   "abilities": [
+    {
+     "ability": "Concealment 17",
+     "text": "If Glinerva is targeted and would take 1 or more wounds from an attacking figure who is not adjacent, you must roll the 20-sided die. Count the minimum number of spaces between the attacker and Glinerva. Add this number to your die roll. If you roll a 17 or higher, ignore those wounds."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Greenscale Warriors",
+   "abilities": [
+    {
+     "ability": "Loyalty to the Lizard King",
+     "text": "At the start of the game, choose a Unique Lizardfolk Hero or Unique Large or Huge Dragon in your Army to be the Greenscale Warriors' Lizard King. A Greenscale Warrior adds 1 to its Attack and Defense Values while its chosen Lizard King is within 2 clear sight spaces."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Grimnak",
+   "abilities": [
+    {
+     "ability": "Chomp",
+     "text": "Before attacking, you may choose 1 Small or Medium figure adjacent to Grimnak. If the chosen figure is a Squad figure, destroy it. If the chosen figure is a Hero figure, roll the 20-sided die. If you roll a 16 or higher, destroy the chosen Hero."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Gurei-Oni",
+   "abilities": [
+    {
+     "ability": "Evil Eye Defense",
+     "text": "When Gurei-Oni successfully defends against a normal attack from a non-adjacent attacking figure, the attacking figure takes 1 wound for each excess shield."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Horned Skull Brutes",
+   "abilities": [
+    {
+     "ability": "Expendable Rabble",
+     "text": "If a Horned Skull Brute you control is attacked with a normal attack by an opponent's figure and would take 1 or more wounds, you may destroy a small Goblin figure you control that is adjacent to that Horned Skull Brute to ignore those wounds."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Ice Troll Berserker",
+   "abilities": [],
+   "notes": [
+    "The Ice Troll's coverings are a Hit Zone."
+   ]
+  },
+  {
+   "unit": "Izumi Samurai",
+   "abilities": [
+    {
+     "ability": "Counter Strike",
+     "text": "When an Izumi Samurai successfully defends against a normal attack from an adjacent figure that is not a Samurai, the attacking figure takes 1 wound for each excess shield."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Johnny \"Shotgun\" Sullivan",
+   "abilities": [],
+   "notes": [
+    "Johnny's jacket is a Hit Zone. The brim of his hat is not a Hit Zone."
+   ]
+  },
+  {
+   "unit": "Kaemon Awa",
+   "abilities": [
+    {
+     "ability": "Quick Release Special Attack",
+     "text": "Range 4. Attack 4. Kaemon Awa may attack up to 2 times with Quick Release Special Attack."
+    },
+    {
+     "ability": "Counter Strike",
+     "text": "When Kaemon Awa successfully defends against a normal attack from an adjacent figure that is not a Samurai, the attacking figure takes 1 wound for each excess shield."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Kato Katsuro",
+   "abilities": [
+    {
+     "ability": "Kato Katsuro's Command",
+     "text": "After revealing an Order Marker on Kato Katsuro, instead of taking a turn with him, you may take a turn with one of the following that you control:\n● 1 Samurai Hero.\n● 1 Samurai Squad.\n● Up to 2 Ashigaru Army Cards with different names. Any figure other than Kato Katsuro that is taking a turn with Kato Katsuro's Command must be within clear sight of Kato Katsuro to be activated."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Kee-Mo-Shi",
+   "abilities": [
+    {
+     "ability": "Toxic Skin 17",
+     "text": "At the end of Kee-Mo-Shi's turn, you must roll the 20-sided die once for each figure adjacent to Kee‑Mo‑Shi. If you roll a 17 or higher, that figure takes 1 wound. Soulborgs are not affected by Toxic Skin 17."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Knaves of the Silver Scimitar",
+   "abilities": [
+    {
+     "ability": "The Captain's Way",
+     "text": "At the start of the game, choose a Unique Captain in your Army to be the Knaves of the Silver Scimitar's Captain for this game. When attacked by a non-adjacent figure, add 1 to the Defense Value of a Knave of the Silver Scimitar if their chosen Captain is within 4 clear sight spaces."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Kozuke Samurai",
+   "abilities": [
+    {
+     "ability": "Counter Strike",
+     "text": "When Kozuke Samurai successfully defend against a normal attack from an adjacent attacking figure that is not a Samurai, the attacking figure takes 1 wound for each excess shield."
+    },
+    {
+     "ability": "Charging Assault",
+     "text": "Before moving with an unengaged Kozuke Samurai, you may add 3 to that Samurai's Move Value if that Samurai could move adjacent to an enemy figure with the increased Move Value. If a Samurai uses Charging Assault, it must end his movement adjacent to an enemy figure, if possible."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Krakenling",
+   "abilities": [
+    {
+     "ability": "Warp Space",
+     "text": "Instead of moving normally with a Krakenling, you may place that Krakenling on an empty space within 4 spaces. When a Krakenling chooses to use Warp Space, each figure it is engaged with may make a leaving engagement attack against it."
+    },
+    {
+     "ability": "Eldritch Switch",
+     "text": "After moving normally with a Krakenling, that Krakenling may switch spaces with an adjacent single-space figure. Figures moved by Eldritch Switch never take any leaving engagement attacks."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Loviatäk the Kyrie Warrior",
+   "abilities": [
+    {
+     "ability": "Deadly Strike",
+     "text": "When rolling attack dice with Loviatäk, each skull rolled counts for one additional skull."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "MacDirk Warriors",
+   "abilities": [
+    {
+     "ability": "Highland Fury",
+     "text": "At the start of the game, choose a Human Champion you control to be the Chieftain for all MacDirk Warriors you control. While their Chieftain is on the battlefield, MacDirk Warriors you control increase their Attack Value by 1 for each Wound their Chieftain has. MacDirk Warriors cannot attack their Chieftain."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Marrden Hounds",
+   "abilities": [
+    {
+     "ability": "Wild Pack Movement",
+     "text": "At the start of the Marrden Hounds' turn, roll the 20-sided die. Increase the Move Value of this card until the end of the Marrden Hound's turn, as follows. If you roll a 1-3, add 1 to its Move Value. If you roll a 4-6, add 3 to its Move Value. If you roll a 7-20, add 7 its Move Value."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Marrden Nagrubs",
+   "abilities": [
+    {
+     "ability": "Hivelord Life Bonding",
+     "text": "Before taking a turn with Marrden Nagrubs, you may first take a turn with any Hivelord you control. At the start of that Hivelord's turn, you may destroy 1 adjacent Marrden Nagrub you control. If you do, remove 1 Wound Marker from the chosen Hivelord's Army Card."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Marro Drones",
+   "abilities": [
+    {
+     "ability": "Hive Swarm",
+     "text": "At the start of Marro Drones' turn, roll the 20-sided die. If you roll a 1-12, you may move and attack with up to 3 Marro Drones you control. If you roll a 13-16, you may move and attack with up to 6 Marro Drones you control. If you roll a 17-20, you may move and attack with up to 9 Marro Drones you control."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Marro Hive",
+   "abilities": [],
+   "notes": [
+    "If the Marro Hive was placed on the battlefield by a player as part of their Army, when it is destroyed remove the Hive and its 6-hex swamp water tile base. If the Marro Hive was placed on the battlefield as directed by a scenario, when it is destroyed remove the Hive and leave the 6-hex swamp water tile base on the battlefield."
+   ]
+  },
+  {
+   "unit": "Master of the Hunt",
+   "abilities": [
+    {
+     "ability": "Mortal Strike",
+     "text": "When an opponent's Unique Hero takes 1 or more wounds from a normal attack from this Master of the Hunt, roll 1 combat die for each wound inflicted in that attack. For each additional skull rolled, the defending figure takes 1 wound."
+    }
+   ],
+   "notes": [
+    "The Master of the Hunt's skirt is a Hit Zone."
+   ]
+  },
+  {
+   "unit": "Microcorp Agents",
+   "abilities": [
+    {
+     "ability": "Stealth Armor 15",
+     "text": "When a Microcorp Agent would take 1 or more wounds, roll the 20-sided die. If you roll a 15 or higher, ignore those wounds."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Migol Ironwill",
+   "abilities": [
+    {
+     "ability": "Deadly Strike",
+     "text": "When rolling attack dice with Migol Ironwill, each skull rolled counts for one additional skull."
+    },
+    {
+     "ability": "One Shield Defense",
+     "text": "When comparing Migol Ironwill's shield results to an attacker's skull results, if there are more skull results then shield results and at least one shield was rolled, Migol blocks all skulls except for 1."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Mimring",
+   "abilities": [
+    {
+     "ability": "Fire Line Special Attack",
+     "text": "Attack 4, Line 8."
+    }
+   ],
+   "notes": [
+    "Mimring can use his horns as a secondary Target Point."
+   ]
+  },
+  {
+   "unit": "Minions of Utgar",
+   "abilities": [
+    {
+     "ability": "Deadly Strike",
+     "text": "When rolling attack dice with a Minion of Utgar, each skull rolled counts for one additional skull."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Mohican River Tribe",
+   "abilities": [
+    {
+     "ability": "Concealment 19",
+     "text": "When a Mohican River Tribesman you control is targeted by and would take 1 or more wounds from an attacking figure that is not adjacent, roll the 20-sided die. Count the minimum number of spaces between the attacker and the Mohican River Tribesman. Add this number to your die roll. If you roll a 19 or higher, ignore those wounds."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Omnicron Snipers",
+   "abilities": [
+    {
+     "ability": "Deadly Shot",
+     "text": "When rolling attack dice with an Omnicron Sniper, each skull rolled counts for one additional skull."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Othkurik the Black Dragon",
+   "abilities": [],
+   "notes": [
+    "Othkurik can use his neck spikes as a secondary Target Point."
+   ]
+  },
+  {
+   "unit": "Parmenio",
+   "abilities": [
+    {
+     "ability": "Disciplined Influence",
+     "text": "At the start of the game, you may choose any Unique Army Card in your Army. For this game the chosen card's Personality is Disciplined, regardless of what is listed on the card."
+    },
+    {
+     "ability": "Sacred Band Defy Death 15",
+     "text": "When an adjacent Sacred Band figure you control would take 1 or more wounds, roll the 20-sided die before removing that figure. If you roll a 15 or higher, ignore any wounds."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Pelloth",
+   "abilities": [
+    {
+     "ability": "Lolth's Wrath",
+     "text": "Before attacking with Pelloth, you may choose a Drow figure you control that is within 5 clear sight spaces of Pelloth and roll 3 attack dice. One at a time for each skull rolled, you may inflict 1 wound on any Small or Medium figure that is within 2 clear sight spaces of the chosen Drow figure. You may inflict more than 1 wound on a single figure using Lolth's Wrath. After using Lolth's Wrath, destroy the chosen Drow figure."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Protectors of Ullar",
+   "abilities": [],
+   "notes": [
+    "The Protectors' wings are not a Hit Zone."
+   ]
+  },
+  {
+   "unit": "Rhogar Dragonspine",
+   "abilities": [
+    {
+     "ability": "Dragon Breath Special Attack",
+     "text": "Attack 3. Line 3."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Roman Legionnaires",
+   "abilities": [
+    {
+     "ability": "Shield Wall",
+     "text": "When defending with a Roman Legionnaire, increase that Roman Legionnarie's Defense Value by 1 for each adjacent Roman Legionnaire you control, to a maximum of +2."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Sharwin Wildborn",
+   "abilities": [
+    {
+     "ability": "Arcane Riposte",
+     "text": "When Sharwin Wildborn successfully defends against a normal attack, the attacking figure takes 1 wound for each excess shield."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Sentinels of Jandar",
+   "abilities": [],
+   "notes": [
+    "The Sentinels of Jandar's height is 6."
+   ]
+  },
+  {
+   "unit": "Siege",
+   "abilities": [],
+   "notes": [
+    "Siege's cloak is a Hit Zone."
+   ]
+  },
+  {
+   "unit": "Sir Dupuis",
+   "abilities": [
+    {
+     "ability": "Tactical Disengagement 7",
+     "text": "If Sir Dupuis would take 1 or more wounds from a leaving engagement attack, roll the 20-sided die. If you roll a 7 or higher, ignore those wounds."
+    }
+   ],
+   "notes": [
+    "Sir Dupuis' shield is not a Hit Zone."
+   ]
+  },
+  {
+   "unit": "Shades of Bleakewoode",
+   "abilities": [
+    {
+     "ability": "Soul Devour 19",
+     "text": "At the start of Shades of Bleakewoode's turn, each Shade of Bleakewoode you control may choose an adjacent Unique Hero. Roll the 20-sided die once for each Shade. If you roll a 19 or higher, destroy that Shade of Bleakewoode, then take control of the chosen Unique Hero and remove any Order Markers on its Army Card. You now control that Army Card."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Shiori (2.0)",
+   "abilities": [
+    {
+     "ability": "Kieru 14",
+     "text": "If Shiori is attacked with a normal or special attack and would take 1 or more wounds, roll the 20-sided die. If you roll a 14 or higher, you may place Shiori on an empty space within 2 spaces of Shiori that is not more than 6 levels above or below Shiori's level. If you do, ignore those wounds."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Shurrak",
+   "abilities": [
+    {
+     "ability": "Knockback",
+     "text": "After Shurrak attacks, you may roll the 20-sided die for each Small or Medium figure Shurrak attacked this turn that was not destroyed by that attack, one at a time. If you roll a 14 or higher, place that figure on any empty space within 3 clear sight spaces of Shurrak. The space must be on the same level as or lower than its current location. A figure moved by Knockback never takes any leaving engagement attacks. A non-flying figure moved lower by Knockback can take any falling damage that may apply."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Sonlen",
+   "abilities": [
+    {
+     "ability": "Dragon Healing",
+     "text": "At the start of Sonlen's turn, you may choose Sonlen or a Hero figure within 4 clear sight spaces of Sonlen. Roll the 20-sided die. If you roll a 15 or higher, remove one Wound Marker from the chosen Hero's Army Card."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Sujoah",
+   "abilities": [
+    {
+     "ability": "Poison Sting Special Attack",
+     "text": "Range 1. Attack 4. If Poison Sting Special Attack would inflict at least 1 wound, roll the 20-sided die for Poison Damage:\n● If you roll a 10-19, add 1 to the number of wounds inflicted and roll again for Poison Damage.\n● If you roll a 20, destroy the defending figure."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Swog Rider",
+   "abilities": [
+    {
+     "ability": "Orc Archer Enhancement",
+     "text": "All friendly Orc Archers add 1 to their Attack and Defense Values for each adjacent Swog Rider you control."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Taelord the Kyrie Warrior",
+   "abilities": [],
+   "notes": [
+    "Replace FLYING with STEALTH FLYING."
+   ]
+  },
+  {
+   "unit": "Tagawa Samurai",
+   "abilities": [
+    {
+     "ability": "Counter Strike",
+     "text": "When Tagawa Samurai successfully defend against a normal attack from an adjacent attacking figure that is not a Samurai, the attacking figure takes 1 wound for each excess shield."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Tagawa Samurai Archers",
+   "abilities": [
+    {
+     "ability": "Counter Strike",
+     "text": "When Tagawa Samurai Archers successfully defend against a normal attack from an adjacent attacking figure that is not a Samurai, the attacking figure takes 1 wound for each excess shield."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Tandros Kreel",
+   "abilities": [
+    {
+     "ability": "Cleave",
+     "text": "When Tandros Kreel attacks an adjacent figure, before rolling attack dice, you may choose 1 Squad figure that is also adjacent to Tandros Kreel. If the defending figure takes any wounds from Tandros Kreel's attack, the chosen figure takes 1 wound."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Templar Cavalry",
+   "abilities": [],
+   "notes": [
+    "The symbol on the Templar Cavalry card should be Jandar, not Einar."
+   ]
+  },
+  {
+   "unit": "Theracus",
+   "abilities": [
+    {
+     "ability": "Carry",
+     "text": "Before moving normally with Theracus, you may choose an unengaged friendly Small or Medium figure adjacent to Theracus. After you move Theracus, you may place the chosen figure adjacent to Theracus."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Torin",
+   "abilities": [
+    {
+     "ability": "Evil Eye Protection",
+     "text": "When Torin or an adjacent friendly Small or Medium Utgar figure successfully defends against a normal attack from a non-adjacent figure, the attacking figure takes 1 wound for each excess shield."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Tor-Kul-Na",
+   "abilities": [
+    {
+     "ability": "Trample Stomp",
+     "text": "At any point while moving normally, if Tor-Kul-Na is on a space where he can end his movement, you may choose a Small or Medium figure that is adjacent, on the same level, and on a space where Tor-Kul-Na could end his movement if that figure was not present. Roll the 20-sided die. If you roll 1-7, Tor-Kul-Na's movement ends. If you roll 8-20, the chosen figure takes 1 wound. After using Trample Stomp, Tor-Kul-Na must move onto the space the chosen figure occupied, if possible, and may continue his movement. Otherwise, Tor-Kul-Na's movement ends."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Ulginesh",
+   "abilities": [
+    {
+     "ability": "Mind Link",
+     "text": "After revealing an Order Marker on Ulginesh, instead of taking a turn with him, you may take a turn with up to 2 other Elf Wizards you control. Any Elf Wizard that is taking a turn instead of Ulginesh must be within 6 clear sight spaces of Ulginesh before moving."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Wing Commander Tuck Harrigan",
+   "abilities": [],
+   "notes": [
+    "Wing Commander Tuck Harrigan's gun is not a hit zone."
+   ]
+  },
+  {
+   "unit": "Xenithrax the Vineweaver",
+   "abilities": [],
+   "notes": [
+    "Xenithrax can use her horns as a secondary Target Point."
+   ]
+  },
+  {
+   "unit": "Xiamara the Kyrie Warrior",
+   "abilities": [
+    {
+     "ability": "Amulet of Paivatar",
+     "text": "When a Kyrie you control who follows Ullar within 6 clear sight spaces of Xiamara the Kyrie Warrior would receive 1 or more wounds, you may roll the 20-sided die. If you roll an 8-16, ignore all but 1 wound. If you roll a 17 or higher, ignore all wounds. Amulet of Paivatar does not affect Xiamara."
+    }
+   ],
+   "notes": []
+  },
+  {
+   "unit": "Zetacron",
+   "abilities": [
+    {
+     "ability": "Deadly Shot",
+     "text": "When rolling attack dice with Zetracron, each skull rolled counts for one additional skull."
+    }
+   ],
+   "notes": []
+  }
+ ],
+ "source": "Heroscape: Age of Annihilation All Time Format FAQ, October 2nd 2026",
+ "missing": [
+  "Hatamoto Taro",
+  "Hatamoto Taro"
+ ]
+}

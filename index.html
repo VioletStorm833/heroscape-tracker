@@ -47,6 +47,7 @@
   <div class="hs-links">
     <a href="https://heroscape.renegadegamestudios.com/" target="_blank" rel="noopener noreferrer"><span data-ek="t28dcfdc8">Buy Heroscape at Renegade ↗</span></a>
     <a href="https://heroscape.org/ohs" target="_blank" rel="noopener noreferrer"><span data-ek="t25daa496">Play online at heroscape.org ↗</span></a>
+    <a href="https://www.heroscapers.com/" target="_blank" rel="noopener noreferrer"><span data-ek="t82f38576">Forums ↗</span></a>
   </div>
   <div class="hs-card hs-ctl" id="filters" hidden>
     <div class="hs-controls">
@@ -78,6 +79,7 @@
       <label class="hs-field"><span data-ek="t983a78fe">Personality</span><select data-f="pers"></select></label>
       <label class="hs-field"><span data-ek="taf29990a">Size</span><select data-f="size"></select></label>
       <label class="hs-field"><span data-ek="tc5b80f9d">Bonding</span><select data-f="bond"></select></label>
+      <label class="hs-field hs-errata-f"><span><span data-ek="t54de0ecc">Errata</span></span><span class="hs-chk"><input type="checkbox" class="hs-errata"> <span data-ek="t723185ca">Use FAQ errata</span></span></label>
       <div class="hs-field"><span data-ek="tb045cf35">Bonds with</span>
         <select class="hs-bw" aria-label="Bonds with unit"></select>
         <div class="hs-seg hs-bwdir" role="group" aria-label="Bond direction">
@@ -99,6 +101,15 @@
     <p class="hs-note hs-bwinfo" hidden style="margin: var(--cds-gap-sm) 0 0"></p>
   </div>
   <section class="hs-page" id="home" data-eorder="home">
+    <div class="hs-card home-era" data-eitem="era">
+      <div class="hs-field"><span data-ek="td99e1395">Cards on the site</span>
+        <div class="hs-seg hs-era" role="group" aria-label="Which cards the site shows">
+          <button type="button" data-era="now" aria-pressed="true"><span data-ek="t597bd279">Contemporary</span></button>
+          <button type="button" data-era="classic" aria-pressed="false"><span data-ek="t20a33f4c">Old school</span></button>
+          <button type="button" data-era="all" aria-pressed="false"><span data-ek="t0f77e8ab">All time</span></button>
+        </div>
+      </div>
+    </div>
     <div class="home-unit" data-eitem="unit"><div class="hu-out"></div><button type="button" class="hs-btn hu-next"><span data-ek="tc603f6f4">Show another</span></button></div>
     <div class="home-index" data-eitem="index"></div>
   </section>
@@ -337,6 +348,10 @@
           <label class="hs-field"><span data-ek="t5a588e17">Point limit</span><input type="number" class="hs-limit hs-num" min="0" max="9999" step="50" value="500"></label>
           <button type="button" class="hs-btn hs-clear"><span data-ek="t2430b7fb">Clear army</span></button>
           <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg)"><input type="checkbox" class="hs-pickowned"> <span data-ek="t6f3a81a0">Only list units I own</span></label>
+          <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg)"><input type="checkbox" class="a-advon"> <span data-ek="t8cd5f56a">Advanced options</span></label>
+        </div>
+        <div class="hs-armyadd a-adv" hidden>
+          <label class="hs-chk"><input type="checkbox" class="hs-errata"> <span data-ek="t4e604774">Use FAQ errata (points updates and card text)</span></label>
         </div>
         <p class="hs-note hs-ownwarn" hidden></p>
         <div class="hs-tiles" data-source="units">
@@ -748,11 +763,17 @@
   <section class="hs-page" id="rules" hidden>
     <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
       <h3 style="margin-top: 0"><span data-ek="t25615a4c">Master rules</span></h3>
+      <div class="hs-seg rb-book-seg" role="group" aria-label="Which document">
+        <button type="button" data-book="rules" aria-pressed="true"><span data-ek="t0eadb48d">Master rulebook</span></button>
+        <button type="button" data-book="faq" aria-pressed="false"><span data-ek="t581c466d">FAQ &amp; errata</span></button>
+      </div>
+      <div class="rb-own">
       <p class="hs-note"><span data-ek="tb257e3eb">You can also open a different rulebook PDF from your device. It is read in your browser and never uploaded.</span></p>
       <div class="hs-armyadd">
         <label class="hs-field"><span data-ek="t5f14e17e">Other rulebook PDF</span><input type="file" class="rb-file" accept="application/pdf,.pdf"></label>
         <label class="hs-chk"><input type="checkbox" class="rb-keep" checked> <span data-ek="tdfb4acd8">Keep it in this browser for next time</span></label>
         <button type="button" class="hs-btn rb-forget" hidden><span data-ek="tb93de858">Back to the site rulebook</span></button>
+      </div>
       </div>
       <p class="hs-note rb-msg" aria-live="polite"></p>
     </div>
@@ -767,7 +788,7 @@
         <button type="button" class="hs-btn rb-zfit" hidden><span data-ek="t84af3dd4">Fit page</span></button>
       </div>
       <div class="rb-bar rb-findbar">
-        <label class="hs-field rb-findf"><span data-ek="t445b8869">Find in rulebook</span><input type="search" class="rb-find" placeholder="Ctrl+F" autocomplete="off"></label>
+        <label class="hs-field rb-findf"><span class="rb-findl"><span data-ek="t445b8869">Find in rulebook</span></span><input type="search" class="rb-find" placeholder="Ctrl+F" autocomplete="off"></label>
         <button type="button" class="hs-btn rb-fprev" aria-label="Previous match" disabled><span data-ek="tfb7853ec">▲</span></button>
         <button type="button" class="hs-btn rb-fnext" aria-label="Next match" disabled><span data-ek="t59e0ec9a">▼</span></button>
         <span class="rb-hits hs-note" aria-live="polite"></span>

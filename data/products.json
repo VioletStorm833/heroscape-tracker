@@ -1,1 +1,2638 @@
-[{"id":"aoa","name":"Age of Annihilation Master Set","kind":"Master set","date":"2024-08","wave":"Age of Annihilation","units":["Raelin the Kyrie Warrior (3.0)","Loviatäk the Kyrie Warrior","Misaerx the Kyrie Warrior","Raakchott, Steward of Death","Knight Irene","Dorim the Bulkhead Brawler","Frostclaw Paladins","Knaves of the Silver Scimitar","Exiles of the Sundered Sea","Xenithrax the Vineweaver","Admiral EJ-1M"],"terrain":[{"t":"grass","s":"24","n":6},{"t":"grass","s":"7","n":4},{"t":"grass","s":"3","n":2},{"t":"grass","s":"2","n":6},{"t":"grass","s":"1","n":10},{"t":"rock","s":"24","n":2},{"t":"rock","s":"7","n":2},{"t":"rock","s":"3","n":1},{"t":"rock","s":"2","n":5},{"t":"rock","s":"1","n":4},{"t":"sand","s":"7","n":2},{"t":"sand","s":"3","n":1},{"t":"sand","s":"2","n":5},{"t":"sand","s":"1","n":4},{"t":"water","s":"1","n":20},{"t":"laurwall","s":"Big thin wall","n":1},{"t":"laurwall","s":"Wall ruin","n":2},{"t":"laurwall","s":"Small thin wall","n":4},{"t":"laurwall","s":"Single wall connector","n":8},{"t":"laurwall","s":"Wall connector base","n":8}],"note":"Scenario book lists 20 water tiles without a size; counted here as 1-hex.","url":"https://heroscape.renegadegamestudios.com/heroscape-age-of-annihilation-master-set/"},{"id":"bftw","name":"Battle for the Wellspring Battle Box","kind":"Battle box","date":"2024-08","wave":"Age of Annihilation","units":["Killian Vane III","Fia Bonny the Void Siren","Bok-Bur-Na","Ewashia, Master of Tides","Kita the Springrunner","Onshu the Welkineye"],"terrain":[{"t":"grass","s":"24","n":2},{"t":"grass","s":"7","n":3},{"t":"grass","s":"3","n":3},{"t":"grass","s":"1","n":4},{"t":"rock","s":"7","n":2},{"t":"rock","s":"3","n":2},{"t":"rock","s":"1","n":2},{"t":"water","s":"1","n":6},{"t":"wellspring","s":"1","n":7},{"t":"laurtree","s":"14H","n":2}],"note":"Water tile sizes are not printed in the contents list; counted here as 1-hex.","url":"https://heroscape.renegadegamestudios.com/heroscape-battle-for-the-wellspring-battle-box/"},{"id":"grove","name":"The Grove at Laur's Edge","kind":"Terrain","date":"2024-08","wave":"Age of Annihilation","terrain":[{"t":"laurtree","s":"12H","n":1},{"t":"laurtree","s":"13H","n":1},{"t":"laurtree","s":"14H","n":1},{"t":"underbrush","s":"10H","n":6}],"url":"https://heroscape.renegadegamestudios.com/heroscape-the-grove-at-laurs-edge-terrain-expansion/"},{"id":"kyrie","name":"Revna's Rebuke: Kyrie Warriors","kind":"Army expansion","date":"2024-10","wave":"Revna's Rebuke","units":["Queen Qhyrion","Kilkorax the Kyrie Warrior","Mielki the Kyrie Warrior","Xiamara the Kyrie Warrior","Glinerva the Kyrie Warrior"]},{"id":"viscerot","name":"Revna's Rebuke: Iron Lich Viscerot & Necrotech Wraithriders","kind":"Army expansion","date":"2024-10","wave":"Revna's Rebuke","units":["Iron Lich Viscerot","Necrotech Wraithriders"]},{"id":"lands","name":"Lands of Valhalla","kind":"Terrain","date":"2024-10","wave":"Revna's Rebuke","terrain":[{"t":"grass","s":"24","n":2},{"t":"grass","s":"7","n":5},{"t":"grass","s":"3","n":3},{"t":"grass","s":"2","n":7},{"t":"grass","s":"1","n":10},{"t":"rock","s":"24","n":2},{"t":"rock","s":"7","n":3},{"t":"rock","s":"3","n":2},{"t":"rock","s":"2","n":6},{"t":"rock","s":"1","n":5},{"t":"sand","s":"24","n":2},{"t":"sand","s":"7","n":3},{"t":"sand","s":"3","n":2},{"t":"sand","s":"2","n":6},{"t":"sand","s":"1","n":5}],"url":"https://heroscape.renegadegamestudios.com/heroscape-lands-of-valhalla-terrain-expansion/"},{"id":"waters","name":"Waters of Valhalla","kind":"Terrain","date":"2024-10","wave":"Revna's Rebuke","terrain":[{"t":"water","s":"1","n":24},{"t":"water","s":"3","n":5},{"t":"wellspring","s":"1","n":6}],"url":"https://heroscape.renegadegamestudios.com/heroscape-waters-of-valhalla-terrain-expansion/"},{"id":"adelbern","name":"Knight Primus Adelbern & Ordo Borealis","kind":"Army expansion","date":"2025-02","wave":"Rising Tide","units":["Knight Primus Adelbern","Ordo Borealis"]},{"id":"sonlen","name":"Sonlen & Halushia, Scion of the Wild","kind":"Army expansion","date":"2025-02","wave":"Rising Tide","units":["Sonlen (2.0)","Halushia, Scion of the Wild"]},{"id":"mandukor","name":"Hellforge Mandukor","kind":"Army expansion","date":"2025-02","wave":"Rising Tide","units":["Hellforge Mandukor"]},{"id":"swamps","name":"The Swamps of Valhalla","kind":"Terrain","date":"2025-02","wave":"Rising Tide","terrain":[{"t":"swamp","s":"24","n":2},{"t":"swamp","s":"7","n":5},{"t":"swamp","s":"3","n":2},{"t":"swamp","s":"2","n":2},{"t":"swamp","s":"1","n":2},{"t":"swampwater","s":"1","n":20},{"t":"swampwater","s":"3","n":3},{"t":"swampbrush","s":"Underbrush","n":2}],"url":"https://heroscape.renegadegamestudios.com/heroscape-the-swamps-of-valhalla-terrain-expansion/"},{"id":"snow","name":"The Snow Fields of Valhalla","kind":"Terrain","date":"2025-02","wave":"Rising Tide","terrain":[{"t":"snow","s":"24","n":2},{"t":"snow","s":"7","n":5},{"t":"snow","s":"3","n":2},{"t":"snow","s":"2","n":2},{"t":"snow","s":"1","n":2},{"t":"ice","s":"1","n":20},{"t":"ice","s":"3","n":3},{"t":"snowtree","s":"10H","n":1},{"t":"snowtree","s":"12H","n":1}],"url":"https://heroscape.renegadegamestudios.com/heroscape-the-snow-fields-of-valhalla-terrain-expansion/"},{"id":"maladrix","name":"Queen Maladrix & Festering Honor Guard","kind":"Army expansion","date":"2025-04","wave":"Rising Tide","units":["Queen Maladrix the Conqueror","Festering Honor Guard"]},{"id":"oathbound","name":"Oathbound Legionnaires & Oathbound Phalanx","kind":"Army expansion","date":"2025-04","wave":"Rising Tide","units":["Oathbound Legionnaires","Oathbound Phalanx"]},{"id":"tuck","name":"Wing Commander Tuck Harrigan & Vorid Glide Strikers","kind":"Army expansion","date":"2025-04","wave":"Rising Tide","units":["Wing Commander Tuck Harrigan","Vorid Glide Strikers"],"url":"https://heroscape.renegadegamestudios.com/heroscape-rising-tide-wing-commander-tuck-harrigan-vorid-glidestrikers-army-expansion/"},{"id":"zed","name":"Air Marshal Zed Nesbitt","kind":"Army expansion","date":"2025-06","wave":"Boiling Tension","units":["Air Marshal Zed Nesbitt"]},{"id":"crustaceans","name":"Molten Crustaceans & Tanuki Tricksters","kind":"Army expansion","date":"2025-08","wave":"Boiling Tension","units":["Molten Crustaceans","Tanuki Tricksters"]},{"id":"acolytes","name":"Revnan Acolytes & Grave Grim","kind":"Army expansion","date":"2025-08","wave":"Boiling Tension","units":["Revnan Acolytes","Grave Grim"]},{"id":"scavorith","name":"Scavorith, Lord of Ruin","kind":"Army expansion","date":"2025-08","wave":"Boiling Tension","units":["Scavorith, Lord of Ruin"]},{"id":"kayne","name":"Imperator Kayne","kind":"Army expansion","date":"2025-08","wave":"Boiling Tension","units":["Imperator Kayne"]},{"id":"lava","name":"The Lava Fields of Valhalla","kind":"Terrain","date":"2025-08","wave":"Boiling Tension","terrain":[{"t":"lavafield","s":"24","n":2},{"t":"lavafield","s":"7","n":5},{"t":"lavafield","s":"3","n":2},{"t":"lavafield","s":"2","n":2},{"t":"lavafield","s":"1","n":2},{"t":"moltenlava","s":"1","n":20},{"t":"moltenlava","s":"3","n":3},{"t":"lavarock","s":"3","n":1},{"t":"lavarock","s":"1","n":3}],"url":"https://heroscape.renegadegamestudios.com/heroscape-the-lava-fields-of-valhalla-terrain-expansion/"},{"id":"glyphpack","name":"Glyph Pack","kind":"Accessory","date":"2025-08","wave":"Boiling Tension","note":"16 glyphs and 17 treasure glyphs."},{"id":"arboreas","name":"Heroes of Arboreas","kind":"Army expansion","date":"2025-10","wave":"Embers of War","units":["Chana the Zenithwing","Vrono the Brambletooth","Girushia, Grove Keeper","Marachott, Mind Whisperer","Haluchott, Corruptor of Beasts"]},{"id":"widow","name":"Crimson Widow & Dreadnoughts of Caraway Cavern","kind":"Army expansion","date":"2025-10","wave":"Embers of War","units":["Crimson Widow","Dreadnoughts of Caraway Cavern"]},{"id":"greatbow","name":"Greatbow Archers & Scions of Icaria","kind":"Army expansion","date":"2025-10","wave":"Embers of War","units":["Greatbow Archers","Scions of Icaria"]},{"id":"krakenling","name":"Krakenling & Gelryie Vanguards","kind":"Army expansion","date":"2025-10","wave":"Embers of War","units":["Krakenling","Gelryie Vanguards"]},{"id":"roads","name":"The Roads of Valhalla","kind":"Terrain","date":"2025-10","wave":"Embers of War","terrain":[{"t":"road","s":"1","n":16},{"t":"road","s":"5","n":2},{"t":"bridgewall","s":"Short wall","n":4}],"url":"https://heroscape.renegadegamestudios.com/heroscape-roads-of-valhalla-terrain-expansion/"},{"id":"ruins","name":"The Ruins at Laur's Edge","kind":"Terrain","date":"2025-10","wave":"Embers of War","terrain":[{"t":"laurwall","s":"Big wall","n":5},{"t":"laurwall","s":"Big wall arch","n":1},{"t":"laurwall","s":"Small wall","n":5},{"t":"laurwall","s":"Small wall connector","n":6},{"t":"laurwall","s":"Wall ruin","n":4},{"t":"laurwall","s":"Wall connector base","n":10},{"t":"laurwall","s":"Triangular small wall connector","n":4}],"url":"https://heroscape.renegadegamestudios.com/heroscape-the-ruins-at-laur-s-edge-terrain-expansion/"},{"id":"dicetray","name":"Valhalla Dice & Tray Set","kind":"Accessory","date":"2025-10","wave":"Embers of War","note":"Map dice tray, 10 combat dice and a 20-sided die."},{"id":"caverns","name":"The Caverns of Valhalla","kind":"Terrain","date":"2026-02","terrain":[{"t":"dungeon","s":"24","n":2},{"t":"dungeon","s":"7","n":5},{"t":"dungeon","s":"3","n":2},{"t":"dungeon","s":"2","n":2},{"t":"dungeon","s":"1","n":7},{"t":"shadow","s":"1","n":14},{"t":"rockoutcrop","s":"3","n":1},{"t":"rockoutcrop","s":"1","n":3}],"note":"The product page says 30 hex tiles but its itemised list adds up to 32; the itemised list is used here.","url":"https://heroscape.renegadegamestudios.com/heroscape-the-caverns-of-valhalla-terrain-expansion/"},{"id":"painterset","name":"Army Painter Starter Set","kind":"Accessory","date":"2026-02","units":["Decker the Burrowbreaker"],"note":"Unpainted Decker the Burrowbreaker, a brush and ten paints."},{"id":"rumble","name":"G.I. JOE Rumble at the Rift Battle Box","kind":"Battle box","date":"2026-03","wave":"Yo, Joe!","units":["Snake Eyes","Duke","Roadblock","Scarlett","COBRA Commander","Destro","Doctor Mindbender","Storm Shadow (1.0)","Storm Shadow (2.0)"],"terrain":[{"t":"asphalt","s":"24","n":2},{"t":"concrete","s":"7","n":5},{"t":"concrete","s":"3","n":6},{"t":"toxic","s":"1","n":6},{"t":"shadow","s":"1","n":8},{"t":"toxicwater","s":"1","n":5},{"t":"fortification","s":"COBRA fortification wall","n":2}],"note":"One Storm Shadow figure; both Storm Shadow cards are listed here. The retailer list says 29 tiles but itemises 32."},{"id":"strikeforces","name":"G.I. JOE Strike Forces","kind":"Army expansion","date":"2026-03","wave":"Yo, Joe!","units":["Baroness","Lady Jaye","Crimson Twins","Jinx and Kamakura"]},{"id":"greenshirts","name":"G.I. JOE Greenshirts & Battle Copter","kind":"Army expansion","date":"2026-03","wave":"Yo, Joe!","units":["Greenshirts","Battle Copter"]},{"id":"cobratroopers","name":"G.I. JOE COBRA Troopers & COBRA Flight Pod","kind":"Army expansion","date":"2026-03","wave":"Yo, Joe!","units":["COBRA Troopers","COBRA Flight Pod"]},{"id":"urban","name":"The Urban Landscape of Valhalla","kind":"Terrain","date":"2026-03","wave":"Yo, Joe!","terrain":[{"t":"asphalt","s":"24","n":1},{"t":"asphalt","s":"7","n":2},{"t":"asphalt","s":"3","n":1},{"t":"asphalt","s":"2","n":4},{"t":"asphalt","s":"1","n":2},{"t":"concrete","s":"24","n":1},{"t":"concrete","s":"7","n":2},{"t":"concrete","s":"3","n":1},{"t":"concrete","s":"2","n":4},{"t":"concrete","s":"1","n":2},{"t":"fortification","s":"Fortified wall","n":2}],"note":"The product page heading says 30 tiles but itemises 20; the itemised list is used here.","url":"https://heroscape.renegadegamestudios.com/heroscape-the-urban-landscape-of-valhalla-terrain-expansion/"},{"id":"elites","name":"Elites of Ullar & Ranoc Vipers","kind":"Army expansion","date":"2026-04","wave":"Gathering Storm","units":["Elites of Ullar","Ranoc Vipers"]},{"id":"chaingruts","name":"Chain Gruts & Ramosaur Rider","kind":"Army expansion","date":"2026-04","wave":"Gathering Storm","units":["Chain Gruts","Ramosaur Rider"]},{"id":"forests","name":"Forests of Valhalla","kind":"Terrain","date":"2026-04","wave":"Gathering Storm","terrain":[{"t":"evergreen","s":"15H","n":2},{"t":"evergreen","s":"12H","n":2},{"t":"evergreen","s":"10H","n":2}],"url":"https://heroscape.renegadegamestudios.com/heroscape-forests-of-valhalla-terrain-expansion/"},{"id":"revenants","name":"Revenants of Revna & Nuckelavee","kind":"Army expansion","date":"2026-05","wave":"Thormun's Thunder","units":["Revenants of Revna","Nuckelavee"]},{"id":"skordyre","name":"Skordyre Soldiers","kind":"Army expansion","date":"2026-05","wave":"Thormun's Thunder","units":["Skordyre Infantry","Spitting Hive Soldier","Lurking Hive Soldier","Bursting Hive Soldier"]},{"id":"reavers","name":"Upgraded Necrotech Reavers","kind":"Army expansion","date":"2026-05","wave":"Thormun's Thunder","units":["Necrotech Reavers","Necrotech Ghoulgrip","Necrotech Ghastblade","Necrotech Geistfire"]},{"id":"thormun","name":"Thormun & Kraken","kind":"Army expansion","date":"2026-05","wave":"Thormun's Thunder","units":["Thormun","The Kraken"]},{"id":"shores","name":"Shores of Valhalla","kind":"Terrain","date":"2026-05","wave":"Thormun's Thunder","terrain":[{"t":"wood","s":"2","n":12},{"t":"ship","s":"Crashed ship bow","n":1},{"t":"ship","s":"Crashed ship wall","n":2},{"t":"ship","s":"Cannon","n":3},{"t":"ship","s":"Rope ladder","n":6}],"url":"https://heroscape.renegadegamestudios.com/heroscape-shores-of-valhalla-terrain-expansion/"},{"id":"blackscar","name":"Battle for Blackscar Battle Box","kind":"Battle box","date":"2026-07","wave":"Secrets of the Citadel","units":["Nishi Souta","\"Blink\" Dawson","Cainak, Private Eye","Sudema (2.0)","Corvynn the Rotbeak","Agent SI-4X"],"terrain":[{"t":"ancient","s":"24","n":2},{"t":"ancient","s":"7","n":2},{"t":"ancient","s":"3","n":4},{"t":"ancient","s":"1","n":4},{"t":"dungeon","s":"7","n":3},{"t":"dungeon","s":"1","n":2},{"t":"shadow","s":"1","n":8},{"t":"shroudshroom","s":"Young","n":2}],"url":"https://heroscape.renegadegamestudios.com/heroscape-battle-for-blackscar-battle-box/"},{"id":"expedition","name":"Clockwork Combine Research Expedition","kind":"Army expansion","date":"2026-07","wave":"Secrets of the Citadel","units":["Gimbal","The Eisen Expedition"],"url":"https://heroscape.renegadegamestudios.com/heroscape-clockwork-combine-research-expedition-army-expansion/"},{"id":"crookedcrew","name":"Crooked Crew of the Clockwork Combine","kind":"Army expansion","date":"2026-07","wave":"Secrets of the Citadel","units":["Takanawa Kaiga","Guilty McCreech (2.0)","Durnipia"]},{"id":"paragons","name":"Paragons of the New Alliance","kind":"Army expansion","date":"2026-07","wave":"Secrets of the Citadel","units":["Jeanne d'Arc","Concan the Kyrie Warrior (2.0)","Frizzt Galagan"],"url":"https://heroscape.renegadegamestudios.com/heroscape-paragons-of-the-new-alliance-army-expansion/"},{"id":"might","name":"Might of the New Alliance","kind":"Army expansion","date":"2026-07","wave":"Secrets of the Citadel","units":["Kha-Re-Ga","Gnarlfur Raiders"]},{"id":"ancientlands","name":"The Ancient Lands of Valhalla","kind":"Terrain","date":"2026-07","wave":"Secrets of the Citadel","terrain":[{"t":"ancient","s":"24","n":2},{"t":"ancient","s":"7","n":3},{"t":"ancient","s":"3","n":3},{"t":"ancient","s":"2","n":5},{"t":"ancient","s":"1","n":10},{"t":"shroudshroom","s":"Young","n":2},{"t":"shroudshroom","s":"Adult","n":1},{"t":"shroudshroom","s":"Ancient","n":1}],"url":"https://heroscape.renegadegamestudios.com/heroscape-the-ancient-lands-of-valhalla-terrain-expansion/"},{"id":"twilight","name":"Twilight Clan Riders","kind":"Army expansion","date":"2026-10","wave":"Nastra's Nightmare","units":["Twilight Clan Riders"],"note":"Two squads per box.","copies":2},{"id":"kalari","name":"Students of Kalari Payatt","kind":"Army expansion","date":"2026-10","wave":"Nastra's Nightmare","units":["Students of Kalari Payatt"],"note":"Two squads per box.","copies":2},{"id":"krampus","name":"Krampus","kind":"Army expansion","date":"2026-10","wave":"Nastra's Nightmare","units":["Krampus"],"note":"Painted edition only.","url":"https://heroscape.renegadegamestudios.com/heroscape-krampus/"},{"id":"morinstein","name":"Dr. Torvik Morinstein and His Masterpiece","kind":"Army expansion","date":"2026-10","wave":"Nastra's Nightmare","units":["Dr. Torvik Morinstein","Morinstein's Masterpiece"],"note":"Painted edition only."},{"id":"champions","name":"Jandar Remastered: Champions of Jandar","kind":"Army expansion","date":"2026-10","wave":"Jandar Remastered","units":["Alastair MacDirk","Sir Gilbert"],"note":"Includes a dice bag and Jandar dice."},{"id":"weston","name":"Jandar Remastered: Knights of Weston","kind":"Army expansion","date":"2026-10","wave":"Jandar Remastered","units":["Knights of Weston"],"note":"Two squads per box.","copies":2},{"id":"macdirk","name":"Jandar Remastered: MacDirk Warriors","kind":"Army expansion","date":"2026-10","wave":"Jandar Remastered","units":["MacDirk Warriors"],"note":"Two squads per box.","copies":2},{"id":"zetacron","name":"Jandar Remastered: Zetacron","kind":"Army expansion","date":"2026-10","wave":"Jandar Remastered","units":["Zetacron"]},{"id":"seelie","name":"Seelie Court of the Verdant Pact","kind":"Army expansion","date":"2027-02","wave":"Valda's Vow","units":["Oberon","Seelie Courtiers","The Green Knight"]},{"id":"fury","name":"Fury of the Verdant Pact","kind":"Army expansion","date":"2027-02","wave":"Valda's Vow","units":["Kaijaax","Maeve Sunderstone","Uma the Cecaelia"]},{"id":"thunderhoof","name":"Thunderhoof Cavalry","kind":"Army expansion","date":"2027-02","wave":"Valda's Vow","units":["Thunderhoof Cavalry"],"note":"Two squads per box.","copies":2},{"id":"mariedian","name":"Mariedian Resistance","kind":"Army expansion","date":"2027-02","wave":"Valda's Vow","units":["Mariedian Resistance"],"note":"Two squads per box.","copies":2},{"id":"hiss","name":"G.I. JOE H.I.S.S. Tank","kind":"Army expansion","date":"2027-03","wave":"G.I. JOE 2027","units":["H.I.S.S. Tank","Rip It"]},{"id":"armadillo","name":"G.I. JOE Mini Tank Armadillo","kind":"Army expansion","date":"2027-03","wave":"G.I. JOE 2027","units":["Mini Tank Armadillo","Courtney \"Cover Girl\" Kreiger"]},{"id":"specialists","name":"G.I. JOE Mission Specialists","kind":"Army expansion","date":"2027-03","wave":"G.I. JOE 2027","units":["Flint","Beachhead","Gung-Ho","Major Bludd","Zartan","Firefly"]},{"id":"toxicwastes","name":"Toxic Wastelands of Valhalla","kind":"Terrain","date":"2027-03","wave":"G.I. JOE 2027","note":"Contents not announced yet. Add its pieces on the Terrain page when you have it."},{"id":"scientists","name":"Scientists of the Umbral Covenant","kind":"Army expansion","date":"2027-05","wave":"Bleakwoode's Bane","units":["Dr. Valentina Lockhart","Dr. Harlan Eisen","Orangunators"],"url":"https://heroscape.renegadegamestudios.com/heroscape-scientists-of-the-umbral-covenant-army-expansion/"},{"id":"hrungnir","name":"Awakened Ancient of the Umbral Covenant","kind":"Army expansion","date":"2027-05","wave":"Bleakwoode's Bane","units":["Head of Hrungnir","Hands of Hrungnir","Heart of Hrungnir"]},{"id":"associates","name":"Associates of Volarak","kind":"Army expansion","date":"2027-05","wave":"Bleakwoode's Bane","units":["Associates of Volarak"],"note":"Two squads per box.","copies":2},{"id":"yari","name":"Ashigaru Yari Remastered","kind":"Army expansion","date":"2027-05","wave":"Bleakwoode's Bane","units":["Ashigaru Yari"],"note":"Two squads per box.","copies":2},{"id":"harquebus","name":"Ashigaru Harquebus Remastered","kind":"Army expansion","date":"2027-05","wave":"Bleakwoode's Bane","units":["Ashigaru Harquebus"],"note":"Two squads per box.","copies":2},{"id":"einarhc","name":"Einar High Command Remastered","kind":"Army expansion","date":"2027-05","wave":"Bleakwoode's Bane","units":["Hatamoto Taro (2.0)","Kato Katsuro (2.0)"],"note":"Includes a dice bag and Einar dice."},{"id":"zelrig","name":"Zelrig Remastered","kind":"Army expansion","date":"2027-05","wave":"Bleakwoode's Bane","units":["Zelrig"]},{"id":"tokit","name":"Tournament Organizer Terrain Kit","kind":"Terrain","date":"2024-10","terrain":[{"t":"grass","s":"24","n":12},{"t":"grass","s":"7","n":28},{"t":"grass","s":"3","n":24},{"t":"grass","s":"2","n":24},{"t":"grass","s":"1","n":64},{"t":"rock","s":"24","n":8},{"t":"rock","s":"7","n":20},{"t":"rock","s":"3","n":12},{"t":"rock","s":"2","n":12},{"t":"rock","s":"1","n":20},{"t":"sand","s":"7","n":20},{"t":"sand","s":"3","n":12},{"t":"sand","s":"2","n":12},{"t":"sand","s":"1","n":20},{"t":"water","s":"1","n":48},{"t":"underbrush","s":"10H","n":12},{"t":"laurwall","s":"Wall piece","n":4},{"t":"laurwall","s":"Single wall connector","n":8},{"t":"laurwall","s":"Wall connector base","n":8}],"note":"Enough terrain for up to 4 maps at once (an 8-player event). Contents from the product listing: 336 tiles, 12 Laur underbrush, 20 wall pieces, instruction sheet. The underbrush height is assumed to match the Grove at Laur’s Edge."},{"id":"promo-1","name":"Sgt. Drake Alexander (3.0) promo","kind":"Promo","date":"2024-08","units":["Sgt. Drake Alexander (3.0)"],"note":"Pre-order bonus for Battle for the Wellspring or the Age of Annihilation Master Set"},{"id":"promo-2","name":"Shiori (2.0) promo","kind":"Promo","date":"2024-08","units":["Shiori (2.0)"],"note":"Heroscape launch events"},{"id":"promo-3","name":"Cornelius Breech, The Derelict Prince promo","kind":"Promo","date":"2024-10","units":["Cornelius Breech, The Derelict Prince"],"note":"National Heroscape Day"},{"id":"promo-4","name":"Thyraxis Dragoon promo","kind":"Promo","date":"2025-04","units":["Thyraxis Dragoon"],"note":"Spring 2025 store events"},{"id":"promo-5","name":"Major Q11 promo","kind":"Promo","date":"2025-04","units":["Major Q11"],"note":"Pre-order bonus with the April 2025 Rising Tide releases"},{"id":"promo-6","name":"Decker the Burrowbreaker promo","kind":"Promo","date":"2025-07","units":["Decker the Burrowbreaker"],"note":"Summer 2025 store events (also in the Army Painter Starter Set)"},{"id":"promo-7","name":"Raelin the Kyrie Warrior (4.0) promo","kind":"Promo","date":"2025-09","units":["Raelin the Kyrie Warrior (4.0)"],"note":"Fall 2025 store events and Gen Con 2025"},{"id":"promo-8","name":"Deflectatron promo","kind":"Promo","date":"2025-10","units":["Deflectatron"],"note":"Pre-order bonus for October 2025 products and fall 2025 organized play"},{"id":"promo-9","name":"Serpentor promo","kind":"Promo","date":"2026-03","units":["Serpentor"],"note":"Pre-order bonus for March 2026 products"},{"id":"promo-10","name":"Syvarris (2.0) promo","kind":"Promo","date":"2026-04","units":["Syvarris (2.0)"],"note":"Pre-order bonus for April 2026 products"},{"id":"promo-11","name":"Agent Carr (2.0) promo","kind":"Promo","date":"2026-05","units":["Agent Carr (2.0)"],"note":"Pre-order bonus for May 2026 products"},{"id":"promo-12","name":"Isamu (2.0) promo","kind":"Promo","date":"2026-07","units":["Isamu (2.0)"],"note":"Pre-order bonus for Secrets of the Citadel"},{"id":"promo-13","name":"Taelord the Kyrie Warrior (2.0) promo","kind":"Promo","date":"2026-08","units":["Taelord the Kyrie Warrior (2.0)"],"note":"Gen Con 2026 World Championship participation prize, later through the Heroscape Battle Network"},{"id":"promo-14","name":"Eel & F'fuoh promo","kind":"Promo","date":"2026-08","units":["Eel & F'fuoh"],"note":"Gen Con 2026 exclusive"},{"id":"promo-15","name":"Deathwalker 10000 promo","kind":"Promo","date":"2026-10","units":["Deathwalker 10000"],"note":"Pre-order bonus for fall 2026 products"},{"id":"promo-16","name":"Samuel Brown promo","kind":"Promo","date":"2026-10","units":["Samuel Brown"],"note":"Organized play prize through the Heroscape Battle Network"},{"id":"promo-17","name":"Cupid promo","kind":"Promo","date":"2027-02","units":["Cupid"],"note":"Pre-order bonus for Valda's Vow"},{"id":"promo-18","name":"Taega the Kyrie Warrior promo","kind":"Promo","date":"2027-05","units":["Taega the Kyrie Warrior"],"note":"Pre-order bonus for Bleakwoode's Bane"}]
+[
+ {
+  "id": "aoa",
+  "name": "Age of Annihilation Master Set",
+  "kind": "Master set",
+  "date": "2024-08",
+  "wave": "Age of Annihilation",
+  "units": [
+   "Raelin the Kyrie Warrior (4.0)",
+   "Loviatäk the Kyrie Warrior",
+   "Misaerx the Kyrie Warrior",
+   "Raakchott, Steward of Death",
+   "Knight Irene",
+   "Dorim the Bulkhead Brawler",
+   "Frostclaw Paladins",
+   "Knaves of the Silver Scimitar",
+   "Exiles of the Sundered Sea",
+   "Xenithrax the Vineweaver",
+   "Admiral EJ-1M"
+  ],
+  "terrain": [
+   {
+    "t": "grass",
+    "s": "24",
+    "n": 6
+   },
+   {
+    "t": "grass",
+    "s": "7",
+    "n": 4
+   },
+   {
+    "t": "grass",
+    "s": "3",
+    "n": 2
+   },
+   {
+    "t": "grass",
+    "s": "2",
+    "n": 6
+   },
+   {
+    "t": "grass",
+    "s": "1",
+    "n": 10
+   },
+   {
+    "t": "rock",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "rock",
+    "s": "7",
+    "n": 2
+   },
+   {
+    "t": "rock",
+    "s": "3",
+    "n": 1
+   },
+   {
+    "t": "rock",
+    "s": "2",
+    "n": 5
+   },
+   {
+    "t": "rock",
+    "s": "1",
+    "n": 4
+   },
+   {
+    "t": "sand",
+    "s": "7",
+    "n": 2
+   },
+   {
+    "t": "sand",
+    "s": "3",
+    "n": 1
+   },
+   {
+    "t": "sand",
+    "s": "2",
+    "n": 5
+   },
+   {
+    "t": "sand",
+    "s": "1",
+    "n": 4
+   },
+   {
+    "t": "water",
+    "s": "1",
+    "n": 20
+   },
+   {
+    "t": "laurwall",
+    "s": "Big thin wall",
+    "n": 1
+   },
+   {
+    "t": "laurwall",
+    "s": "Wall ruin",
+    "n": 2
+   },
+   {
+    "t": "laurwall",
+    "s": "Small thin wall",
+    "n": 4
+   },
+   {
+    "t": "laurwall",
+    "s": "Single wall connector",
+    "n": 8
+   },
+   {
+    "t": "laurwall",
+    "s": "Wall connector base",
+    "n": 8
+   }
+  ],
+  "note": "Scenario book lists 20 water tiles without a size; counted here as 1-hex.",
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-age-of-annihilation-master-set/"
+ },
+ {
+  "id": "bftw",
+  "name": "Battle for the Wellspring Battle Box",
+  "kind": "Battle box",
+  "date": "2024-08",
+  "wave": "Age of Annihilation",
+  "units": [
+   "Killian Vane III",
+   "Fia Bonny the Void Siren",
+   "Bok-Bur-Na",
+   "Ewashia, Master of Tides",
+   "Kita the Springrunner",
+   "Onshu the Welkineye"
+  ],
+  "terrain": [
+   {
+    "t": "grass",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "grass",
+    "s": "7",
+    "n": 3
+   },
+   {
+    "t": "grass",
+    "s": "3",
+    "n": 3
+   },
+   {
+    "t": "grass",
+    "s": "1",
+    "n": 4
+   },
+   {
+    "t": "rock",
+    "s": "7",
+    "n": 2
+   },
+   {
+    "t": "rock",
+    "s": "3",
+    "n": 2
+   },
+   {
+    "t": "rock",
+    "s": "1",
+    "n": 2
+   },
+   {
+    "t": "water",
+    "s": "1",
+    "n": 6
+   },
+   {
+    "t": "wellspring",
+    "s": "1",
+    "n": 7
+   },
+   {
+    "t": "laurtree",
+    "s": "14H",
+    "n": 2
+   }
+  ],
+  "note": "Water tile sizes are not printed in the contents list; counted here as 1-hex.",
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-battle-for-the-wellspring-battle-box/"
+ },
+ {
+  "id": "grove",
+  "name": "The Grove at Laur's Edge",
+  "kind": "Terrain",
+  "date": "2024-08",
+  "wave": "Age of Annihilation",
+  "terrain": [
+   {
+    "t": "laurtree",
+    "s": "12H",
+    "n": 1
+   },
+   {
+    "t": "laurtree",
+    "s": "13H",
+    "n": 1
+   },
+   {
+    "t": "laurtree",
+    "s": "14H",
+    "n": 1
+   },
+   {
+    "t": "underbrush",
+    "s": "10H",
+    "n": 6
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-the-grove-at-laurs-edge-terrain-expansion/"
+ },
+ {
+  "id": "kyrie",
+  "name": "Revna's Rebuke: Kyrie Warriors",
+  "kind": "Army expansion",
+  "date": "2024-10",
+  "wave": "Revna's Rebuke",
+  "units": [
+   "Queen Qhyrion",
+   "Kilkorax the Kyrie Warrior",
+   "Mielki the Kyrie Warrior",
+   "Xiamara the Kyrie Warrior",
+   "Glinerva the Kyrie Warrior"
+  ]
+ },
+ {
+  "id": "viscerot",
+  "name": "Revna's Rebuke: Iron Lich Viscerot & Necrotech Wraithriders",
+  "kind": "Army expansion",
+  "date": "2024-10",
+  "wave": "Revna's Rebuke",
+  "units": [
+   "Iron Lich Viscerot",
+   "Necrotech Wraithriders"
+  ]
+ },
+ {
+  "id": "lands",
+  "name": "Lands of Valhalla",
+  "kind": "Terrain",
+  "date": "2024-10",
+  "wave": "Revna's Rebuke",
+  "terrain": [
+   {
+    "t": "grass",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "grass",
+    "s": "7",
+    "n": 5
+   },
+   {
+    "t": "grass",
+    "s": "3",
+    "n": 3
+   },
+   {
+    "t": "grass",
+    "s": "2",
+    "n": 7
+   },
+   {
+    "t": "grass",
+    "s": "1",
+    "n": 10
+   },
+   {
+    "t": "rock",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "rock",
+    "s": "7",
+    "n": 3
+   },
+   {
+    "t": "rock",
+    "s": "3",
+    "n": 2
+   },
+   {
+    "t": "rock",
+    "s": "2",
+    "n": 6
+   },
+   {
+    "t": "rock",
+    "s": "1",
+    "n": 5
+   },
+   {
+    "t": "sand",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "sand",
+    "s": "7",
+    "n": 3
+   },
+   {
+    "t": "sand",
+    "s": "3",
+    "n": 2
+   },
+   {
+    "t": "sand",
+    "s": "2",
+    "n": 6
+   },
+   {
+    "t": "sand",
+    "s": "1",
+    "n": 5
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-lands-of-valhalla-terrain-expansion/"
+ },
+ {
+  "id": "waters",
+  "name": "Waters of Valhalla",
+  "kind": "Terrain",
+  "date": "2024-10",
+  "wave": "Revna's Rebuke",
+  "terrain": [
+   {
+    "t": "water",
+    "s": "1",
+    "n": 24
+   },
+   {
+    "t": "water",
+    "s": "3",
+    "n": 5
+   },
+   {
+    "t": "wellspring",
+    "s": "1",
+    "n": 6
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-waters-of-valhalla-terrain-expansion/"
+ },
+ {
+  "id": "adelbern",
+  "name": "Knight Primus Adelbern & Ordo Borealis",
+  "kind": "Army expansion",
+  "date": "2025-02",
+  "wave": "Rising Tide",
+  "units": [
+   "Knight Primus Adelbern",
+   "Ordo Borealis"
+  ]
+ },
+ {
+  "id": "sonlen",
+  "name": "Sonlen & Halushia, Scion of the Wild",
+  "kind": "Army expansion",
+  "date": "2025-02",
+  "wave": "Rising Tide",
+  "units": [
+   "Sonlen (2.0)",
+   "Halushia, Scion of the Wild"
+  ]
+ },
+ {
+  "id": "mandukor",
+  "name": "Hellforge Mandukor",
+  "kind": "Army expansion",
+  "date": "2025-02",
+  "wave": "Rising Tide",
+  "units": [
+   "Hellforge Mandukor"
+  ]
+ },
+ {
+  "id": "swamps",
+  "name": "The Swamps of Valhalla",
+  "kind": "Terrain",
+  "date": "2025-02",
+  "wave": "Rising Tide",
+  "terrain": [
+   {
+    "t": "swamp",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "swamp",
+    "s": "7",
+    "n": 5
+   },
+   {
+    "t": "swamp",
+    "s": "3",
+    "n": 2
+   },
+   {
+    "t": "swamp",
+    "s": "2",
+    "n": 2
+   },
+   {
+    "t": "swamp",
+    "s": "1",
+    "n": 2
+   },
+   {
+    "t": "swampwater",
+    "s": "1",
+    "n": 20
+   },
+   {
+    "t": "swampwater",
+    "s": "3",
+    "n": 3
+   },
+   {
+    "t": "swampbrush",
+    "s": "Underbrush",
+    "n": 2
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-the-swamps-of-valhalla-terrain-expansion/"
+ },
+ {
+  "id": "snow",
+  "name": "The Snow Fields of Valhalla",
+  "kind": "Terrain",
+  "date": "2025-02",
+  "wave": "Rising Tide",
+  "terrain": [
+   {
+    "t": "snow",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "snow",
+    "s": "7",
+    "n": 5
+   },
+   {
+    "t": "snow",
+    "s": "3",
+    "n": 2
+   },
+   {
+    "t": "snow",
+    "s": "2",
+    "n": 2
+   },
+   {
+    "t": "snow",
+    "s": "1",
+    "n": 2
+   },
+   {
+    "t": "ice",
+    "s": "1",
+    "n": 20
+   },
+   {
+    "t": "ice",
+    "s": "3",
+    "n": 3
+   },
+   {
+    "t": "snowtree",
+    "s": "10H",
+    "n": 1
+   },
+   {
+    "t": "snowtree",
+    "s": "12H",
+    "n": 1
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-the-snow-fields-of-valhalla-terrain-expansion/"
+ },
+ {
+  "id": "maladrix",
+  "name": "Queen Maladrix & Festering Honor Guard",
+  "kind": "Army expansion",
+  "date": "2025-04",
+  "wave": "Rising Tide",
+  "units": [
+   "Queen Maladrix the Conqueror",
+   "Festering Honor Guard"
+  ]
+ },
+ {
+  "id": "oathbound",
+  "name": "Oathbound Legionnaires & Oathbound Phalanx",
+  "kind": "Army expansion",
+  "date": "2025-04",
+  "wave": "Rising Tide",
+  "units": [
+   "Oathbound Legionnaires",
+   "Oathbound Phalanx"
+  ]
+ },
+ {
+  "id": "tuck",
+  "name": "Wing Commander Tuck Harrigan & Vorid Glide Strikers",
+  "kind": "Army expansion",
+  "date": "2025-04",
+  "wave": "Rising Tide",
+  "units": [
+   "Wing Commander Tuck Harrigan",
+   "Vorid Glide Strikers"
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-rising-tide-wing-commander-tuck-harrigan-vorid-glidestrikers-army-expansion/"
+ },
+ {
+  "id": "zed",
+  "name": "Air Marshal Zed Nesbitt",
+  "kind": "Army expansion",
+  "date": "2025-06",
+  "wave": "Boiling Tension",
+  "units": [
+   "Air Marshal Zed Nesbitt"
+  ]
+ },
+ {
+  "id": "crustaceans",
+  "name": "Molten Crustaceans & Tanuki Tricksters",
+  "kind": "Army expansion",
+  "date": "2025-08",
+  "wave": "Boiling Tension",
+  "units": [
+   "Molten Crustaceans",
+   "Tanuki Tricksters"
+  ]
+ },
+ {
+  "id": "acolytes",
+  "name": "Revnan Acolytes & Grave Grim",
+  "kind": "Army expansion",
+  "date": "2025-08",
+  "wave": "Boiling Tension",
+  "units": [
+   "Revnan Acolytes",
+   "Grave Grim"
+  ]
+ },
+ {
+  "id": "scavorith",
+  "name": "Scavorith, Lord of Ruin",
+  "kind": "Army expansion",
+  "date": "2025-08",
+  "wave": "Boiling Tension",
+  "units": [
+   "Scavorith, Lord of Ruin"
+  ]
+ },
+ {
+  "id": "kayne",
+  "name": "Imperator Kayne",
+  "kind": "Army expansion",
+  "date": "2025-08",
+  "wave": "Boiling Tension",
+  "units": [
+   "Imperator Kayne"
+  ]
+ },
+ {
+  "id": "lava",
+  "name": "The Lava Fields of Valhalla",
+  "kind": "Terrain",
+  "date": "2025-08",
+  "wave": "Boiling Tension",
+  "terrain": [
+   {
+    "t": "lavafield",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "lavafield",
+    "s": "7",
+    "n": 5
+   },
+   {
+    "t": "lavafield",
+    "s": "3",
+    "n": 2
+   },
+   {
+    "t": "lavafield",
+    "s": "2",
+    "n": 2
+   },
+   {
+    "t": "lavafield",
+    "s": "1",
+    "n": 2
+   },
+   {
+    "t": "moltenlava",
+    "s": "1",
+    "n": 20
+   },
+   {
+    "t": "moltenlava",
+    "s": "3",
+    "n": 3
+   },
+   {
+    "t": "lavarock",
+    "s": "3",
+    "n": 1
+   },
+   {
+    "t": "lavarock",
+    "s": "1",
+    "n": 3
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-the-lava-fields-of-valhalla-terrain-expansion/"
+ },
+ {
+  "id": "glyphpack",
+  "name": "Glyph Pack",
+  "kind": "Accessory",
+  "date": "2025-08",
+  "wave": "Boiling Tension",
+  "note": "16 glyphs and 17 treasure glyphs."
+ },
+ {
+  "id": "arboreas",
+  "name": "Heroes of Arboreas",
+  "kind": "Army expansion",
+  "date": "2025-10",
+  "wave": "Embers of War",
+  "units": [
+   "Chana the Zenithwing",
+   "Vrono the Brambletooth",
+   "Girushia, Grove Keeper",
+   "Marachott, Mind Whisperer",
+   "Haluchott, Corruptor of Beasts"
+  ]
+ },
+ {
+  "id": "widow",
+  "name": "Crimson Widow & Dreadnoughts of Caraway Cavern",
+  "kind": "Army expansion",
+  "date": "2025-10",
+  "wave": "Embers of War",
+  "units": [
+   "Crimson Widow",
+   "Dreadnoughts of Caraway Cavern"
+  ]
+ },
+ {
+  "id": "greatbow",
+  "name": "Greatbow Archers & Scions of Icaria",
+  "kind": "Army expansion",
+  "date": "2025-10",
+  "wave": "Embers of War",
+  "units": [
+   "Greatbow Archers",
+   "Scions of Icaria"
+  ]
+ },
+ {
+  "id": "krakenling",
+  "name": "Krakenling & Gelryie Vanguards",
+  "kind": "Army expansion",
+  "date": "2025-10",
+  "wave": "Embers of War",
+  "units": [
+   "Krakenling",
+   "Gelryie Vanguards"
+  ]
+ },
+ {
+  "id": "roads",
+  "name": "The Roads of Valhalla",
+  "kind": "Terrain",
+  "date": "2025-10",
+  "wave": "Embers of War",
+  "terrain": [
+   {
+    "t": "road",
+    "s": "1",
+    "n": 16
+   },
+   {
+    "t": "road",
+    "s": "5",
+    "n": 2
+   },
+   {
+    "t": "bridgewall",
+    "s": "Short wall",
+    "n": 4
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-roads-of-valhalla-terrain-expansion/"
+ },
+ {
+  "id": "ruins",
+  "name": "The Ruins at Laur's Edge",
+  "kind": "Terrain",
+  "date": "2025-10",
+  "wave": "Embers of War",
+  "terrain": [
+   {
+    "t": "laurwall",
+    "s": "Big wall",
+    "n": 5
+   },
+   {
+    "t": "laurwall",
+    "s": "Big wall arch",
+    "n": 1
+   },
+   {
+    "t": "laurwall",
+    "s": "Small wall",
+    "n": 5
+   },
+   {
+    "t": "laurwall",
+    "s": "Small wall connector",
+    "n": 6
+   },
+   {
+    "t": "laurwall",
+    "s": "Wall ruin",
+    "n": 4
+   },
+   {
+    "t": "laurwall",
+    "s": "Wall connector base",
+    "n": 10
+   },
+   {
+    "t": "laurwall",
+    "s": "Triangular small wall connector",
+    "n": 4
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-the-ruins-at-laur-s-edge-terrain-expansion/"
+ },
+ {
+  "id": "dicetray",
+  "name": "Valhalla Dice & Tray Set",
+  "kind": "Accessory",
+  "date": "2025-10",
+  "wave": "Embers of War",
+  "note": "Map dice tray, 10 combat dice and a 20-sided die."
+ },
+ {
+  "id": "caverns",
+  "name": "The Caverns of Valhalla",
+  "kind": "Terrain",
+  "date": "2026-02",
+  "terrain": [
+   {
+    "t": "dungeon",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "dungeon",
+    "s": "7",
+    "n": 5
+   },
+   {
+    "t": "dungeon",
+    "s": "3",
+    "n": 2
+   },
+   {
+    "t": "dungeon",
+    "s": "2",
+    "n": 2
+   },
+   {
+    "t": "dungeon",
+    "s": "1",
+    "n": 7
+   },
+   {
+    "t": "shadow",
+    "s": "1",
+    "n": 14
+   },
+   {
+    "t": "rockoutcrop",
+    "s": "3",
+    "n": 1
+   },
+   {
+    "t": "rockoutcrop",
+    "s": "1",
+    "n": 3
+   }
+  ],
+  "note": "The product page says 30 hex tiles but its itemised list adds up to 32; the itemised list is used here.",
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-the-caverns-of-valhalla-terrain-expansion/"
+ },
+ {
+  "id": "painterset",
+  "name": "Army Painter Starter Set",
+  "kind": "Accessory",
+  "date": "2026-02",
+  "units": [
+   "Decker the Burrowbreaker"
+  ],
+  "note": "Unpainted Decker the Burrowbreaker, a brush and ten paints."
+ },
+ {
+  "id": "rumble",
+  "name": "G.I. JOE Rumble at the Rift Battle Box",
+  "kind": "Battle box",
+  "date": "2026-03",
+  "wave": "Yo, Joe!",
+  "units": [
+   "Snake Eyes",
+   "Duke",
+   "Roadblock",
+   "Scarlett",
+   "COBRA Commander",
+   "Destro",
+   "Doctor Mindbender",
+   "Storm Shadow (1.0)",
+   "Storm Shadow (2.0)"
+  ],
+  "terrain": [
+   {
+    "t": "asphalt",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "concrete",
+    "s": "7",
+    "n": 5
+   },
+   {
+    "t": "concrete",
+    "s": "3",
+    "n": 6
+   },
+   {
+    "t": "toxic",
+    "s": "1",
+    "n": 6
+   },
+   {
+    "t": "shadow",
+    "s": "1",
+    "n": 8
+   },
+   {
+    "t": "toxicwater",
+    "s": "1",
+    "n": 5
+   },
+   {
+    "t": "fortification",
+    "s": "COBRA fortification wall",
+    "n": 2
+   }
+  ],
+  "note": "One Storm Shadow figure; both Storm Shadow cards are listed here. The retailer list says 29 tiles but itemises 32."
+ },
+ {
+  "id": "strikeforces",
+  "name": "G.I. JOE Strike Forces",
+  "kind": "Army expansion",
+  "date": "2026-03",
+  "wave": "Yo, Joe!",
+  "units": [
+   "Baroness",
+   "Lady Jaye",
+   "Crimson Twins",
+   "Jinx and Kamakura"
+  ]
+ },
+ {
+  "id": "greenshirts",
+  "name": "G.I. JOE Greenshirts & Battle Copter",
+  "kind": "Army expansion",
+  "date": "2026-03",
+  "wave": "Yo, Joe!",
+  "units": [
+   "Greenshirts",
+   "Battle Copter"
+  ]
+ },
+ {
+  "id": "cobratroopers",
+  "name": "G.I. JOE COBRA Troopers & COBRA Flight Pod",
+  "kind": "Army expansion",
+  "date": "2026-03",
+  "wave": "Yo, Joe!",
+  "units": [
+   "COBRA Troopers",
+   "COBRA Flight Pod"
+  ]
+ },
+ {
+  "id": "urban",
+  "name": "The Urban Landscape of Valhalla",
+  "kind": "Terrain",
+  "date": "2026-03",
+  "wave": "Yo, Joe!",
+  "terrain": [
+   {
+    "t": "asphalt",
+    "s": "24",
+    "n": 1
+   },
+   {
+    "t": "asphalt",
+    "s": "7",
+    "n": 2
+   },
+   {
+    "t": "asphalt",
+    "s": "3",
+    "n": 1
+   },
+   {
+    "t": "asphalt",
+    "s": "2",
+    "n": 4
+   },
+   {
+    "t": "asphalt",
+    "s": "1",
+    "n": 2
+   },
+   {
+    "t": "concrete",
+    "s": "24",
+    "n": 1
+   },
+   {
+    "t": "concrete",
+    "s": "7",
+    "n": 2
+   },
+   {
+    "t": "concrete",
+    "s": "3",
+    "n": 1
+   },
+   {
+    "t": "concrete",
+    "s": "2",
+    "n": 4
+   },
+   {
+    "t": "concrete",
+    "s": "1",
+    "n": 2
+   },
+   {
+    "t": "fortification",
+    "s": "Fortified wall",
+    "n": 2
+   }
+  ],
+  "note": "The product page heading says 30 tiles but itemises 20; the itemised list is used here.",
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-the-urban-landscape-of-valhalla-terrain-expansion/"
+ },
+ {
+  "id": "elites",
+  "name": "Elites of Ullar & Ranoc Vipers",
+  "kind": "Army expansion",
+  "date": "2026-04",
+  "wave": "Gathering Storm",
+  "units": [
+   "Elites of Ullar",
+   "Ranoc Vipers"
+  ]
+ },
+ {
+  "id": "chaingruts",
+  "name": "Chain Gruts & Ramosaur Rider",
+  "kind": "Army expansion",
+  "date": "2026-04",
+  "wave": "Gathering Storm",
+  "units": [
+   "Chain Gruts",
+   "Ramosaur Rider"
+  ]
+ },
+ {
+  "id": "forests",
+  "name": "Forests of Valhalla",
+  "kind": "Terrain",
+  "date": "2026-04",
+  "wave": "Gathering Storm",
+  "terrain": [
+   {
+    "t": "evergreen",
+    "s": "15H",
+    "n": 2
+   },
+   {
+    "t": "evergreen",
+    "s": "12H",
+    "n": 2
+   },
+   {
+    "t": "evergreen",
+    "s": "10H",
+    "n": 2
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-forests-of-valhalla-terrain-expansion/"
+ },
+ {
+  "id": "revenants",
+  "name": "Revenants of Revna & Nuckelavee",
+  "kind": "Army expansion",
+  "date": "2026-05",
+  "wave": "Thormun's Thunder",
+  "units": [
+   "Revenants of Revna",
+   "Nuckelavee"
+  ]
+ },
+ {
+  "id": "skordyre",
+  "name": "Skordyre Soldiers",
+  "kind": "Army expansion",
+  "date": "2026-05",
+  "wave": "Thormun's Thunder",
+  "units": [
+   "Skordyre Infantry",
+   "Spitting Hive Soldier",
+   "Lurking Hive Soldier",
+   "Bursting Hive Soldier"
+  ]
+ },
+ {
+  "id": "reavers",
+  "name": "Upgraded Necrotech Reavers",
+  "kind": "Army expansion",
+  "date": "2026-05",
+  "wave": "Thormun's Thunder",
+  "units": [
+   "Necrotech Reavers",
+   "Necrotech Ghoulgrip",
+   "Necrotech Ghastblade",
+   "Necrotech Geistfire"
+  ]
+ },
+ {
+  "id": "thormun",
+  "name": "Thormun & Kraken",
+  "kind": "Army expansion",
+  "date": "2026-05",
+  "wave": "Thormun's Thunder",
+  "units": [
+   "Thormun",
+   "The Kraken"
+  ]
+ },
+ {
+  "id": "shores",
+  "name": "Shores of Valhalla",
+  "kind": "Terrain",
+  "date": "2026-05",
+  "wave": "Thormun's Thunder",
+  "terrain": [
+   {
+    "t": "wood",
+    "s": "2",
+    "n": 12
+   },
+   {
+    "t": "ship",
+    "s": "Crashed ship bow",
+    "n": 1
+   },
+   {
+    "t": "ship",
+    "s": "Crashed ship wall",
+    "n": 2
+   },
+   {
+    "t": "ship",
+    "s": "Cannon",
+    "n": 3
+   },
+   {
+    "t": "ship",
+    "s": "Rope ladder",
+    "n": 6
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-shores-of-valhalla-terrain-expansion/"
+ },
+ {
+  "id": "blackscar",
+  "name": "Battle for Blackscar Battle Box",
+  "kind": "Battle box",
+  "date": "2026-07",
+  "wave": "Secrets of the Citadel",
+  "units": [
+   "Nishi Souta",
+   "\"Blink\" Dawson",
+   "Cainak, Private Eye",
+   "Sudema (2.0)",
+   "Corvynn the Rotbeak",
+   "Agent SI-4X"
+  ],
+  "terrain": [
+   {
+    "t": "ancient",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "ancient",
+    "s": "7",
+    "n": 2
+   },
+   {
+    "t": "ancient",
+    "s": "3",
+    "n": 4
+   },
+   {
+    "t": "ancient",
+    "s": "1",
+    "n": 4
+   },
+   {
+    "t": "dungeon",
+    "s": "7",
+    "n": 3
+   },
+   {
+    "t": "dungeon",
+    "s": "1",
+    "n": 2
+   },
+   {
+    "t": "shadow",
+    "s": "1",
+    "n": 8
+   },
+   {
+    "t": "shroudshroom",
+    "s": "Young",
+    "n": 2
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-battle-for-blackscar-battle-box/"
+ },
+ {
+  "id": "expedition",
+  "name": "Clockwork Combine Research Expedition",
+  "kind": "Army expansion",
+  "date": "2026-07",
+  "wave": "Secrets of the Citadel",
+  "units": [
+   "Gimbal",
+   "The Eisen Expedition"
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-clockwork-combine-research-expedition-army-expansion/"
+ },
+ {
+  "id": "crookedcrew",
+  "name": "Crooked Crew of the Clockwork Combine",
+  "kind": "Army expansion",
+  "date": "2026-07",
+  "wave": "Secrets of the Citadel",
+  "units": [
+   "Takanawa Kaiga",
+   "Guilty McCreech (2.0)",
+   "Durnipia"
+  ]
+ },
+ {
+  "id": "paragons",
+  "name": "Paragons of the New Alliance",
+  "kind": "Army expansion",
+  "date": "2026-07",
+  "wave": "Secrets of the Citadel",
+  "units": [
+   "Jeanne d'Arc",
+   "Concan the Kyrie Warrior (2.0)",
+   "Frizzt Galagan"
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-paragons-of-the-new-alliance-army-expansion/"
+ },
+ {
+  "id": "might",
+  "name": "Might of the New Alliance",
+  "kind": "Army expansion",
+  "date": "2026-07",
+  "wave": "Secrets of the Citadel",
+  "units": [
+   "Kha-Re-Ga",
+   "Gnarlfur Raiders"
+  ]
+ },
+ {
+  "id": "ancientlands",
+  "name": "The Ancient Lands of Valhalla",
+  "kind": "Terrain",
+  "date": "2026-07",
+  "wave": "Secrets of the Citadel",
+  "terrain": [
+   {
+    "t": "ancient",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "ancient",
+    "s": "7",
+    "n": 3
+   },
+   {
+    "t": "ancient",
+    "s": "3",
+    "n": 3
+   },
+   {
+    "t": "ancient",
+    "s": "2",
+    "n": 5
+   },
+   {
+    "t": "ancient",
+    "s": "1",
+    "n": 10
+   },
+   {
+    "t": "shroudshroom",
+    "s": "Young",
+    "n": 2
+   },
+   {
+    "t": "shroudshroom",
+    "s": "Adult",
+    "n": 1
+   },
+   {
+    "t": "shroudshroom",
+    "s": "Ancient",
+    "n": 1
+   }
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-the-ancient-lands-of-valhalla-terrain-expansion/"
+ },
+ {
+  "id": "twilight",
+  "name": "Twilight Clan Riders",
+  "kind": "Army expansion",
+  "date": "2026-10",
+  "wave": "Nastra's Nightmare",
+  "units": [
+   "Twilight Clan Riders"
+  ],
+  "note": "Two squads per box.",
+  "copies": 2
+ },
+ {
+  "id": "kalari",
+  "name": "Students of Kalari Payatt",
+  "kind": "Army expansion",
+  "date": "2026-10",
+  "wave": "Nastra's Nightmare",
+  "units": [
+   "Students of Kalari Payatt"
+  ],
+  "note": "Two squads per box.",
+  "copies": 2
+ },
+ {
+  "id": "krampus",
+  "name": "Krampus",
+  "kind": "Army expansion",
+  "date": "2026-10",
+  "wave": "Nastra's Nightmare",
+  "units": [
+   "Krampus"
+  ],
+  "note": "Painted edition only.",
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-krampus/"
+ },
+ {
+  "id": "morinstein",
+  "name": "Dr. Torvik Morinstein and His Masterpiece",
+  "kind": "Army expansion",
+  "date": "2026-10",
+  "wave": "Nastra's Nightmare",
+  "units": [
+   "Dr. Torvik Morinstein",
+   "Morinstein's Masterpiece"
+  ],
+  "note": "Painted edition only."
+ },
+ {
+  "id": "champions",
+  "name": "Jandar Remastered: Champions of Jandar",
+  "kind": "Army expansion",
+  "date": "2026-10",
+  "wave": "Jandar Remastered",
+  "units": [
+   "Alastair MacDirk",
+   "Sir Gilbert"
+  ],
+  "note": "Includes a dice bag and Jandar dice."
+ },
+ {
+  "id": "weston",
+  "name": "Jandar Remastered: Knights of Weston",
+  "kind": "Army expansion",
+  "date": "2026-10",
+  "wave": "Jandar Remastered",
+  "units": [
+   "Knights of Weston"
+  ],
+  "note": "Two squads per box.",
+  "copies": 2
+ },
+ {
+  "id": "macdirk",
+  "name": "Jandar Remastered: MacDirk Warriors",
+  "kind": "Army expansion",
+  "date": "2026-10",
+  "wave": "Jandar Remastered",
+  "units": [
+   "MacDirk Warriors"
+  ],
+  "note": "Two squads per box.",
+  "copies": 2
+ },
+ {
+  "id": "zetacron",
+  "name": "Jandar Remastered: Zetacron",
+  "kind": "Army expansion",
+  "date": "2026-10",
+  "wave": "Jandar Remastered",
+  "units": [
+   "Zetacron"
+  ]
+ },
+ {
+  "id": "seelie",
+  "name": "Seelie Court of the Verdant Pact",
+  "kind": "Army expansion",
+  "date": "2027-02",
+  "wave": "Valda's Vow",
+  "units": [
+   "Oberon",
+   "Seelie Courtiers",
+   "The Green Knight"
+  ]
+ },
+ {
+  "id": "fury",
+  "name": "Fury of the Verdant Pact",
+  "kind": "Army expansion",
+  "date": "2027-02",
+  "wave": "Valda's Vow",
+  "units": [
+   "Kaijaax",
+   "Maeve Sunderstone",
+   "Uma the Cecaelia"
+  ]
+ },
+ {
+  "id": "thunderhoof",
+  "name": "Thunderhoof Cavalry",
+  "kind": "Army expansion",
+  "date": "2027-02",
+  "wave": "Valda's Vow",
+  "units": [
+   "Thunderhoof Cavalry"
+  ],
+  "note": "Two squads per box.",
+  "copies": 2
+ },
+ {
+  "id": "mariedian",
+  "name": "Mariedian Resistance",
+  "kind": "Army expansion",
+  "date": "2027-02",
+  "wave": "Valda's Vow",
+  "units": [
+   "Mariedian Resistance"
+  ],
+  "note": "Two squads per box.",
+  "copies": 2
+ },
+ {
+  "id": "hiss",
+  "name": "G.I. JOE H.I.S.S. Tank",
+  "kind": "Army expansion",
+  "date": "2027-03",
+  "wave": "G.I. JOE 2027",
+  "units": [
+   "H.I.S.S. Tank",
+   "Rip It"
+  ]
+ },
+ {
+  "id": "armadillo",
+  "name": "G.I. JOE Mini Tank Armadillo",
+  "kind": "Army expansion",
+  "date": "2027-03",
+  "wave": "G.I. JOE 2027",
+  "units": [
+   "Mini Tank Armadillo",
+   "Courtney \"Cover Girl\" Kreiger"
+  ]
+ },
+ {
+  "id": "specialists",
+  "name": "G.I. JOE Mission Specialists",
+  "kind": "Army expansion",
+  "date": "2027-03",
+  "wave": "G.I. JOE 2027",
+  "units": [
+   "Flint",
+   "Beachhead",
+   "Gung-Ho",
+   "Major Bludd",
+   "Zartan",
+   "Firefly"
+  ]
+ },
+ {
+  "id": "toxicwastes",
+  "name": "Toxic Wastelands of Valhalla",
+  "kind": "Terrain",
+  "date": "2027-03",
+  "wave": "G.I. JOE 2027",
+  "note": "Contents not announced yet. Add its pieces on the Terrain page when you have it."
+ },
+ {
+  "id": "scientists",
+  "name": "Scientists of the Umbral Covenant",
+  "kind": "Army expansion",
+  "date": "2027-05",
+  "wave": "Bleakwoode's Bane",
+  "units": [
+   "Dr. Valentina Lockhart",
+   "Dr. Harlan Eisen",
+   "Orangunators"
+  ],
+  "url": "https://heroscape.renegadegamestudios.com/heroscape-scientists-of-the-umbral-covenant-army-expansion/"
+ },
+ {
+  "id": "hrungnir",
+  "name": "Awakened Ancient of the Umbral Covenant",
+  "kind": "Army expansion",
+  "date": "2027-05",
+  "wave": "Bleakwoode's Bane",
+  "units": [
+   "Head of Hrungnir",
+   "Hands of Hrungnir",
+   "Heart of Hrungnir"
+  ]
+ },
+ {
+  "id": "associates",
+  "name": "Associates of Volarak",
+  "kind": "Army expansion",
+  "date": "2027-05",
+  "wave": "Bleakwoode's Bane",
+  "units": [
+   "Associates of Volarak"
+  ],
+  "note": "Two squads per box.",
+  "copies": 2
+ },
+ {
+  "id": "yari",
+  "name": "Ashigaru Yari Remastered",
+  "kind": "Army expansion",
+  "date": "2027-05",
+  "wave": "Bleakwoode's Bane",
+  "units": [
+   "Ashigaru Yari"
+  ],
+  "note": "Two squads per box.",
+  "copies": 2
+ },
+ {
+  "id": "harquebus",
+  "name": "Ashigaru Harquebus Remastered",
+  "kind": "Army expansion",
+  "date": "2027-05",
+  "wave": "Bleakwoode's Bane",
+  "units": [
+   "Ashigaru Harquebus"
+  ],
+  "note": "Two squads per box.",
+  "copies": 2
+ },
+ {
+  "id": "einarhc",
+  "name": "Einar High Command Remastered",
+  "kind": "Army expansion",
+  "date": "2027-05",
+  "wave": "Bleakwoode's Bane",
+  "units": [
+   "Hatamoto Taro (2.0)",
+   "Kato Katsuro (2.0)"
+  ],
+  "note": "Includes a dice bag and Einar dice."
+ },
+ {
+  "id": "zelrig",
+  "name": "Zelrig Remastered",
+  "kind": "Army expansion",
+  "date": "2027-05",
+  "wave": "Bleakwoode's Bane",
+  "units": [
+   "Zelrig"
+  ]
+ },
+ {
+  "id": "tokit",
+  "name": "Tournament Organizer Terrain Kit",
+  "kind": "Terrain",
+  "date": "2024-10",
+  "terrain": [
+   {
+    "t": "grass",
+    "s": "24",
+    "n": 12
+   },
+   {
+    "t": "grass",
+    "s": "7",
+    "n": 28
+   },
+   {
+    "t": "grass",
+    "s": "3",
+    "n": 24
+   },
+   {
+    "t": "grass",
+    "s": "2",
+    "n": 24
+   },
+   {
+    "t": "grass",
+    "s": "1",
+    "n": 64
+   },
+   {
+    "t": "rock",
+    "s": "24",
+    "n": 8
+   },
+   {
+    "t": "rock",
+    "s": "7",
+    "n": 20
+   },
+   {
+    "t": "rock",
+    "s": "3",
+    "n": 12
+   },
+   {
+    "t": "rock",
+    "s": "2",
+    "n": 12
+   },
+   {
+    "t": "rock",
+    "s": "1",
+    "n": 20
+   },
+   {
+    "t": "sand",
+    "s": "7",
+    "n": 20
+   },
+   {
+    "t": "sand",
+    "s": "3",
+    "n": 12
+   },
+   {
+    "t": "sand",
+    "s": "2",
+    "n": 12
+   },
+   {
+    "t": "sand",
+    "s": "1",
+    "n": 20
+   },
+   {
+    "t": "water",
+    "s": "1",
+    "n": 48
+   },
+   {
+    "t": "underbrush",
+    "s": "10H",
+    "n": 12
+   },
+   {
+    "t": "laurwall",
+    "s": "Wall piece",
+    "n": 4
+   },
+   {
+    "t": "laurwall",
+    "s": "Single wall connector",
+    "n": 8
+   },
+   {
+    "t": "laurwall",
+    "s": "Wall connector base",
+    "n": 8
+   }
+  ],
+  "note": "Enough terrain for up to 4 maps at once (an 8-player event). Contents from the product listing: 336 tiles, 12 Laur underbrush, 20 wall pieces, instruction sheet. The underbrush height is assumed to match the Grove at Laur’s Edge."
+ },
+ {
+  "id": "promo-1",
+  "name": "Sgt. Drake Alexander (3.0) promo",
+  "kind": "Promo",
+  "date": "2024-08",
+  "units": [
+   "Sgt. Drake Alexander (3.0)"
+  ],
+  "note": "Pre-order bonus for Battle for the Wellspring or the Age of Annihilation Master Set"
+ },
+ {
+  "id": "promo-2",
+  "name": "Shiori (2.0) promo",
+  "kind": "Promo",
+  "date": "2024-08",
+  "units": [
+   "Shiori (2.0)"
+  ],
+  "note": "Heroscape launch events"
+ },
+ {
+  "id": "promo-3",
+  "name": "Cornelius Breech, The Derelict Prince promo",
+  "kind": "Promo",
+  "date": "2024-10",
+  "units": [
+   "Cornelius Breech, The Derelict Prince"
+  ],
+  "note": "National Heroscape Day"
+ },
+ {
+  "id": "promo-4",
+  "name": "Thyraxis Dragoon promo",
+  "kind": "Promo",
+  "date": "2025-04",
+  "units": [
+   "Thyraxis Dragoon"
+  ],
+  "note": "Spring 2025 store events"
+ },
+ {
+  "id": "promo-5",
+  "name": "Major Q11 promo",
+  "kind": "Promo",
+  "date": "2025-04",
+  "units": [
+   "Major Q11"
+  ],
+  "note": "Pre-order bonus with the April 2025 Rising Tide releases"
+ },
+ {
+  "id": "promo-6",
+  "name": "Decker the Burrowbreaker promo",
+  "kind": "Promo",
+  "date": "2025-07",
+  "units": [
+   "Decker the Burrowbreaker"
+  ],
+  "note": "Summer 2025 store events (also in the Army Painter Starter Set)"
+ },
+ {
+  "id": "promo-7",
+  "name": "Raelin the Kyrie Warrior (3.0) promo",
+  "kind": "Promo",
+  "date": "2025-09",
+  "units": [
+   "Raelin the Kyrie Warrior (3.0)"
+  ],
+  "note": "Fall 2025 store events and Gen Con 2025"
+ },
+ {
+  "id": "promo-8",
+  "name": "Deflectatron promo",
+  "kind": "Promo",
+  "date": "2025-10",
+  "units": [
+   "Deflectatron"
+  ],
+  "note": "Pre-order bonus for October 2025 products and fall 2025 organized play"
+ },
+ {
+  "id": "promo-9",
+  "name": "Serpentor promo",
+  "kind": "Promo",
+  "date": "2026-03",
+  "units": [
+   "Serpentor"
+  ],
+  "note": "Pre-order bonus for March 2026 products"
+ },
+ {
+  "id": "promo-10",
+  "name": "Syvarris (2.0) promo",
+  "kind": "Promo",
+  "date": "2026-04",
+  "units": [
+   "Syvarris (2.0)"
+  ],
+  "note": "Pre-order bonus for April 2026 products"
+ },
+ {
+  "id": "promo-11",
+  "name": "Agent Carr (2.0) promo",
+  "kind": "Promo",
+  "date": "2026-05",
+  "units": [
+   "Agent Carr (2.0)"
+  ],
+  "note": "Pre-order bonus for May 2026 products"
+ },
+ {
+  "id": "promo-12",
+  "name": "Isamu (2.0) promo",
+  "kind": "Promo",
+  "date": "2026-07",
+  "units": [
+   "Isamu (2.0)"
+  ],
+  "note": "Pre-order bonus for Secrets of the Citadel"
+ },
+ {
+  "id": "promo-13",
+  "name": "Taelord the Kyrie Warrior (2.0) promo",
+  "kind": "Promo",
+  "date": "2026-08",
+  "units": [
+   "Taelord the Kyrie Warrior (2.0)"
+  ],
+  "note": "Gen Con 2026 World Championship participation prize, later through the Heroscape Battle Network"
+ },
+ {
+  "id": "promo-14",
+  "name": "Eel & F'fuoh promo",
+  "kind": "Promo",
+  "date": "2026-08",
+  "units": [
+   "Eel & F'fuoh"
+  ],
+  "note": "Gen Con 2026 exclusive"
+ },
+ {
+  "id": "promo-15",
+  "name": "Deathwalker 10000 promo",
+  "kind": "Promo",
+  "date": "2026-10",
+  "units": [
+   "Deathwalker 10000"
+  ],
+  "note": "Pre-order bonus for fall 2026 products"
+ },
+ {
+  "id": "promo-16",
+  "name": "Samuel Brown promo",
+  "kind": "Promo",
+  "date": "2026-10",
+  "units": [
+   "Samuel Brown"
+  ],
+  "note": "Organized play prize through the Heroscape Battle Network"
+ },
+ {
+  "id": "promo-17",
+  "name": "Cupid promo",
+  "kind": "Promo",
+  "date": "2027-02",
+  "units": [
+   "Cupid"
+  ],
+  "note": "Pre-order bonus for Valda's Vow"
+ },
+ {
+  "id": "promo-18",
+  "name": "Taega the Kyrie Warrior promo",
+  "kind": "Promo",
+  "date": "2027-05",
+  "units": [
+   "Taega the Kyrie Warrior"
+  ],
+  "note": "Pre-order bonus for Bleakwoode's Bane"
+ },
+ {
+  "id": "c-rotv",
+  "name": "Rise of the Valkyrie Master Set",
+  "kind": "Master set",
+  "date": "2004",
+  "wave": "Hasbro master sets",
+  "era": "classic",
+  "units": [
+   "Raelin the Kyrie Warrior (1.0)",
+   "Sgt. Drake Alexander (1.0)",
+   "Airborne Elite",
+   "Finn the Viking Champion",
+   "Thorgrim the Viking Champion",
+   "Tarn Viking Warriors",
+   "Syvarris",
+   "Agent Carr",
+   "Krav Maga Agents",
+   "Mimring",
+   "Grimnak",
+   "Ne-Gok-Sa",
+   "Marro Warriors",
+   "Deathwalker 9000",
+   "Zettian Guards",
+   "Izumi Samurai"
+  ],
+  "terrain": [
+   {
+    "t": "grass",
+    "s": "24",
+    "n": 6
+   },
+   {
+    "t": "grass",
+    "s": "7",
+    "n": 5
+   },
+   {
+    "t": "grass",
+    "s": "3",
+    "n": 5
+   },
+   {
+    "t": "grass",
+    "s": "2",
+    "n": 5
+   },
+   {
+    "t": "grass",
+    "s": "1",
+    "n": 16
+   },
+   {
+    "t": "rock",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "rock",
+    "s": "7",
+    "n": 3
+   },
+   {
+    "t": "rock",
+    "s": "3",
+    "n": 3
+   },
+   {
+    "t": "rock",
+    "s": "2",
+    "n": 3
+   },
+   {
+    "t": "rock",
+    "s": "1",
+    "n": 6
+   },
+   {
+    "t": "sand",
+    "s": "7",
+    "n": 2
+   },
+   {
+    "t": "sand",
+    "s": "3",
+    "n": 2
+   },
+   {
+    "t": "sand",
+    "s": "2",
+    "n": 2
+   },
+   {
+    "t": "sand",
+    "s": "1",
+    "n": 4
+   },
+   {
+    "t": "water",
+    "s": "1",
+    "n": 21
+   },
+   {
+    "t": "ruins",
+    "s": "Large ruin",
+    "n": 1
+   },
+   {
+    "t": "ruins",
+    "s": "Small ruin",
+    "n": 1
+   }
+  ],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-sotm",
+  "name": "Swarm of the Marro Master Set",
+  "kind": "Master set",
+  "date": "2007",
+  "wave": "Hasbro master sets",
+  "era": "classic",
+  "units": [
+   "Tor-Kul-Na",
+   "Sgt. Drake Alexander (2.0)",
+   "Raelin the Kyrie Warrior (2.0)",
+   "Shiori",
+   "Major Q10",
+   "Sonlen",
+   "Marro Stingers",
+   "Marro Drudge",
+   "Marrden Nagrubs",
+   "Marro Hive"
+  ],
+  "terrain": [
+   {
+    "t": "rock",
+    "s": "7",
+    "n": 1
+   },
+   {
+    "t": "rock",
+    "s": "3",
+    "n": 1
+   },
+   {
+    "t": "rock",
+    "s": "2",
+    "n": 1
+   },
+   {
+    "t": "rock",
+    "s": "1",
+    "n": 1
+   },
+   {
+    "t": "sand",
+    "s": "7",
+    "n": 5
+   },
+   {
+    "t": "sand",
+    "s": "3",
+    "n": 2
+   },
+   {
+    "t": "sand",
+    "s": "1",
+    "n": 1
+   },
+   {
+    "t": "swampwater",
+    "s": "1",
+    "n": 34
+   },
+   {
+    "t": "water",
+    "s": "1",
+    "n": 8
+   },
+   {
+    "t": "swamp",
+    "s": "24",
+    "n": 2
+   },
+   {
+    "t": "swamp",
+    "s": "7",
+    "n": 10
+   },
+   {
+    "t": "swamp",
+    "s": "3",
+    "n": 2
+   },
+   {
+    "t": "swamp",
+    "s": "2",
+    "n": 2
+   },
+   {
+    "t": "swamp",
+    "s": "1",
+    "n": 2
+   },
+   {
+    "t": "grass",
+    "s": "2",
+    "n": 1
+   },
+   {
+    "t": "grass",
+    "s": "1",
+    "n": 1
+   }
+  ],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements",
+  "note": "Has two copies of the Marro Stingers, Marro Drudge and Marrden Nagrubs squads."
+ },
+ {
+  "id": "c-underdark",
+  "name": "Battle for the Underdark Master Set",
+  "kind": "Master set",
+  "date": "2010",
+  "wave": "D&D master set",
+  "era": "classic",
+  "units": [
+   "Tandros Kreel",
+   "Erevan Sunshadow",
+   "Ana Karithon",
+   "Darrak Ambershard",
+   "Pelloth",
+   "Deepwyrm Drow",
+   "Othkurik the Black Dragon",
+   "Feral Troll"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements",
+  "note": "Dungeon terrain counts are not listed in the source."
+ },
+ {
+  "id": "c-w1",
+  "name": "Malliddon's Prophecy",
+  "kind": "Army expansion",
+  "date": "2005",
+  "wave": "Hasbro wave 1",
+  "era": "classic",
+  "units": [
+   "Blade Gruts",
+   "Arrow Gruts",
+   "Roman Legionnaires",
+   "Roman Archers",
+   "Venoc Vipers",
+   "Omnicron Snipers",
+   "Taelord the Kyrie Warrior",
+   "Tornak",
+   "Venoc Warlord",
+   "Kelda the Kyrie Warrior",
+   "Marcus Decimus Gallus"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-w2",
+  "name": "Utgar's Rage",
+  "kind": "Army expansion",
+  "date": "2005",
+  "wave": "Hasbro wave 2",
+  "era": "classic",
+  "units": [
+   "Marro Drones",
+   "Minions of Utgar",
+   "4th Massachusetts Line",
+   "Anubian Wolves",
+   "Knights of Weston",
+   "Swog Rider",
+   "Khosumet the Darklord",
+   "Me-Burq-Sa",
+   "Krug",
+   "Sir Denrick"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-w3",
+  "name": "Jandar's Oath",
+  "kind": "Army expansion",
+  "date": "2005",
+  "wave": "Hasbro wave 3",
+  "era": "classic",
+  "units": [
+   "Microcorp Agents",
+   "MacDirk Warriors",
+   "Shaolin Monks",
+   "Sentinels of Jandar",
+   "Marrden Hounds",
+   "Gorillinators",
+   "Alastair MacDirk",
+   "Concan the Kyrie Warrior",
+   "Deathwalker 7000",
+   "Johnny \"Shotgun\" Sullivan",
+   "Saylind the Kyrie Warrior"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-w4",
+  "name": "Zanafor's Discovery",
+  "kind": "Army expansion",
+  "date": "2006",
+  "wave": "Hasbro wave 4",
+  "era": "classic",
+  "units": [
+   "Sacred Band",
+   "Armoc Vipers",
+   "Tagawa Samurai",
+   "Deadeye Dan",
+   "Guilty McCreech",
+   "James Murphy",
+   "Gladiatrons",
+   "Aubrien Archers",
+   "Sudema",
+   "Valguard",
+   "Morsbane",
+   "Parmenio",
+   "Major X17"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-w5",
+  "name": "Thora's Vengeance",
+  "kind": "Army expansion",
+  "date": "2006",
+  "wave": "Hasbro wave 5",
+  "era": "classic",
+  "units": [
+   "Ninjas of the Northern Wind",
+   "Kozuke Samurai",
+   "Warriors of Ashra",
+   "Deathreavers",
+   "Deathstalkers",
+   "Blastatrons",
+   "Nakita Agents",
+   "Spartacus",
+   "Crixus",
+   "Retiarius"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-w6",
+  "name": "Dawn of Darkness",
+  "kind": "Army expansion",
+  "date": "2007",
+  "wave": "Hasbro wave 6",
+  "era": "classic",
+  "units": [
+   "Tagawa Samurai Archers",
+   "The Einar Imperium",
+   "Shades of Bleakewoode",
+   "Zombies of Morindan",
+   "Kee-Mo-Shi",
+   "Eldgrim the Viking Champion",
+   "Empress Kiova",
+   "Runa",
+   "Kaemon Awa"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-w7",
+  "name": "Fields of Valor",
+  "kind": "Army expansion",
+  "date": "2007",
+  "wave": "Hasbro wave 7",
+  "era": "classic",
+  "units": [
+   "Ashigaru Yari",
+   "Ashigaru Harquebus",
+   "Templar Cavalry",
+   "Rechets of Bogdan",
+   "Iskra Esenwein",
+   "Marcu Esenwein",
+   "Cyprien Esenwein",
+   "Sonya Esenwein",
+   "Isamu",
+   "Warden 816",
+   "Kyntela Gwyn"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-w8",
+  "name": "Defenders of Kinsland",
+  "kind": "Army expansion",
+  "date": "2008",
+  "wave": "Hasbro wave 8",
+  "era": "classic",
+  "units": [
+   "Grok Riders",
+   "10th Regiment of Foot",
+   "Wolves of Badru",
+   "Arkmer",
+   "Emirroon",
+   "Jorhdawn",
+   "Ulginesh",
+   "Chardris",
+   "Kato Katsuro",
+   "Moriko",
+   "Otonashi",
+   "Sir Dupuis"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-w9",
+  "name": "Blackmoon's Siege",
+  "kind": "Army expansion",
+  "date": "2009",
+  "wave": "Hasbro wave 9",
+  "era": "classic",
+  "units": [
+   "Protectors of Ullar",
+   "Marro Dividers",
+   "The Axegrinders of Burning Forge",
+   "Omnicron Repulsors",
+   "Mohican River Tribe",
+   "Capuan Gladiators",
+   "Kumiko",
+   "Atlaga the Kyrie Warrior",
+   "Migol Ironwill",
+   "Tul-Bak-Ra",
+   "Brave Arrow"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-w10",
+  "name": "Valkrill's Gambit",
+  "kind": "Army expansion",
+  "date": "2009",
+  "wave": "Hasbro wave 10",
+  "era": "classic",
+  "units": [
+   "Warriors of Ashra",
+   "Deathreavers",
+   "Deathstalkers",
+   "Blastatrons",
+   "Granite Guardians",
+   "Quasatch Hunters",
+   "Sir Hawthorne",
+   "Nerak the Glacian Swog Rider",
+   "Elite Onyx Vipers"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements",
+  "note": "Special collection that also reprints four earlier squads."
+ },
+ {
+  "id": "c-d1",
+  "name": "Champions of the Forgotten Realms",
+  "kind": "Army expansion",
+  "date": "2010",
+  "wave": "D&D wave 1",
+  "era": "classic",
+  "units": [
+   "Phantom Knights",
+   "Sahuagin Raider",
+   "Fen Hydra",
+   "Water Elemental",
+   "Fire Elemental",
+   "Air Elemental",
+   "Earth Elemental",
+   "Wyvern",
+   "Greenscale Warriors",
+   "Drow Chainfighter",
+   "Greater Ice Elemental",
+   "Mogrimm Forgehammer",
+   "Brandis Skyhunter",
+   "Sharwin Wildborn",
+   "Torin",
+   "Estivara"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-d2",
+  "name": "Warriors of Eberron",
+  "kind": "Army expansion",
+  "date": "2010",
+  "wave": "D&D wave 2",
+  "era": "classic",
+  "units": [
+   "White Wyrmling",
+   "Red Wyrmling",
+   "Black Wyrmling",
+   "Blue Wyrmling",
+   "Iron Golem",
+   "Warforged Soldiers",
+   "Werewolf Lord",
+   "Mind Flayer Mastermind",
+   "Goblin Cutters",
+   "Ogre Warhulk",
+   "Kurrok the Elementalist",
+   "Rhogar Dragonspine",
+   "Mika Connour",
+   "Shurrak"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-d3",
+  "name": "Moltenclaw's Invasion",
+  "kind": "Army expansion",
+  "date": "2010",
+  "wave": "D&D wave 3",
+  "era": "classic",
+  "units": [
+   "Horned Skull Brutes",
+   "Death Chasers of Thesk",
+   "Mezzodemon Warmongers",
+   "Death Knights of Valkrill",
+   "Ogre Pulverizer",
+   "Frost Giant of Morh",
+   "Ice Troll Berserker",
+   "Master of the Hunt",
+   "Eltahale",
+   "Siege",
+   "Evar Scarcarver",
+   "Moltenclaw"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-orm",
+  "name": "Orm's Return",
+  "kind": "Army expansion",
+  "date": "2005",
+  "wave": "Character sets",
+  "era": "classic",
+  "units": [
+   "Charos",
+   "Dünd",
+   "Brunak",
+   "Deathwalker 8000",
+   "Su-Bak-Na"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-raknar",
+  "name": "Raknar's Vision",
+  "kind": "Army expansion",
+  "date": "2006",
+  "wave": "Character sets",
+  "era": "classic",
+  "units": [
+   "Jotun",
+   "Major Q9",
+   "Braxas",
+   "Nilfheim",
+   "Theracus"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-aquilla",
+  "name": "Aquilla's Alliance",
+  "kind": "Army expansion",
+  "date": "2008",
+  "wave": "Character sets",
+  "era": "classic",
+  "units": [
+   "Wo-Sa-Ga",
+   "Sujoah",
+   "Zetacron",
+   "Zelrig",
+   "Gurei-Oni"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-crest",
+  "name": "Crest of the Valkyrie",
+  "kind": "Promo",
+  "date": "2006",
+  "wave": "Hasbro promos",
+  "era": "classic",
+  "units": [
+   "Sir Gilbert",
+   "Ornak",
+   "Acolarh",
+   "Laglor"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-onyx",
+  "name": "Elite Onyx Vipers promo",
+  "kind": "Promo",
+  "date": "2005",
+  "wave": "Hasbro promos",
+  "era": "classic",
+  "units": [
+   "Elite Onyx Vipers"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-nerak",
+  "name": "Nerak the Glacian Swog Rider promo",
+  "kind": "Promo",
+  "date": "2005",
+  "wave": "Hasbro promos",
+  "era": "classic",
+  "units": [
+   "Nerak the Glacian Swog Rider"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-hawthorne",
+  "name": "Sir Hawthorne promo",
+  "kind": "Promo",
+  "date": "2006",
+  "wave": "Hasbro promos",
+  "era": "classic",
+  "units": [
+   "Sir Hawthorne"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-woo",
+  "name": "Master Win Chiu Woo promo",
+  "kind": "Promo",
+  "date": "2007",
+  "wave": "Hasbro promos",
+  "era": "classic",
+  "units": [
+   "Master Win Chiu Woo"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-skahen",
+  "name": "Skahen's Rescue (Agent Skahen promo)",
+  "kind": "Promo",
+  "date": "2008",
+  "wave": "Hasbro promos",
+  "era": "classic",
+  "units": [
+   "Agent Skahen"
+  ],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-road",
+  "name": "Road to the Forgotten Forest",
+  "kind": "Terrain",
+  "date": "2005",
+  "wave": "Hasbro terrain",
+  "era": "classic",
+  "units": [
+   "Dumutef Guard"
+  ],
+  "terrain": [
+   {
+    "t": "road",
+    "s": "1",
+    "n": 8
+   },
+   {
+    "t": "road",
+    "s": "2",
+    "n": 8
+   },
+   {
+    "t": "road",
+    "s": "5",
+    "n": 1
+   },
+   {
+    "t": "evergreen",
+    "s": "Tree",
+    "n": 5
+   },
+   {
+    "t": "ruins",
+    "s": "Wall",
+    "n": 2
+   }
+  ],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements",
+  "note": "Tree sizes are not listed in the source."
+ },
+ {
+  "id": "c-volcarren",
+  "name": "Volcarren Wasteland",
+  "kind": "Terrain",
+  "date": "2006",
+  "wave": "Hasbro terrain",
+  "era": "classic",
+  "units": [
+   "Obsidian Guards"
+  ],
+  "terrain": [
+   {
+    "t": "moltenlava",
+    "s": "1",
+    "n": 11
+   },
+   {
+    "t": "lavafield",
+    "s": "1",
+    "n": 5
+   },
+   {
+    "t": "lavafield",
+    "s": "2",
+    "n": 5
+   },
+   {
+    "t": "lavafield",
+    "s": "7",
+    "n": 4
+   }
+  ],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements"
+ },
+ {
+  "id": "c-thaelenk",
+  "name": "Thaelenk Tundra",
+  "kind": "Terrain",
+  "date": "2007",
+  "wave": "Hasbro terrain",
+  "era": "classic",
+  "units": [
+   "Dzu-Teh"
+  ],
+  "terrain": [
+   {
+    "t": "glacier",
+    "s": "Glacier",
+    "n": 6
+   },
+   {
+    "t": "ice",
+    "s": "1",
+    "n": 21
+   },
+   {
+    "t": "snow",
+    "s": "1",
+    "n": 12
+   },
+   {
+    "t": "snow",
+    "s": "2",
+    "n": 12
+   }
+  ],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements",
+  "note": "Ice tile sizes are not listed in the source; counted here as 1-hex."
+ },
+ {
+  "id": "c-ticalla",
+  "name": "Ticalla Jungle",
+  "kind": "Terrain",
+  "date": "2007",
+  "wave": "Hasbro terrain",
+  "era": "classic",
+  "units": [],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements",
+  "note": "Piece counts are not listed in the source."
+ },
+ {
+  "id": "c-fortress",
+  "name": "Fortress of the Archkyrie",
+  "kind": "Terrain",
+  "date": "2008",
+  "wave": "Hasbro terrain",
+  "era": "classic",
+  "units": [],
+  "terrain": [],
+  "url": "https://en.wikipedia.org/wiki/List_of_Heroscape_supplements",
+  "note": "141 castle pieces; the source has no breakdown by piece."
+ }
+]

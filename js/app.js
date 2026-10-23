@@ -14,7 +14,7 @@
 
 
   const W0 = { a: 0.5, d: 0.33, l: 1 };
-  const state = { w: { ...W0 }, view: 'per', mode: 'specials', q: '', min: 0, max: null, sort: { key: 'tot100', dir: -1 }, f: {}, own: '', cshow: '' };
+  const state = { w: { ...W0 }, view: 'per', mode: 'specials', q: '', min: 0, max: null, sort: { key: 'tot100', dir: -1 }, f: {}, own: '', cshow: '', era: 'now', errata: true };
   const defaults = () => { state.w = { ...W0 }; state.layout = 'table'; state.bw = null; state.bwdir = 'in'; state.view = 'per'; state.mode = 'specials'; state.q = ''; state.min = 0; state.max = null; state.sort = { key: 'tot100', dir: -1 }; state.f = {}; state.own = ''; };
 
   const root = document.querySelector('.hs');
@@ -93,7 +93,8 @@
   let UNITS = [], ABIL = {}, SEARCH = {};
   function index() {
     const u = dash.data('units'), a = dash.data('abilities');
-    UNITS = u.status === 'ok' ? [...u.data, ...customRows()].map((r) => ({ ...r })) : [];
+    UNITS = u.status === 'ok' ? [...u.data.filter(eraOk), ...customRows()].map((r) => ({ ...r })) : [];
+    errataPoints(UNITS);
     addCustomAbilityNames(UNITS);
     const w = state.w;
     for (const r of UNITS) {
@@ -108,6 +109,7 @@
     ABIL = {};
     if (a.status === 'ok') for (const r of a.data) (ABIL[r.unit] = ABIL[r.unit] || []).push(r);
     for (const r of customAbilities()) (ABIL[r.unit] = ABIL[r.unit] || []).push(r);
+    errataText(UNITS);
     SEARCH = {};
     for (const r of UNITS) {
       const t = [r.unit, r.bond === 'Yes' ? 'bonding' : '', r.faction, r.ctype, r.cls, r.species, r.pers, r.size, r.abilities, ...(ABIL[r.unit] || []).map((x) => x.text)].join(' ').toLowerCase();
@@ -189,6 +191,7 @@
     if (document.activeElement !== minEl) minEl.value = state.min === null ? '' : String(state.min);
     if (document.activeElement !== maxEl) maxEl.value = state.max === null ? '' : String(state.max);
     drawFilters();
+    syncEra();
     const col = COLS.find((c) => c.key === state.sort.key);
     const rows = UNITS.filter((r) => matches(r));
     rows.sort((a, b) => {
@@ -329,7 +332,7 @@
     basic.replaceChildren();
     const box = (label, field) => { const d = mk('div', '', label); const b = mk('b', '', fmt(r[field]), um(field)); d.prepend(b); return d; };
     basic.append(box('points', 'points'), box('figures', 'figures'), box('life per figure', 'life'));
-    if (r.card_points && Number(r.card_points) !== Number(r.points)) {
+    if (r.card_points && Number(r.card_points) !== Number(r.points) && !r.errataPts) {
       const d = mk('div', 'hs-warn', 'printed on the card (rankings use the sheet’s ');
       d.prepend(mk('b', '', fmt(r.card_points), um('card_points')));
       d.appendChild(document.createTextNode(String(r.points) + ')'));
@@ -1438,6 +1441,8 @@
 
   const advOn = root.querySelector('.hs-advon'), advBox = root.querySelector('.hs-adv');
   advOn.addEventListener('change', () => { advBox.hidden = !advOn.checked; });
+  const aAdvOn = root.querySelector('.a-advon'), aAdvBox = root.querySelector('.a-adv');
+  aAdvOn.addEventListener('change', () => { aAdvBox.hidden = !aAdvOn.checked; });
   root.style.setProperty('--hs-accent', VIOLET);
   // ---------- collection, saving and loading ----------
   // Everything here lives in the viewer's own browser (localStorage) and in backup files they
@@ -1832,7 +1837,14 @@
   syncNav('home');
 
   // shared helpers for the pages below
-  const DATA = (id) => { const d = dash.data(id); return d.status === 'ok' ? d.data : null; };
+  // products and terrain types follow the era picked on the home page (RAW: everything, for what a visitor owns)
+  const RAW = (id) => { const d = dash.data(id); return d.status === 'ok' ? d.data : null; };
+  const DATA = (id) => {
+    const d = dash.data(id); if (d.status !== 'ok') return null;
+    if (id === 'products') return d.data.filter(eraOk);
+    if (id === 'terrain') return { ...d.data, types: d.data.types.filter(eraOk) };
+    return d.data;
+  };
   const esc = (s) => String(s == null ? '' : s);
   const btn = (text, cls, onClick, label) => { const b = mk('button', 'hs-btn' + (cls ? ' ' + cls : ''), text); b.type = 'button'; if (label) b.setAttribute('aria-label', label); if (onClick) b.addEventListener('click', onClick); return b; };
   const link = (text, href, cls) => { const a = mk('a', cls || '', text); a.href = href; a.target = '_blank'; a.rel = 'noopener noreferrer'; return a; };
@@ -1866,16 +1878,77 @@
     const np = Object.values(PROD_OWN).filter((n) => n > 0).length;
     root.querySelector('.hs-subtabs .np').textContent = np ? String(np) : '';
   }
+  // ---------- eras and errata ----------
+  // Which cards the whole site shows: contemporary (Renegade, the default), old school (Hasbro / Wizards of the Coast)
+  // or all time. Units, abilities, products and terrain types carry era 'classic' when they are old school only;
+  // cards first printed in an old-school product and reprinted since carry 'both'. "Use FAQ errata" applies the
+  // All Time Format FAQ's points updates and card text (data/errata.json, made by tools/make_classic.py).
+  const ERAS = { now: 'Contemporary', classic: 'Old school', all: 'All time' };
+  registerSaved({
+    key: 'era', label: 'which cards to show and errata',
+    get: () => ({ era: state.era, errata: state.errata }),
+    clean: (o) => ({ era: ERAS[o && o.era] ? o.era : 'now', errata: !(o && o.errata === false) }),
+    apply: (v) => { state.era = v ? v.era : 'now'; state.errata = v ? v.errata : true; }
+  });
+  function eraOk(x) { const e = (x && x.era) || 'now'; return state.era === 'all' || e === 'both' || e === state.era; }
+  const isOld = (x) => x && (x.era === 'classic' || x.era === 'both');
+  segBind('.hs-era', 'era', (v) => { state.era = v; });
+  root.querySelectorAll('.hs-errata').forEach((c) => c.addEventListener('change', () => { state.errata = c.checked; draw(); }));
+  function syncEra() {
+    segSync('.hs-era', 'era', state.era);
+    root.querySelectorAll('.hs-errata').forEach((c) => { c.checked = state.errata; });
+  }
+  // the FAQ's points updates: only where the card still shows the old value (reprints already print the new one)
+  function errataPoints(rows) {
+    const e = dash.data('errata'); if (e.status !== 'ok' || !state.errata) return;
+    for (const p of e.data.points || []) {
+      const r = rows.find((u) => u.unit === p.unit);
+      if (!r || Number(r.points) !== p.from) continue;
+      const k = p.from / p.to;
+      for (const f of Object.keys(r)) if (/100/.test(f) && typeof r[f] === 'number') r[f] = Math.round(r[f] * k * 10) / 10;
+      r.points = p.to; r.card_points = p.from; r.errataPts = true;
+    }
+  }
+  // (function declarations, since index() can run before this part of the script)
+  function abList(s) { return String(s || '').split(';').map((x) => x.trim()).filter(Boolean); }
+  function abKey(n) { return String(n).toLowerCase().replace(/special attack/g, '').replace(/[^a-z]/g, ''); }
+  function errataText(rows) {
+    const ERRATA_NOTE = 'Errata from the All Time Format FAQ. Turn off “Use FAQ errata” under Advanced options to see the printed text.';
+    const e = dash.data('errata'); if (e.status !== 'ok' || !state.errata) return;
+    for (const c of e.data.cards || []) {
+      const r = rows.find((u) => u.unit === c.unit); if (!r) continue;
+      const list = (ABIL[c.unit] || []).slice();
+      for (const a of c.abilities) {
+        const y = abKey(a.ability);
+        const i = list.findIndex((x) => { const k = abKey(x.ability); return k && y && (k === y || k.startsWith(y) || y.startsWith(k) || k.endsWith(y) || y.endsWith(k)); });
+        const row = { unit: c.unit, ability: a.ability, text: a.text, note: ERRATA_NOTE, errata: true };
+        if (i >= 0) { r.abilities = abList(r.abilities).map((n) => (n === list[i].ability ? a.ability : n)).join('; '); list[i] = row; }
+        else { list.push(row); r.abilities = [r.abilities, a.ability].filter(Boolean).join('; '); }
+      }
+      for (const n of c.notes) {
+        const m = /^Replace (.+) with (.+?)\.?$/i.exec(n); // e.g. "Replace FLYING with STEALTH FLYING."
+        const i = m ? list.findIndex((x) => abKey(x.ability) === abKey(m[1])) : -1;
+        if (i >= 0) {
+          const nm = m[2].toLowerCase().replace(/\b\w/g, (ch) => ch.toUpperCase());
+          r.abilities = abList(r.abilities).map((x) => (x === list[i].ability ? nm : x)).join('; ');
+          list[i] = { ...list[i], ability: nm, note: ERRATA_NOTE, errata: true };
+        } else list.push({ unit: c.unit, ability: 'FAQ clarification', text: n, note: 'From the All Time Format FAQ.', errata: true });
+      }
+      ABIL[c.unit] = list;
+    }
+  }
+  // the unit's "Book of" thread on Heroscapers (found by a title search, since thread addresses can't be worked out)
+  const bookOfUrl = (r) => 'https://www.heroscapers.com/search/?q=' + encodeURIComponent('"Book of ' + r.unit.replace(/ \(\d\.0\)$/, '') + '"') + '&c[title_only]=1&o=relevance';
   // ---------- products ----------
   const PROD_OWN = {}; // product id -> count owned
   const PSTATE = { kind: '', own: '', q: '' };
   let PROD_AUTO = true;
   const STORE_SEARCH = 'https://heroscape.renegadegamestudios.com/search.php?search_query=';
   const prodKind = (p) => p.kind === 'Army expansion' ? 'army' : p.kind === 'Terrain' ? 'terrain' : p.kind === 'Promo' ? 'promo' : p.kind === 'Accessory' ? 'acc' : 'box';
-  const prodById = (id) => (DATA('products') || []).find((p) => p.id === id);
+  const prodById = (id) => (RAW('products') || []).find((p) => p.id === id);
   const productsOf = (unit) => (DATA('products') || []).filter((p) => (p.units || []).includes(unit));
   const buyUrl = (p) => p.url || STORE_SEARCH + encodeURIComponent(p.kind === 'Promo' ? p.units[0] : p.name);
-  const monthTxt = (d) => { const [y, m] = String(d).split('-'); return new Date(+y, +m - 1, 1).toLocaleDateString(undefined, { month: 'short', year: 'numeric' }); };
+  const monthTxt = (d) => { const [y, m] = String(d).split('-'); return m ? new Date(+y, +m - 1, 1).toLocaleDateString(undefined, { month: 'short', year: 'numeric' }) : y; };
   const upcoming = (p) => String(p.date) > today().slice(0, 7);
   function setProd(id, n) {
     const p = prodById(id); if (!p) return;
@@ -1907,7 +1980,7 @@
   const pQ = root.querySelector('.p-q');
   pQ.addEventListener('input', () => { PSTATE.q = pQ.value.trim().toLowerCase(); drawProducts(); });
   function terrainSummary(list) {
-    const T = DATA('terrain'); if (!T) return '';
+    const T = RAW('terrain'); if (!T) return '';
     const name = (id) => (T.types.find((t) => t.id === id) || { name: id }).name;
     const by = new Map();
     for (const x of list) { const k = name(x.t); by.set(k, (by.get(k) || []).concat(/^\d+$/.test(x.s) ? `${x.n}× ${x.s}-hex` : `${x.n}× ${x.s}`)); }
@@ -1956,7 +2029,7 @@
         row.appendChild(main);
         const side = mk('div', 'p-side');
         side.appendChild(stepperN(PROD_OWN[p.id] || 0, (n) => setProd(p.id, n), p.name));
-        side.appendChild(link(upcoming(p) ? 'Pre-order ↗' : 'Buy ↗', buyUrl(p), 'p-buy'));
+        side.appendChild(link(p.era === 'classic' ? 'Info ↗' : upcoming(p) ? 'Pre-order ↗' : 'Buy ↗', buyUrl(p), 'p-buy'));
         row.appendChild(side);
         card.appendChild(row);
       }
@@ -1967,6 +2040,8 @@
   function cardExtras(r) {
     const box = dlg.querySelector('.hs-dlg-prod'); box.replaceChildren();
     if (r.custom) { box.appendChild(mk('span', 'hs-tag', 'Custom card')); return; }
+    const bk = mk('div', 'hs-bookof'); bk.appendChild(link('Book of ' + r.unit.replace(/ \(\d\.0\)$/, '') + ' on Heroscapers ↗', bookOfUrl(r))); box.appendChild(bk);
+    if (r.errataPts) box.appendChild(mk('div', 'hs-note', `Printed at ${r.card_points} points; the FAQ points update makes it ${r.points}.`));
     const ps = productsOf(r.unit);
     if (!ps.length) return;
     box.appendChild(document.createTextNode(ps.length > 1 ? 'Comes in: ' : 'Comes in '));
@@ -1975,8 +2050,8 @@
       const b = mk('button', 'hs-linkbtn', p.name); b.type = 'button';
       b.addEventListener('click', () => { dlg.close(); PSTATE.q = p.name.toLowerCase(); pQ.value = p.name; PSTATE.kind = ''; PSTATE.own = ''; showPage('products', true); });
       box.appendChild(b);
-      box.appendChild(document.createTextNode(` (${p.kind === 'Promo' ? p.note : monthTxt(p.date)}) `));
-      box.appendChild(link(upcoming(p) ? 'pre-order ↗' : 'buy ↗', buyUrl(p)));
+      box.appendChild(document.createTextNode(` (${p.kind === 'Promo' && p.note ? p.note : monthTxt(p.date)}) `));
+      box.appendChild(link(p.era === 'classic' ? 'info ↗' : upcoming(p) ? 'pre-order ↗' : 'buy ↗', buyUrl(p)));
     });
   }
 
@@ -2002,7 +2077,7 @@
   });
   // every piece you own: from products plus loose pieces
   function terrainOwned() {
-    const P = DATA('products') || [], out = new Map();
+    const P = RAW('products') || [], out = new Map();
     const add = (t, s, n) => { const k = t + '|' + s; out.set(k, (out.get(k) || 0) + n); };
     for (const p of P) { const q = PROD_OWN[p.id] || 0; if (q) for (const x of p.terrain || []) add(x.t, x.s, x.n * q); }
     for (const [k, n] of Object.entries(TERR_EXTRA)) { const [t, s] = k.split('|'); add(t, s, n); }
@@ -2012,7 +2087,7 @@
   const tAll = root.querySelector('.t-all');
   tAll.addEventListener('change', () => { TERR_ALL = tAll.checked; drawTerrain(); });
   function drawTerrain() {
-    const T = DATA('terrain'), P = DATA('products'); if (!T || !P) return;
+    const T = RAW('terrain'), P = DATA('products'); if (!T || !P) return;
     tAll.checked = TERR_ALL;
     root.querySelector('.t-note').textContent = T.note;
     const own = terrainOwned();
@@ -2030,7 +2105,9 @@
     root.querySelector('.t-objs').textContent = d3.format(',')(objs);
     root.querySelector('.t-types').textContent = String(new Set([...own.keys()].map((k) => k.split('|')[0])).size);
     const box = root.querySelector('.t-groups'); box.replaceChildren();
-    for (const [group, types] of d3.groups(T.types, (t) => t.group)) {
+    // old-school types show in the old-school eras, or whenever you own some
+    const ownsType = (t) => [...own.keys()].some((k) => k.startsWith(t.id + '|'));
+    for (const [group, types] of d3.groups(T.types.filter((t) => eraOk(t) || ownsType(t)), (t) => t.group)) {
       const shown = types.filter((t) => TERR_ALL || [...own.keys()].some((k) => k.startsWith(t.id + '|')));
       if (!shown.length) continue;
       const card = mk('div', 'hs-card t-group');
@@ -2217,7 +2294,7 @@
     const gains = terrainProds.map((p) => { const have = { ...PROD_OWN, [p.id]: (PROD_OWN[p.id] || 0) + 1 }; return { p, n: M.filter((m) => !mapCan(m) && mapCan(m, have)).length }; })
       .filter((x) => x.n > 0).sort((a, b) => b.n - a.n).slice(0, 5);
     if (!gains.length) nb.appendChild(mk('p', 'hs-empty', can.length ? 'No single product unlocks another listed map. Combinations may.' : 'Count your boxes on the Products page first.'));
-    for (const g of gains) { const d = mk('div', 'm-gain'); d.append(mk('b', '', `+${g.n} map${g.n === 1 ? '' : 's'}`), document.createTextNode(` with ${PROD_OWN[g.p.id] ? 'another ' : ''}${g.p.name} `)); d.appendChild(link('buy ↗', buyUrl(g.p))); nb.appendChild(d); }
+    for (const g of gains) { const d = mk('div', 'm-gain'); d.append(mk('b', '', `+${g.n} map${g.n === 1 ? '' : 's'}`), document.createTextNode(` with ${PROD_OWN[g.p.id] ? 'another ' : ''}${g.p.name} `)); d.appendChild(link(g.p.era === 'classic' ? 'info ↗' : 'buy ↗', buyUrl(g.p))); nb.appendChild(d); }
     const list = M.filter((m) => (!MSTATE.level || m.level === MSTATE.level) && (!MSTATE.show || (MSTATE.show === 'can') === mapCan(m))
       && (!MSTATE.q || [m.name, m.designer, m.event].join(' ').toLowerCase().includes(MSTATE.q)));
     const box = root.querySelector('.m-list'); box.replaceChildren();
@@ -2571,9 +2648,9 @@
     const C = dash.data('cards');
     const real = UNITS.filter((u) => !u.custom);
     if (C.status !== 'ok' || !real.length) { out.replaceChildren(); return; }
-    if (!HOME_PICK || !imgFor(HOME_PICK)) {
+    if (!HOME_PICK || !imgFor(HOME_PICK) || !real.some((u) => u.unit === HOME_PICK)) {
       const pool = real.filter((u) => imgFor(u.unit));
-      if (!pool.length) return;
+      if (!pool.length) { HOME_PICK = null; delete out.dataset.unit; out.replaceChildren(); return; }
       HOME_PICK = pool[Math.floor(Math.random() * pool.length)].unit;
     }
     if (out.dataset.unit === HOME_PICK) return;
@@ -3002,6 +3079,14 @@
     ['f5', 'Faction explorer', 'Win with 5 different factions', '5F', (s) => s.winFacs.size >= 5],
     ['c25', 'Collector', 'Own 25% of the army cards', '¼', (s) => s.cPct >= 0.25], ['c50', 'Hoarder', 'Own half of the army cards', '½', (s) => s.cPct >= 0.5],
     ['c100', 'Completionist', 'Own every army card', '∞', (s) => s.cPct >= 1], ['terra', 'Terraformer', 'Own 5 terrain products', '⬢', (s) => s.terr >= 5],
+    // old-school products (shown once the home page includes old-school cards, or once earned)
+    ['oc25', 'Old-school collector', 'Own 25% of the old-school army cards', '¼', (s) => s.ocPct >= 0.25, false, '', 'classic'],
+    ['oc50', 'Vault keeper', 'Own half of the old-school army cards', '½', (s) => s.ocPct >= 0.5, false, '', 'classic'],
+    ['oc100', 'Old-school completionist', 'Own every old-school army card', '∞', (s) => s.ocPct >= 1, false, '', 'classic'],
+    ['orotv', 'Where it began', 'Own the Rise of the Valkyrie Master Set', 'V', (s) => s.oprod.has('c-rotv'), false, '', 'classic'],
+    ['owaves', 'Wave rider', 'Own all ten Hasbro waves', 'W', (s) => [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].every((i) => s.oprod.has('c-w' + i)), false, '', 'classic'],
+    ['odnd', 'Dungeon delver', 'Own Battle for the Underdark and the three D&D waves', 'D', (s) => ['c-underdark', 'c-d1', 'c-d2', 'c-d3'].every((i) => s.oprod.has(i)), false, '', 'classic'],
+    ['oterra', 'Classic terraformer', 'Own 3 old-school terrain products', '⬡', (s) => s.oterr >= 3, false, '', 'classic'],
     ['maps10', 'Map maker', 'Be able to build 10 tournament maps', 'M', (s) => s.maps >= 10], ['host', 'Tournament organizer', 'Finish a Swiss tournament in the tracker', 'TO', (s) => s.hosted >= 1],
     // hidden until earned: keep changing the colors on the Settings page
     ['colors', 'True colors', 'Played with the colors until something happened. New colors unlocked in Settings.', '✦', (s) => s.colorEgg, true]
@@ -3087,9 +3172,14 @@
   }
   function allStats() {
     const s = recStats();
-    const real = UNITS.filter((u) => !u.custom);
-    s.cPct = real.length ? real.filter((u) => ownedOf(u.unit) > 0).length / real.length : 0;
-    s.terr = (DATA('products') || []).filter((p) => p.kind === 'Terrain' && PROD_OWN[p.id]).length;
+    // collection achievements count each era on its own, whatever the home page shows
+    const allU = dash.data('units').data || [], allP = dash.data('products').data || [];
+    const pct = (list) => (list.length ? list.filter((u) => ownedOf(u.unit) > 0).length / list.length : 0);
+    s.cPct = pct(allU.filter((u) => u.era !== 'classic'));
+    s.ocPct = pct(allU.filter(isOld));
+    s.terr = allP.filter((p) => p.kind === 'Terrain' && p.era !== 'classic' && PROD_OWN[p.id]).length;
+    s.oterr = allP.filter((p) => p.kind === 'Terrain' && p.era === 'classic' && PROD_OWN[p.id]).length;
+    s.oprod = new Set(allP.filter((p) => p.era === 'classic' && PROD_OWN[p.id]).map((p) => p.id));
     s.maps = (DATA('maps') || []).filter((m) => mapCan(m)).length;
     s.hosted = TOURNEYS.filter((t) => t.finished).length;
     s.colorEgg = THEME.unlocked;
@@ -3164,7 +3254,9 @@
     drawPlayerCard();
     const s = allStats(), grid = root.querySelector('.bd-grid'); grid.replaceChildren();
     for (const b of BADGES) {
-      const earned = b[4](s), d = badgeEl(b, earned);
+      const earned = b[4](s);
+      if (b[7] === 'classic' && state.era === 'now' && !earned) continue;
+      const d = badgeEl(b, earned);
       if (earned) {
         const c = document.createElement('input'); c.type = 'checkbox'; c.checked = PROFILE.badges.includes(b[0]); c.setAttribute('aria-label', 'Show ' + b[1] + ' on my card');
         c.disabled = !c.checked && PROFILE.badges.length >= 6;
@@ -3220,21 +3312,35 @@
   // The site ships the master rulebook (assets/rulebook.pdf) and opens it by default, drawn with pdf.js.
   // A reader can open a different PDF from their device and keep it in this browser's IndexedDB;
   // only the bookmarks and last page go in the backup file.
-  const SITE_RULEBOOK = { src: 'assets/rulebook.pdf', name: 'Heroscape Master Game Rulebook' };
-  const RULES = { page: 1, marks: [] };
+  // The FAQ and errata document ships too, as a second book with its own page and bookmarks.
+  const BOOKS = {
+    rules: { src: 'assets/rulebook.pdf', name: 'Heroscape Master Game Rulebook' },
+    faq: { src: 'assets/faq.pdf', name: 'All Time Format FAQ and Errata' }
+  };
+  // RULES.page and RULES.marks are those of the open book
+  const RULES = {
+    book: 'rules', bk: { rules: { page: 1, marks: [] }, faq: { page: 1, marks: [] } },
+    get page() { return this.bk[this.book].page; }, set page(v) { this.bk[this.book].page = v; },
+    get marks() { return this.bk[this.book].marks; }, set marks(v) { this.bk[this.book].marks = v; }
+  };
+  const cleanBook = (o) => ({
+    page: Math.max(1, Math.min(999, Math.round(+(o && o.page)) || 1)),
+    marks: (Array.isArray(o && o.marks) ? o.marks : []).slice(0, 100)
+      .map((m) => ({ p: Math.max(1, Math.min(999, Math.round(+(m && m.p)) || 1)), t: str(m && m.t, 60) }))
+  });
   registerSaved({
     key: 'rules', label: 'rulebook bookmarks',
-    get: () => ({ page: RULES.page, marks: RULES.marks.slice() }),
-    clean: (o) => ({
-      page: Math.max(1, Math.min(999, Math.round(+(o && o.page)) || 1)),
-      marks: (Array.isArray(o && o.marks) ? o.marks : []).slice(0, 100)
-        .map((m) => ({ p: Math.max(1, Math.min(999, Math.round(+(m && m.p)) || 1)), t: str(m && m.t, 60) }))
-    }),
+    get: () => ({ page: RULES.bk.rules.page, marks: RULES.bk.rules.marks.slice(), faq: { page: RULES.bk.faq.page, marks: RULES.bk.faq.marks.slice() }, book: RULES.book }),
+    clean: (o) => ({ ...cleanBook(o), faq: cleanBook(o && o.faq), book: o && o.book === 'faq' ? 'faq' : 'rules' }),
     apply: (v, merge) => {
-      if (!v) { RULES.page = 1; RULES.marks = []; return; }
-      if (!merge) RULES.page = v.page;
-      const have = new Set(merge ? RULES.marks.map((m) => m.p) : []);
-      RULES.marks = (merge ? RULES.marks : []).concat(v.marks.filter((m) => !have.has(m.p))).sort((a, b) => a.p - b.p);
+      if (!v) { RULES.book = 'rules'; RULES.bk = { rules: { page: 1, marks: [] }, faq: { page: 1, marks: [] } }; return; }
+      for (const [id, b] of [['rules', v], ['faq', v.faq]]) {
+        const cur = RULES.bk[id];
+        if (!merge) cur.page = b.page;
+        const have = new Set(merge ? cur.marks.map((m) => m.p) : []);
+        cur.marks = (merge ? cur.marks : []).concat(b.marks.filter((m) => !have.has(m.p))).sort((a, b2) => a.p - b2.p);
+      }
+      if (!merge) RULES.book = v.book;
     }
   });
 
@@ -3309,6 +3415,7 @@
     if (rb('rb-keep').checked) {
       try { await IDB.put('rulebook', { name: f.name, bytes }); RB.stored = f.name; } catch (err) { /* storage blocked: still open it */ }
     }
+    RULES.book = 'rules'; syncBookSeg();
     RULES.page = 1;
     await openPdf(bytes, f.name, false);
     e.target.value = '';
@@ -3318,17 +3425,35 @@
   rb('rb-forget').addEventListener('click', async () => {
     try { await IDB.del('rulebook'); } catch (e) { /* nothing stored */ }
     RB.stored = null;
+    RULES.book = 'rules'; syncBookSeg();
     RULES.page = 1;
     persist();
     openSite();
     drawRules();
   });
   function openSite() {
-    rbMsg('Opening ' + SITE_RULEBOOK.name + '…');
-    fetch(SITE_RULEBOOK.src).then((r) => { if (!r.ok) throw new Error('not found'); return r.arrayBuffer(); })
-      .then((b) => openPdf(new Uint8Array(b), SITE_RULEBOOK.name, false))
-      .catch(() => rbMsg('The site rulebook could not be loaded. You can open a rulebook PDF from your device.'));
+    const B = BOOKS[RULES.book];
+    rbMsg('Opening ' + B.name + '…');
+    fetch(B.src).then((r) => { if (!r.ok) throw new Error('not found'); return r.arrayBuffer(); })
+      .then((b) => openPdf(new Uint8Array(b), B.name, false))
+      .catch(() => rbMsg('The ' + B.name + ' could not be loaded.' + (RULES.book === 'rules' ? ' You can open a rulebook PDF from your device.' : '')));
   }
+  // switch between the rulebook (or the reader's own PDF) and the FAQ
+  function openBook() {
+    syncBookSeg();
+    if (RULES.book === 'rules') {
+      IDB.get('rulebook').catch(() => null).then((v) => { if (v && v.bytes) openPdf(v.bytes, v.name, true); else openSite(); });
+    } else openSite();
+  }
+  function syncBookSeg() {
+    root.querySelectorAll('#rules .rb-book-seg button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.book === RULES.book)));
+    rb('rb-own').hidden = RULES.book !== 'rules';
+    rb('rb-findl').textContent = RULES.book === 'rules' ? 'Find in rulebook' : 'Find in FAQ';
+  }
+  root.querySelectorAll('#rules .rb-book-seg button').forEach((b) => b.addEventListener('click', () => {
+    if (b.dataset.book === RULES.book) return;
+    RULES.book = b.dataset.book; persist(); openBook();
+  }));
 
   // one page on narrow screens, two facing pages (cover alone) when there is room
   const twoUp = () => rb('rb-stage').clientWidth >= 720;
@@ -3638,8 +3763,9 @@
     if (!rbChecked) {
       rbChecked = true;
       IDB.get('rulebook').catch(() => null).then((v) => {
-        if (v && v.bytes) { RB.stored = v.name; rb('rb-forget').hidden = false; if (!RB.doc) openPdf(v.bytes, v.name, true); }
-        else if (!RB.doc) openSite();
+        syncBookSeg();
+        if (v && v.bytes) { RB.stored = v.name; rb('rb-forget').hidden = false; if (!RB.doc && RULES.book === 'rules') openPdf(v.bytes, v.name, true); }
+        if (!RB.doc && !(v && v.bytes && RULES.book === 'rules')) openSite();
       });
     }
     rb('rb-forget').hidden = !RB.stored;

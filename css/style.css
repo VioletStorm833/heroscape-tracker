@@ -704,3 +704,9 @@ body.ed-bg .site-foot { padding: 12px 16px; }
 .hs-foldtools { display: inline-flex; gap: 4px; margin-left: auto; }
 .hs-foldarmies { display: flex; flex-wrap: wrap; gap: 6px; padding: 6px 0 2px; }
 .hs-foldarmy.on { background: var(--accent); color: var(--color-bg); border-color: var(--accent); }
+
+/* era switch on the home page, Book of link in the card dialog */
+.home-era { margin-bottom: var(--cds-gap-md); }
+.home-era .hs-seg { flex-wrap: wrap; width: fit-content; max-width: 100%; }
+.hs-bookof { margin-bottom: 4px; }
+.rb-book-seg { margin-bottom: var(--cds-gap-sm); }
