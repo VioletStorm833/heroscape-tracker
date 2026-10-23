@@ -1,0 +1,192 @@
+{
+ "app": "heroscape-tracker-edits",
+ "format": 1,
+ "text": {},
+ "order": {},
+ "images": {},
+ "pixel": [],
+ "themes": [
+  {
+   "id": "th-halloween",
+   "name": "Halloween",
+   "mode": "",
+   "unlock": "day-halloween",
+   "colors": {},
+   "images": {},
+   "pixel": []
+  },
+  {
+   "id": "th-winter-solstice",
+   "name": "Winter solstice",
+   "mode": "",
+   "unlock": "day-winter-solstice",
+   "colors": {},
+   "images": {},
+   "pixel": []
+  },
+  {
+   "id": "th-christmas",
+   "name": "Christmas",
+   "mode": "",
+   "unlock": "day-christmas",
+   "colors": {},
+   "images": {},
+   "pixel": []
+  },
+  {
+   "id": "th-new-year",
+   "name": "New Year's",
+   "mode": "",
+   "unlock": "day-new-year",
+   "colors": {},
+   "images": {},
+   "pixel": []
+  },
+  {
+   "id": "th-summer-solstice",
+   "name": "Summer solstice",
+   "mode": "",
+   "unlock": "day-summer-solstice",
+   "colors": {},
+   "images": {},
+   "pixel": []
+  },
+  {
+   "id": "th-spring",
+   "name": "Spring",
+   "mode": "",
+   "unlock": "day-spring",
+   "colors": {},
+   "images": {},
+   "pixel": []
+  },
+  {
+   "id": "th-summer",
+   "name": "Summer",
+   "mode": "",
+   "unlock": "day-summer",
+   "colors": {},
+   "images": {},
+   "pixel": []
+  },
+  {
+   "id": "th-autumn",
+   "name": "Autumn",
+   "mode": "",
+   "unlock": "day-autumn",
+   "colors": {},
+   "images": {},
+   "pixel": []
+  },
+  {
+   "id": "th-winter",
+   "name": "Winter",
+   "mode": "",
+   "unlock": "day-winter",
+   "colors": {},
+   "images": {},
+   "pixel": []
+  },
+  {
+   "id": "th-april-fools",
+   "name": "April Fools'",
+   "mode": "",
+   "unlock": "day-april-fools",
+   "colors": {},
+   "images": {},
+   "pixel": []
+  }
+ ],
+ "badges": [
+  {
+   "id": "day-halloween",
+   "name": "Halloween",
+   "desc": "",
+   "icon": "",
+   "rule": "",
+   "from": "10-31",
+   "to": "10-31"
+  },
+  {
+   "id": "day-winter-solstice",
+   "name": "Winter solstice",
+   "desc": "",
+   "icon": "",
+   "rule": "",
+   "from": "12-21",
+   "to": "12-22"
+  },
+  {
+   "id": "day-christmas",
+   "name": "Christmas",
+   "desc": "",
+   "icon": "",
+   "rule": "",
+   "from": "12-25",
+   "to": "12-25"
+  },
+  {
+   "id": "day-new-year",
+   "name": "New Year's",
+   "desc": "",
+   "icon": "",
+   "rule": "",
+   "from": "12-31",
+   "to": "01-01"
+  },
+  {
+   "id": "day-summer-solstice",
+   "name": "Summer solstice",
+   "desc": "",
+   "icon": "",
+   "rule": "",
+   "from": "06-20",
+   "to": "06-21"
+  },
+  {
+   "id": "day-spring",
+   "name": "Spring",
+   "desc": "",
+   "icon": "",
+   "rule": "",
+   "from": "03-20",
+   "to": "06-20"
+  },
+  {
+   "id": "day-summer",
+   "name": "Summer",
+   "desc": "",
+   "icon": "",
+   "rule": "",
+   "from": "06-21",
+   "to": "09-22"
+  },
+  {
+   "id": "day-autumn",
+   "name": "Autumn",
+   "desc": "",
+   "icon": "",
+   "rule": "",
+   "from": "09-23",
+   "to": "12-20"
+  },
+  {
+   "id": "day-winter",
+   "name": "Winter",
+   "desc": "",
+   "icon": "",
+   "rule": "",
+   "from": "12-21",
+   "to": "03-19"
+  },
+  {
+   "id": "day-april-fools",
+   "name": "April Fools'",
+   "desc": "",
+   "icon": "",
+   "rule": "",
+   "from": "04-01",
+   "to": "04-01"
+  }
+ ]
+}

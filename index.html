@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Heroscape Tracker</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Free Heroscape tracker: army card rankings, army builder, collection and terrain tracking, tournament maps, Swiss tournaments, game record and rules. No accounts; your data stays on your device.">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="dash-root"><div class="hs">
+  <header class="site-head">
+    <div class="brand">
+      <button type="button" class="menu-btn" aria-expanded="false" aria-controls="side-menu"><span class="menu-ic" aria-hidden="true"><span data-ek="t9e43a1f7">☰</span></span> <span data-ek="t337b969f">Menu</span></button>
+      <div>
+        <h1 id="title"><a href="#home" data-goto="home"><span data-ek="tfa7eef23">Heroscape Tracker</span></a></h1>
+      </div>
+    </div>
+    <button type="button" class="privacy-pill" data-goto="data"><span class="dot"></span><span class="pp-t"><span data-ek="t0008658a">Your data stays on this device</span></span></button>
+  </header>
+  <div class="side-scrim" hidden></div>
+  <nav class="side-menu" id="side-menu" aria-label="All sections" hidden>
+    <div class="side-top"><b><span data-ek="t1fe0a1e9">Sections</span></b><button type="button" class="hs-x side-close" aria-label="Close menu"><span data-ek="t962a6370">×</span></button></div>
+    <div class="side-list"></div>
+  </nav>
+
+  <nav class="hs-subtabs" aria-label="Pages">
+    <button type="button" data-group="cards" data-page="rankings"><span data-ek="page:rankings">Rankings</span></button>
+    <button type="button" data-group="cards" data-page="charts"><span data-ek="page:charts">Charts</span></button>
+    <button type="button" data-group="cards" data-page="army"><span data-ek="page:army">Army builder</span><span class="n na"></span></button>
+    <button type="button" data-group="cards" data-page="fight"><span data-ek="page:fight">Fight simulator</span></button>
+    <button type="button" data-group="cards" data-page="random"><span data-ek="page:random">Randomizer</span></button>
+    <button type="button" data-group="collection" data-page="collection"><span data-ek="page:collection">Army cards</span><span class="n nc"></span></button>
+    <button type="button" data-group="collection" data-page="products"><span data-ek="page:products">Products</span><span class="n np"></span></button>
+    <button type="button" data-group="collection" data-page="terrain"><span data-ek="page:terrain">Terrain</span></button>
+    <button type="button" data-group="maps" data-page="maps"><span data-ek="page:maps">Tournament maps</span></button>
+    <button type="button" data-group="play" data-page="tournament"><span data-ek="page:tournament">Swiss tournament</span></button>
+    <button type="button" data-group="play" data-page="record"><span data-ek="page:record">My record</span></button>
+    <button type="button" data-group="play" data-page="player"><span data-ek="page:player">Player card</span></button>
+    <button type="button" data-group="rules" data-page="rules"><span data-ek="page:rules">Master rules</span></button>
+    <button type="button" data-group="settings" data-page="settings"><span data-ek="page:settings">Colors &amp; custom cards</span></button>
+    <button type="button" data-group="settings" data-page="data"><span data-ek="page:data">Save &amp; load</span></button>
+  </nav>
+  <div class="hs-links">
+    <a href="https://heroscape.renegadegamestudios.com/" target="_blank" rel="noopener noreferrer"><span data-ek="t28dcfdc8">Buy Heroscape at Renegade ↗</span></a>
+    <a href="https://heroscape.org/ohs" target="_blank" rel="noopener noreferrer"><span data-ek="t25daa496">Play online at heroscape.org ↗</span></a>
+  </div>
+  <div class="hs-card hs-ctl" id="filters" hidden>
+    <div class="hs-controls">
+      <div class="hs-field hs-f-mode"><span data-ek="tcd3105ac">Stats</span>
+        <div class="hs-seg" role="group" aria-label="Stats mode">
+          <button type="button" data-mode="printed" aria-pressed="false"><span data-ek="t520274e3">Printed</span></button>
+          <button type="button" data-mode="specials" aria-pressed="true"><span data-ek="t8935e79b">With specials</span></button>
+          <button type="button" data-mode="conditional" aria-pressed="false"><span data-ek="ta125557c">With conditional</span></button>
+        </div>
+      </div>
+      <div class="hs-field hs-f-view"><span data-ek="tbfc030da">Show</span>
+        <div class="hs-seg" role="group" aria-label="Show stats as">
+          <button type="button" data-view="per" aria-pressed="true"><span data-ek="t48a20602">Per 100 points</span></button>
+          <button type="button" data-view="raw" aria-pressed="false"><span data-ek="t2d2b410d">Raw stats</span></button>
+        </div>
+      </div>
+      <label class="hs-field hs-f-q"><span data-ek="tf5685ebb">Search unit or ability</span><input type="search" class="hs-q" placeholder="e.g. Flying, Ninja, Revna"></label>
+      <label class="hs-field"><span data-ek="t1525f677">Min points</span><input type="number" class="hs-min hs-num" min="0" max="999" step="5" inputmode="numeric" placeholder="Any"></label>
+      <label class="hs-field"><span data-ek="ta784bee1">Max points</span><input type="number" class="hs-max hs-num" min="0" max="999" step="5" inputmode="numeric" placeholder="Any"></label>
+      <label class="hs-field hs-advtoggle"><span><span data-ek="t86999680">&nbsp;</span></span><span class="hs-chk"><input type="checkbox" class="hs-advon"> <span data-ek="t41fcfd8c">Advanced options</span></span></label>
+      <button type="button" class="hs-btn hs-reset"><span data-ek="tc7d6f971">Reset</span></button>
+      <label class="hs-field hs-f-own"><span data-ek="tf28dd9e3">Collection</span><select class="hs-own"><option value="">All units</option><option value="owned">Units I own</option><option value="missing">Units I don't own</option><option value="want">My wishlist</option></select></label>
+      <span class="hs-count"></span>
+      <div class="hs-adv" hidden>
+      <label class="hs-field"><span data-ek="t4dbaad41">Faction</span><select data-f="faction"></select></label>
+      <label class="hs-field"><span data-ek="tb2f82c77">Card type</span><select data-f="ctype"></select></label>
+      <label class="hs-field"><span data-ek="t3626a1a5">Class</span><select data-f="cls"></select></label>
+      <label class="hs-field"><span data-ek="t8e6fc8e3">Species</span><select data-f="species"></select></label>
+      <label class="hs-field"><span data-ek="t983a78fe">Personality</span><select data-f="pers"></select></label>
+      <label class="hs-field"><span data-ek="taf29990a">Size</span><select data-f="size"></select></label>
+      <label class="hs-field"><span data-ek="tc5b80f9d">Bonding</span><select data-f="bond"></select></label>
+      <div class="hs-field"><span data-ek="tb045cf35">Bonds with</span>
+        <select class="hs-bw" aria-label="Bonds with unit"></select>
+        <div class="hs-seg hs-bwdir" role="group" aria-label="Bond direction">
+          <button type="button" data-bwdir="in" aria-pressed="true"><span data-ek="t917e788d">Can move it</span></button>
+          <button type="button" data-bwdir="out" aria-pressed="false"><span data-ek="tf272840b">It can move</span></button>
+          <button type="button" data-bwdir="both" aria-pressed="false"><span data-ek="te026e2db">Both</span></button>
+        </div>
+      </div>
+      <div class="hs-field hs-formula"><span data-ek="t773c69bd">Total formula</span>
+        <div class="hs-fx">
+          <label><span data-ek="t1bf3a83d">Atk ×</span><input type="number" class="hs-w" data-w="a" step="0.01" min="0" inputmode="decimal"></label>
+          <label><span data-ek="t7a991107">+ Def ×</span><input type="number" class="hs-w" data-w="d" step="0.01" min="0" inputmode="decimal"></label>
+          <label><span data-ek="taf0daf9b">+ Life ×</span><input type="number" class="hs-w" data-w="l" step="0.01" min="0" inputmode="decimal"></label>
+          <button type="button" class="hs-btn hs-wreset" title="Back to 0.5 / 0.33 / 1"><span data-ek="t483ac644">Default</span></button>
+        </div>
+      </div>
+      </div>
+    </div>
+    <p class="hs-note hs-bwinfo" hidden style="margin: var(--cds-gap-sm) 0 0"></p>
+  </div>
+  <section class="hs-page" id="home" data-eorder="home">
+    <div class="home-unit" data-eitem="unit"><div class="hu-out"></div><button type="button" class="hs-btn hu-next"><span data-ek="tc603f6f4">Show another</span></button></div>
+    <div class="home-index" data-eitem="index"></div>
+  </section>
+
+  <section class="hs-page" id="rankings" hidden><div class="hs-card">
+    <div class="hs-viewbar">
+      <div class="hs-seg hs-layout" role="group" aria-label="List view">
+        <button type="button" data-layout="table" aria-pressed="true"><span data-ek="t612db485">Table</span></button>
+        <button type="button" data-layout="pics" aria-pressed="false"><span data-ek="td420ecb7">Card pictures</span></button>
+      </div>
+    </div>
+    <div class="hs-gallery" data-source="cards units" hidden></div>
+    <div class="hs-hbar">
+      <button type="button" class="hs-left" aria-label="Scroll table left"><span data-ek="t81644e13">◀</span></button>
+      <div class="hs-topscroll" aria-hidden="true"><div></div></div>
+      <button type="button" class="hs-right" aria-label="Scroll table right"><span data-ek="t58f964c8">▶</span></button>
+    </div>
+    <div class="hs-scroll">
+      <table class="hs-t" data-source="units" data-row-key="unit">
+        <thead><tr></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="hs-notes" id="how-to-read">
+      <p><b><span data-ek="t7cfc51a7">Bonding</span></b> <span data-ek="td40b966f">= the card lets you take a turn with another of your army cards before or after its own (Bonding, Command Familiar, Captain's Orders, Yo, Joe! and similar), or move figures from other cards before or after its turn (marked “move only”, e.g. Greenshirts, Sir Gilbert, Grave Grim). Use the Bonding filter to show only those units, or pick a unit under</span> <b><span data-ek="tf988104f">Bonds with</span></b><span data-ek="td16648fb">: “Can move it” lists units whose bonding can activate or move the chosen unit, “It can move” lists units the chosen unit can activate or move, and “Both” shows either.</span></p>
+      <p><span data-ek="t5e0736ae">The table scrolls sideways: use the bar and ◀ ▶ buttons above it. The Army and Unit columns stay in place while you scroll.</span></p>
+      <p><b><span data-ek="tdd6c16c9">How to read it.</span></b> <span data-ek="t2c5fc2ab">Click any column header to re-rank by it (click again to flip). Click a unit or any ability to open its full card text.</span></p>
+      <p><b><span data-ek="tadd03b56">Total</span></b> <span data-ek="t8d5a12b5">= Atk × weight + Def × weight + Life × weight, using the weights in “Total formula” above (default 0.5 / 0.33 / 1, since a defense die and an attack die are each worth less than a point of life). Change them and every Total column, chart and army total updates. Per 100 points = stat × figures ÷ points × 100. Squads count every figure; the Crimson Twins share one life pool, so their life counts once.</span> <b><span data-ek="tc04be695">With specials</span></b> <span data-ek="t41ccc4f7">adds always-on automatic skulls/shields and extra attacks that can all hit one target, plus bonuses whose condition is how the unit normally attacks (a ranged squad standing still to shoot).</span> <b><span data-ek="t371ac6ae">With conditional</span></b> <span data-ek="t5de47cc1">also adds situational self-bonuses: First Assault, Evasive, Assassinate, Melee Defense, terrain bonuses and squad-mate bonuses. Open a unit to see exactly what each mode counts.</span></p>
+      <p><span class="hs-star"><span data-ek="t761bfe65">*</span></span> <span data-ek="t63d6d975">next to attack = an ability that hits several different figures (area or multi-target). Those dice are not added to attack, since they only pay off with several targets.</span></p>
+      <p><span data-ek="t7e38176a">Very cheap units (Isamu at 10 points, Morinstein's Masterpiece at 20) inflate per-point ratios, so use the Min points box to hide them. Type any minimum or maximum, or clear a box to remove that limit.</span></p>
+      <p><span data-ek="ta9763562">Use the</span> <b><span data-ek="tca401cde">+</span></b> <span data-ek="t4e8a1b6d">button on a row (or "Add to army" on a card) to put units in the Army builder.</span></p>
+    </div>
+  </div></section>
+
+  <section class="hs-page" id="charts" hidden>
+    <p class="hs-note"><span data-ek="tfd7e2eaa">Charts use the filters and stats mode above. Hover a mark for its numbers; click a dot or bar to open the card.</span></p>
+    <h3 style="margin: var(--cds-gap-md) 0 4px"><span data-ek="taa4401ae">Dice odds</span></h3>
+    <p class="hs-note"><span data-ek="t6529b0e7">Each combat die has 6 sides: 3 skulls, 2 shields, 1 blank. Attacking counts skulls (1 in 2 per die), defending counts shields (1 in 3 per die). Every skull not blocked by a shield is a wound. The attack vs defense tools are on the Fight Simulator tab.</span></p>
+    <label class="hs-chk" style="margin-bottom: var(--cds-gap-sm)"><input type="checkbox" class="hs-avgon"> <span data-ek="t04e49ca0">Show average skulls and shields, and the odds of each roll</span></label>
+    <div class="hs-grid hs-avggrid" style="margin-bottom: var(--cds-gap-md)" hidden>
+      <div class="hs-card" id="dice-atk"><h3><span data-ek="t78ffb79e">Average skulls with 1–10 attack dice</span></h3><p class="hs-note"><span data-ek="tc3748170">Bar = average skulls; line = the usual range (± 1 standard deviation).</span></p><div class="hs-chart"></div></div>
+      <div class="hs-card" id="dice-def"><h3><span data-ek="t5f192f4f">Average shields with 1–10 defense dice</span></h3><p class="hs-note"><span data-ek="t96e60e3b">Bar = average shields; line = the usual range (± 1 standard deviation).</span></p><div class="hs-chart"></div></div>
+      <div class="hs-card" id="odds-atk" style="grid-column: 1 / -1">
+        <div class="hs-dice-in" style="justify-content: space-between">
+          <h3 style="margin: 0"><span data-ek="t4ec5c005">Odds of each result</span></h3>
+          <div class="hs-seg hs-oddmode" role="group" aria-label="Odds type">
+            <button type="button" data-om="atleast" aria-pressed="true"><span data-ek="tf68299ac">At least</span></button>
+            <button type="button" data-om="exact" aria-pressed="false"><span data-ek="ta820c859">Exactly</span></button>
+          </div>
+        </div>
+        <p class="hs-note"><span data-ek="t2cc20efa">Rows = how many dice you roll, columns = number of skulls or shields. Example: 5 defense dice, column 2 in “At least” = the chance of rolling at least 2 shields. Hover a cell for the full sentence.</span></p>
+        <div class="hs-grid">
+          <div><h4 style="margin: 0 0 4px"><span data-ek="t41a67c8b">Skulls (attack dice)</span></h4><div class="hs-mxwrap"><table class="hs-mx hs-oddtab" data-p="atk"></table></div></div>
+          <div><h4 style="margin: 0 0 4px"><span data-ek="t6a9afab9">Shields (defense dice)</span></h4><div class="hs-mxwrap"><table class="hs-mx hs-oddtab" data-p="def"></table></div></div>
+        </div>
+      </div>
+    </div>
+    <h3 style="margin: var(--cds-gap-md) 0 4px"><span data-ek="t0874cfe2">Unit charts</span></h3>
+    <div class="hs-grid">
+      <div class="hs-card" id="chart-scatter"><h3 class="ct"></h3><p class="hs-note"><span data-ek="t666ba6e6">Each dot is a unit. Further up and right is better at both. Dot size = points.</span></p><div class="hs-chart" data-source="units"></div></div>
+      <div class="hs-card" id="chart-top"><h3 class="ct"></h3><p class="hs-note"><span data-ek="t4e869911">The 15 best units for the current filters.</span></p><div class="hs-chart" data-source="units"></div></div>
+      <div class="hs-card" id="chart-faction"><h3 class="ct"></h3><p class="hs-note"><span data-ek="t2764fd47">Average of the units shown, by faction.</span></p><div class="hs-chart" data-source="units"></div></div>
+      <div class="hs-card" id="chart-points"><h3 class="ct"></h3><p class="hs-note"><span data-ek="tef1817c2">Do expensive units give more for their points? Each dot is a unit.</span></p><div class="hs-chart" data-source="units"></div></div>
+    </div>
+  </section>
+
+
+  <section class="hs-page" id="fight" hidden>
+    <div class="hs-card hs-ctl">
+      <div class="hs-controls">
+        <div class="hs-field"><span data-ek="td2b9ec9f">Stats</span>
+          <div class="hs-seg" role="group" aria-label="Stats mode">
+            <button type="button" data-mode="printed" aria-pressed="false"><span data-ek="te9a5fc27">Printed</span></button>
+            <button type="button" data-mode="specials" aria-pressed="true"><span data-ek="t2c42bd81">With specials</span></button>
+            <button type="button" data-mode="conditional" aria-pressed="false"><span data-ek="td996baa9">With conditional</span></button>
+          </div>
+        </div>
+        <p class="hs-note" style="margin: 0; align-self: center"><span data-ek="t6e4ccd36">Picking a unit fills in its numbers for this stats mode, and changing the mode updates them. Numbers you type by hand stay as typed.</span></p>
+      </div>
+    </div>
+    <div class="hs-card" id="duel" style="margin-bottom: var(--cds-gap-md)">
+      <h3><span data-ek="t56b5c9e0">Fight to the finish</span></h3>
+      <p class="hs-note"><span data-ek="t816e1887">Two units fight in Heroscape rounds: each round both sides take 3 turns, alternating, starting with the side that wins initiative. They fight until one is wiped out. Every figure still alive at the start of its side’s turn attacks once (destroyed squad figures stop attacking for the rest of the fight), one figure at a time defends, and extra wounds past a figure's life are lost. With a bonded unit, both units attack every turn (as bonding lets them act together), and attacks hit the main unit first, then the bonded unit. Results come from</span> <span class="hs-nfights"><span data-ek="t7f8a73c0">1,000,000</span></span> <span data-ek="t6e768cd8">simulated fights. Click any result box to see its graph.</span></p>
+      <div class="hs-duel-grid">
+        <div class="hs-side" data-side="A">
+          <h4><span data-ek="t12c97930">Side A</span></h4>
+          <label class="hs-field"><span data-ek="t9da68cc2">Unit</span><select class="hs-du" data-source="units"></select></label>
+          <div class="hs-dice-in">
+            <label class="hs-field"><span data-ek="tac1708af">Attack</span><input type="number" class="hs-num" data-k="atk" min="0" max="20"></label>
+            <label class="hs-field"><span data-ek="t28080ce5">Defense</span><input type="number" class="hs-num" data-k="def" min="0" max="20"></label>
+            <label class="hs-field"><span data-ek="ta86b12f9">Life each</span><input type="number" class="hs-num" data-k="life" min="1" max="20"></label>
+            <label class="hs-field"><span data-ek="t36676719">Figures</span><input type="number" class="hs-num" data-k="figs" min="1" max="12"></label>
+            <label class="hs-field hs-copies" hidden><span data-ek="tfca608f5">Squads in army</span><input type="number" class="hs-num" data-k="copies" min="1" max="8" value="1"></label>
+          </div>
+          <label class="hs-chk"><input type="checkbox" class="hs-bondon"> <span data-ek="t0a170fd6">Add a bonded unit</span></label>
+          <div class="hs-bonded" hidden>
+            <label class="hs-field"><span data-ek="t393dbee5">Bonded unit</span><select class="hs-bu"></select></label>
+            <div class="hs-dice-in">
+              <label class="hs-field"><span data-ek="tac1708af-1">Attack</span><input type="number" class="hs-num" data-b="atk" min="0" max="20"></label>
+              <label class="hs-field"><span data-ek="t28080ce5-1">Defense</span><input type="number" class="hs-num" data-b="def" min="0" max="20"></label>
+              <label class="hs-field"><span data-ek="ta86b12f9-1">Life each</span><input type="number" class="hs-num" data-b="life" min="1" max="20"></label>
+              <label class="hs-field"><span data-ek="t36676719-1">Figures</span><input type="number" class="hs-num" data-b="figs" min="1" max="12"></label>
+              <label class="hs-field hs-copies" hidden><span data-ek="tfca608f5-1">Squads in army</span><input type="number" class="hs-num" data-b="copies" min="1" max="8" value="1"></label>
+            </div>
+            <p class="hs-note hs-bnote" style="margin: 0"></p>
+          </div>
+        </div>
+        <div class="hs-side" data-side="B">
+          <h4><span data-ek="t2abc18b6">Side B</span></h4>
+          <label class="hs-field"><span data-ek="t9da68cc2-1">Unit</span><select class="hs-du" data-source="units"></select></label>
+          <div class="hs-dice-in">
+            <label class="hs-field"><span data-ek="tac1708af-2">Attack</span><input type="number" class="hs-num" data-k="atk" min="0" max="20"></label>
+            <label class="hs-field"><span data-ek="t28080ce5-2">Defense</span><input type="number" class="hs-num" data-k="def" min="0" max="20"></label>
+            <label class="hs-field"><span data-ek="ta86b12f9-2">Life each</span><input type="number" class="hs-num" data-k="life" min="1" max="20"></label>
+            <label class="hs-field"><span data-ek="t36676719-2">Figures</span><input type="number" class="hs-num" data-k="figs" min="1" max="12"></label>
+            <label class="hs-field hs-copies" hidden><span data-ek="tfca608f5-2">Squads in army</span><input type="number" class="hs-num" data-k="copies" min="1" max="8" value="1"></label>
+          </div>
+          <label class="hs-chk"><input type="checkbox" class="hs-bondon"> <span data-ek="t0a170fd6-1">Add a bonded unit</span></label>
+          <div class="hs-bonded" hidden>
+            <label class="hs-field"><span data-ek="t393dbee5-1">Bonded unit</span><select class="hs-bu"></select></label>
+            <div class="hs-dice-in">
+              <label class="hs-field"><span data-ek="tac1708af-3">Attack</span><input type="number" class="hs-num" data-b="atk" min="0" max="20"></label>
+              <label class="hs-field"><span data-ek="t28080ce5-3">Defense</span><input type="number" class="hs-num" data-b="def" min="0" max="20"></label>
+              <label class="hs-field"><span data-ek="ta86b12f9-3">Life each</span><input type="number" class="hs-num" data-b="life" min="1" max="20"></label>
+              <label class="hs-field"><span data-ek="t36676719-3">Figures</span><input type="number" class="hs-num" data-b="figs" min="1" max="12"></label>
+              <label class="hs-field hs-copies" hidden><span data-ek="tfca608f5-3">Squads in army</span><input type="number" class="hs-num" data-b="copies" min="1" max="8" value="1"></label>
+            </div>
+            <p class="hs-note hs-bnote" style="margin: 0"></p>
+          </div>
+        </div>
+      </div>
+      <div class="hs-dice-in">
+        <div class="hs-field"><span data-ek="tb3e71e4b">Initiative (who goes first each round)</span>
+          <div class="hs-seg hs-first" role="group" aria-label="Initiative">
+            <button type="button" data-first="A" aria-pressed="true"><span data-ek="tf2d81c02">Side A always</span></button>
+            <button type="button" data-first="B" aria-pressed="false"><span data-ek="tc290ae99">Side B always</span></button>
+            <button type="button" data-first="R" aria-pressed="false"><span data-ek="t87aebfd8">d20 roll each round</span></button>
+          </div>
+        </div>
+        <div class="hs-field"><span data-ek="tc634ddea">Number of fights</span>
+          <div class="hs-seg hs-nf" role="group" aria-label="Number of fights">
+            <button type="button" data-n="100" aria-pressed="false"><span data-ek="tdb0ca302">Run 100 times</span></button>
+            <button type="button" data-n="1000000" aria-pressed="true"><span data-ek="t833ccf4a">Run 1 million times</span></button>
+          </div>
+        </div>
+        <button type="button" class="hs-btn hs-rerun"><span data-ek="t7f38f798">Run again</span></button>
+        <button type="button" class="hs-btn hs-swapsides"><span data-ek="t41287ec4">Swap sides</span></button>
+        <label class="hs-chk"><input type="checkbox" class="hs-modon"> <span data-ek="t41b9a03e">Advanced modifiers</span></label>
+      </div>
+      <div class="hs-mods" hidden>
+        <div class="hs-dice-in">
+          <div class="hs-field"><span data-ek="t1a5b8a65">Height advantage</span>
+            <div class="hs-seg hs-mheight" role="group" aria-label="Height advantage">
+              <button type="button" data-h="" aria-pressed="true"><span data-ek="t2cfdfc72">None</span></button>
+              <button type="button" data-h="A" aria-pressed="false"><span data-ek="tecda1ffc">Side A higher</span></button>
+              <button type="button" data-h="B" aria-pressed="false"><span data-ek="t8cbeb216">Side B higher</span></button>
+            </div>
+          </div>
+          <p class="hs-note" style="margin: 0; align-self: end"><span data-ek="t23127a26">The higher side rolls +1 attack die (normal attacks only) and +1 defense die.</span></p>
+        </div>
+        <div class="hs-duel-grid">
+          <div class="hs-modside" data-side="A">
+            <h4><span data-ek="t12c97930-1">Side A</span></h4>
+            <label class="hs-chk"><input type="checkbox" class="hs-msa"> <span data-ek="ta8f70ae3">Attacks are special attacks (no height bonus to attack)</span></label>
+            <div class="hs-dice-in">
+              <label class="hs-field"><span data-ek="tfa08d6e9">Glyph</span><select class="hs-mglyph"><option value="">None</option><option value="astrid">Astrid: +1 attack</option><option value="gerda">Gerda: +1 defense</option></select></label>
+              <label class="hs-field"><span data-ek="tf98c7cc3">Extra attack dice</span><input type="number" class="hs-num hs-mxa" min="-5" max="10" value="0"></label>
+              <label class="hs-field"><span data-ek="t63dc0b4a">Extra defense dice</span><input type="number" class="hs-num hs-mxd" min="-5" max="10" value="0"></label>
+            </div>
+            <label class="hs-field"><span data-ek="t5987230d">Add an aura</span><select class="hs-maura"></select></label>
+            <div class="hs-mchips"></div>
+          </div>
+          <div class="hs-modside" data-side="B">
+            <h4><span data-ek="t2abc18b6-1">Side B</span></h4>
+            <label class="hs-chk"><input type="checkbox" class="hs-msa"> <span data-ek="ta8f70ae3-1">Attacks are special attacks (no height bonus to attack)</span></label>
+            <div class="hs-dice-in">
+              <label class="hs-field"><span data-ek="tfa08d6e9-1">Glyph</span><select class="hs-mglyph"><option value="">None</option><option value="astrid">Astrid: +1 attack</option><option value="gerda">Gerda: +1 defense</option></select></label>
+              <label class="hs-field"><span data-ek="tf98c7cc3-1">Extra attack dice</span><input type="number" class="hs-num hs-mxa" min="-5" max="10" value="0"></label>
+              <label class="hs-field"><span data-ek="t63dc0b4a-1">Extra defense dice</span><input type="number" class="hs-num hs-mxd" min="-5" max="10" value="0"></label>
+            </div>
+            <label class="hs-field"><span data-ek="t5987230d-1">Add an aura</span><select class="hs-maura"></select></label>
+            <div class="hs-mchips"></div>
+          </div>
+        </div>
+        <p class="hs-note hs-msum" style="margin: 0 0 var(--cds-gap-sm)"></p>
+      </div>
+      <div class="hs-tiles hs-duel-tiles"></div>
+      <div class="hs-winbar" aria-hidden="true"><span class="wa"></span><span class="wb"></span></div>
+      <div class="hs-dots" hidden></div>
+      <p class="hs-note hs-progress" hidden></p>
+    </div>
+    <div class="hs-grid">
+      <div class="hs-card" id="dice-vs">
+        <h3><span data-ek="t5375e2d3">Attack vs defense</span></h3>
+        <p class="hs-note"><span data-ek="tcb4466ac">Pick dice counts, or pick two units to use their attack and defense (current stats mode).</span></p>
+        <div class="hs-dice-in">
+          <label class="hs-field"><span data-ek="t5900b0ca">Attacker</span><select class="hs-dua" data-source="units"></select></label>
+          <label class="hs-field"><span data-ek="taa47a2c7">Attack dice</span><input type="number" class="hs-num hs-da" min="0" max="20" value="3"></label>
+          <label class="hs-field"><span data-ek="t1fe5b4e6">Defender</span><select class="hs-dud" data-source="units"></select></label>
+          <label class="hs-field"><span data-ek="t2ad396fd">Defense dice</span><input type="number" class="hs-num hs-dd" min="0" max="20" value="3"></label>
+        </div>
+        <div class="hs-dstat hs-tiles"></div>
+        <div class="hs-chart hs-dvchart" style="min-height: 220px"></div>
+      </div>
+      <div class="hs-card" id="dice-matrix">
+        <h3><span data-ek="ta0a76163">Chance of at least 1 wound</span></h3>
+        <p class="hs-note"><span data-ek="tf99dce7c">Rows = attack dice, columns = defense dice. Darker = more likely. Your current pick is outlined; click a cell to pick it.</span></p>
+        <div class="hs-mxwrap"><table class="hs-mx"></table></div>
+      </div>
+    </div>
+  </section>
+  <section class="hs-page" id="army" hidden>
+    <div class="hs-grid">
+      <div class="hs-card" id="army-list">
+        <div class="hs-armyadd hs-armybar">
+          <label class="hs-field"><span data-ek="tf46a55d9">Editing</span><select class="hs-armysel"></select></label>
+          <label class="hs-field"><span data-ek="t37ceed05">Name</span><input type="text" class="hs-armyname" maxlength="40"></label>
+          <button type="button" class="hs-btn hs-newarmy"><span data-ek="t986cae43">New army</span></button>
+          <button type="button" class="hs-btn hs-duparmy"><span data-ek="t7b291fbb">Duplicate</span></button>
+          <button type="button" class="hs-btn hs-delarmy"><span data-ek="ta08de61f">Delete</span></button>
+          <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg)"><input type="checkbox" class="hs-cmpon"> <span data-ek="t4e0bc525">Compare armies</span></label>
+        </div>
+        <h3 class="a-title"><span data-ek="t59836133">Army 1</span></h3>
+        <p class="hs-note"><span data-ek="t6e04efb0">Unique cards can be added once; common cards can be added more than once. Keep as many armies as you like with New army / Duplicate. Armies are kept in this browser only; use</span> <a href="#data" data-goto="data"><span data-ek="t215bfb38">Save &amp; load</span></a> <span data-ek="tc1cf43b2">to keep a backup file.</span></p>
+        <div class="hs-armyadd">
+          <label class="hs-field"><span data-ek="t602322fb">Add a unit</span><select class="hs-pick"></select></label>
+          <label class="hs-field"><span data-ek="t5a588e17">Point limit</span><input type="number" class="hs-limit hs-num" min="0" max="9999" step="50" value="500"></label>
+          <button type="button" class="hs-btn hs-clear"><span data-ek="t2430b7fb">Clear army</span></button>
+          <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg)"><input type="checkbox" class="hs-pickowned"> <span data-ek="t6f3a81a0">Only list units I own</span></label>
+        </div>
+        <p class="hs-note hs-ownwarn" hidden></p>
+        <div class="hs-tiles" data-source="units">
+          <div class="hs-tile"><b class="a-pts"><span data-ek="t38b11dca">0</span></b><span data-ek="t273c7f2d">points used</span></div>
+          <div class="hs-tile"><b class="a-left"><span data-ek="t145fda91">500</span></b><span data-ek="t71afbf2b">points left</span></div>
+          <div class="hs-tile"><b class="a-figs"><span data-ek="t38b11dca-1">0</span></b><span data-ek="t1874d986">figures</span></div>
+          <div class="hs-tile"><b class="a-cards"><span data-ek="t38b11dca-2">0</span></b><span data-ek="t5c4eddfa">army cards</span></div>
+        </div>
+        <div class="a-body" data-source="units"></div>
+        <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg); margin-top: var(--cds-gap-sm)"><input type="checkbox" class="hs-armypics"> <span data-ek="td9bb672d">Show card pictures</span></label>
+        <div class="hs-gallery a-gallery" data-source="cards units" hidden></div>
+        <div class="hs-io" id="army-io">
+          <h3><span data-ek="t1543ef23">Export or import an army</span></h3>
+          <p class="hs-note"><span data-ek="t3eaa6bbd">Export and import work on the army you are editing. Export writes it as a plain list (one line per card, like “2x Greenshirts”). Copy it somewhere to keep it, or paste a list here and press Import to load it. Lines can be “2x Name”, “2 Name” or just “Name”.</span></p>
+          <textarea class="hs-iotext" spellcheck="false" aria-label="Army list" placeholder="2x Greenshirts&#10;Duke&#10;Isamu (2.0)"></textarea>
+          <div class="row">
+            <button type="button" class="hs-btn hs-export"><span data-ek="t0f3fd7aa">Export army</span></button>
+            <button type="button" class="hs-btn hs-copy"><span data-ek="tbbf8caef">Copy</span></button>
+            <button type="button" class="hs-btn hs-import"><span data-ek="tc3fcf629">Import (replace army)</span></button>
+            <button type="button" class="hs-btn hs-import-add"><span data-ek="teb3119d6">Import (add to army)</span></button>
+            <span class="msg" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
+      <div class="hs-card" id="army-compare" hidden>
+        <h3><span data-ek="t232c5fb0">Compare armies</span></h3>
+        <p class="hs-note"><span data-ek="ta0b3ca06">Pick any two of your armies. The better value in each row is in bold.</span></p>
+        <div class="hs-armyadd">
+          <label class="hs-field"><span data-ek="tc5bb1506">First</span><select class="hs-cmp1"></select></label>
+          <label class="hs-field"><span data-ek="td71cb141">Second</span><select class="hs-cmp2"></select></label>
+        </div>
+        <table class="hs-a a-cmp" data-source="units"><thead><tr><th class="l"></th><th class="c1"></th><th class="c2"></th><th class="c3"><span data-ek="t26e59e95">Difference</span></th></tr></thead><tbody></tbody></table>
+      </div>
+      <div class="hs-card" id="army-stats">
+        <h3 class="a-title2"><span data-ek="tf7f9133c">Army A per 100 points</span></h3>
+        <p class="hs-note"><span data-ek="t3da99b04">The whole army's dice and life for every 100 points spent, in each stats mode.</span></p>
+        <table class="hs-a a-per" data-source="units"><thead><tr><th class="l"></th><th><span data-ek="t5eb3558a">Atk/100</span></th><th><span data-ek="t2c503a33">Def/100</span></th><th><span data-ek="tc98f0f7b">Life/100</span></th><th><span data-ek="t40f2d54e">Atk+Def/100</span></th><th><span data-ek="t7520f159">Total/100</span></th></tr></thead><tbody></tbody></table>
+        <h3 style="margin-top: var(--cds-gap-md)"><span data-ek="t6a487584">Army totals</span></h3>
+        <p class="hs-note"><span data-ek="t632be21d">Added up across every figure in the army.</span></p>
+        <table class="hs-a a-raw" data-source="units"><thead><tr><th class="l"></th><th><span data-ek="t7cedf556">Attack dice</span></th><th><span data-ek="t25a4aab5">Defense dice</span></th><th><span data-ek="ta4521803">Life</span></th></tr></thead><tbody></tbody></table>
+      </div>
+    </div>
+  </section>
+
+  <section class="hs-page" id="collection" hidden>
+    <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
+      <h3 style="margin-top: 0"><span data-ek="tace88113">My collection</span></h3>
+      <p class="hs-note"><span data-ek="teb418098">Count how many copies of each army card you own, and star the ones you still want. The filters above work here too. Everything is kept in this browser only; use</span> <a href="#data" data-goto="data"><span data-ek="t6a4b9850">Save &amp; load</span></a> <span data-ek="te8af41b5">to keep a backup file.</span></p>
+      <div class="hs-tiles c-tiles">
+        <div class="hs-tile"><b class="c-cards"><span data-ek="t522c5b9e">0</span></b><span data-ek="t22f1c066">of</span> <span class="c-total"><span data-ek="t3ae56091">160</span></span> <span data-ek="t5cf2f44e">cards owned</span></div>
+        <div class="hs-tile"><b class="c-pct"><span data-ek="t7cad8223">0%</span></b><span data-ek="ta782486c">complete</span></div>
+        <div class="hs-tile"><b class="c-copies"><span data-ek="t522c5b9e-1">0</span></b><span data-ek="t1868a805">copies in total</span></div>
+        <div class="hs-tile"><b class="c-figs"><span data-ek="t522c5b9e-2">0</span></b><span data-ek="tdfb326c9">figures</span></div>
+        <div class="hs-tile"><b class="c-pts"><span data-ek="t522c5b9e-3">0</span></b><span data-ek="td08786f9">points of cards</span></div>
+        <div class="hs-tile"><b class="c-want"><span data-ek="t522c5b9e-4">0</span></b><span data-ek="t6a0eb866">on my wishlist</span></div>
+      </div>
+      <h4 style="margin: 0 0 6px"><span data-ek="t05b43951">Progress by faction</span></h4>
+      <div class="c-fac"></div>
+    </div>
+    <div class="hs-card">
+      <div class="hs-armyadd">
+        <div class="hs-field"><span data-ek="t080c0de0">Show</span>
+          <div class="hs-seg c-show" role="group" aria-label="Which cards to show">
+            <button type="button" data-cs="" aria-pressed="true"><span data-ek="te3c1f5e2">All</span></button>
+            <button type="button" data-cs="owned" aria-pressed="false"><span data-ek="t1e5bb280">Owned</span></button>
+            <button type="button" data-cs="missing" aria-pressed="false"><span data-ek="tc8497bbf">Missing</span></button>
+            <button type="button" data-cs="want" aria-pressed="false"><span data-ek="t76b25654">Wishlist</span></button>
+          </div>
+        </div>
+        <button type="button" class="hs-btn c-allown"><span data-ek="tf04911b4">Mark shown cards as owned</span></button>
+        <span class="hs-count c-count"></span>
+      </div>
+      <div class="c-confirm hs-note" hidden></div>
+      <div class="hs-scroll"><table class="hs-a c-table"><thead><tr><th class="l"><span data-ek="tf8a113d7">Unit</span></th><th class="l"><span data-ek="t7bc6945f">Faction</span></th><th class="l c-hide"><span data-ek="tcb0b8410">Card type</span></th><th><span data-ek="tfc07cb77">Pts</span></th><th><span data-ek="t74186996">Figs</span></th><th><span data-ek="t1e5bb280-1">Owned</span></th><th><span data-ek="t76b25654-1">Wishlist</span></th><th class="l c-hide"><span data-ek="t0800d6c8">Note</span></th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <section class="hs-page" id="data" hidden>
+    <div class="hs-grid">
+      <div class="hs-card">
+        <h3 style="margin-top: 0"><span data-ek="t52b2b6f7">Your data never leaves your device</span></h3>
+        <p class="hs-note"><span data-ek="t18d86b60">This site has no accounts, no server database, no cookies, no analytics and no tracking. Your armies, collection and notes are kept only in this browser. To move them to another device, or to keep a safe copy, save a backup file and load it again later.</span></p>
+        <label class="hs-chk"><input type="checkbox" class="d-remember" checked> <span data-ek="t47babdfd">Remember my data in this browser between visits</span></label>
+        <p class="hs-note d-remember-note"></p>
+        <div class="hs-tiles d-tiles">
+          <div class="hs-tile"><b class="d-armies"><span data-ek="te861a2d7">0</span></b><span data-ek="t93a52926">armies</span></div>
+          <div class="hs-tile"><b class="d-owned"><span data-ek="te861a2d7-1">0</span></b><span data-ek="t26d0a871">cards in collection</span></div>
+          <div class="hs-tile"><b class="d-want"><span data-ek="te861a2d7-2">0</span></b><span data-ek="t2aa3f604">wishlist cards</span></div>
+          <div class="hs-tile"><b class="d-saved"><span data-ek="tb69aa184">—</span></b><span data-ek="t07661f28">last backup file</span></div>
+        </div>
+      </div>
+      <div class="hs-card hs-io" style="margin-top: 0; border-top: 0">
+        <h3 style="margin-top: 0"><span data-ek="tbff1e4f0">Save a backup file</span></h3>
+        <p class="hs-note"><span data-ek="t27a4518b">Downloads one small file with all your armies, your collection and your settings. Nothing is uploaded.</span></p>
+        <div class="row"><button type="button" class="hs-btn d-save"><span data-ek="tbc0b2b33">Download backup file</span></button><button type="button" class="hs-btn d-showtext"><span data-ek="tc4cecb1a">Show as text</span></button><span class="msg d-savemsg" aria-live="polite"></span></div>
+        <h3 style="margin-top: var(--cds-gap-md)"><span data-ek="t138967a0">Load a backup file</span></h3>
+        <p class="hs-note"><span data-ek="t77f82e58">Pick a backup file you saved earlier, or paste its text below. The file is read in your browser.</span></p>
+        <div class="row"><input type="file" class="d-file" accept=".json,application/json,text/plain" aria-label="Backup file"></div>
+        <textarea class="d-text" spellcheck="false" aria-label="Backup text" placeholder="Paste backup text here"></textarea>
+        <div class="row">
+          <button type="button" class="hs-btn d-load-replace"><span data-ek="t326501fd">Load and replace my data</span></button>
+          <button type="button" class="hs-btn d-load-merge"><span data-ek="ta151925e">Load and merge with my data</span></button>
+          <span class="msg d-loadmsg" aria-live="polite"></span>
+        </div>
+      </div>
+      <div class="hs-card">
+        <h3 style="margin-top: 0"><span data-ek="tf91d4f15">Erase my data from this browser</span></h3>
+        <p class="hs-note"><span data-ek="t8e9169d7">Removes every army, collection count, note and setting from this browser. Save a backup file first if you want to keep them.</span></p>
+        <div class="row" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center">
+          <button type="button" class="hs-btn d-erase"><span data-ek="t642f9888">Erase everything</span></button>
+          <span class="d-erase-confirm" hidden><b><span data-ek="t1cd5b2b8">Erase all your data?</span></b> <button type="button" class="hs-btn d-erase-yes"><span data-ek="td65a45ab">Yes, erase</span></button> <button type="button" class="hs-btn d-erase-no"><span data-ek="te2afb8ae">Cancel</span></button></span>
+          <span class="msg d-erasemsg" aria-live="polite"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hs-page" id="random" hidden>
+    <div class="hs-grid">
+      <div class="hs-card" id="rand-unit">
+        <h3 style="margin-top: 0"><span data-ek="ta10f6411">Random unit</span></h3>
+        <p class="hs-note"><span data-ek="tba96c392">Picks one army card. The filters above (points and the advanced options) limit what it can pick.</span></p>
+        <div class="hs-armyadd">
+          <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg)"><input type="checkbox" class="ru-own"> <span data-ek="t528cb6e3">Only cards in my collection</span></label>
+          <button type="button" class="hs-btn hs-primary ru-go"><span data-ek="te5c7c296">Pick a random unit</span></button>
+        </div>
+        <div class="ru-out"></div>
+      </div>
+      <div class="hs-card" id="rand-army">
+        <h3 style="margin-top: 0"><span data-ek="t7a7db46e">Random army</span></h3>
+        <p class="hs-note"><span data-ek="t23d6e517">Builds armies at random up to your point total. Unique cards appear at most once per army. The filters above apply here too.</span></p>
+        <div class="hs-armyadd">
+          <label class="hs-field"><span data-ek="tdb5e12ce">Points per army</span><input type="number" class="hs-num ra-pts" min="50" max="3000" step="50" value="500"></label>
+          <label class="hs-field"><span data-ek="t0d68eff2">How many armies</span><input type="number" class="hs-num ra-n" min="1" max="12" value="2"></label>
+          <label class="hs-field"><span data-ek="t31a3903b">Leave at most</span><input type="number" class="hs-num ra-slack" min="0" max="200" step="5" value="30"></label>
+          <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg)"><input type="checkbox" class="ra-own"> <span data-ek="tf919bb97">Only cards in my collection</span></label>
+          <label class="hs-field" style="flex-direction: row; align-items: center; gap: 6px; color: var(--color-fg)"><input type="checkbox" class="ra-share"> <span data-ek="t7802e99e">Armies share my collection</span></label>
+          <button type="button" class="hs-btn hs-primary ra-go"><span data-ek="t2dc6c34f">Generate</span></button>
+        </div>
+        <p class="hs-note"><span data-ek="t7df46e1d">“Leave at most” is how many points an army may leave unspent. “Armies share my collection” makes all armies come from one collection, so no card is used more often than you own it.</span></p>
+        <div class="ra-out"></div>
+      </div>
+      <div class="hs-card" id="rand-map">
+        <h3 style="margin-top: 0"><span data-ek="t43b36e88">Random map</span></h3>
+        <div class="hs-armyadd">
+          <div class="hs-field"><span data-ek="t1aa37a2c">Level</span>
+            <div class="hs-seg rm-level" role="group" aria-label="Event level">
+              <button type="button" data-l="" aria-pressed="true"><span data-ek="t71963cc3">All</span></button>
+              <button type="button" data-l="Premier" aria-pressed="false"><span data-ek="tc1fe4a2d">Premier</span></button>
+              <button type="button" data-l="Relaxed" aria-pressed="false"><span data-ek="t04cee466">Relaxed</span></button>
+            </div>
+          </div>
+          <label class="hs-chk"><input type="checkbox" class="m-randown"> <span data-ek="t81289b92">Only maps I can build</span></label>
+          <button type="button" class="hs-btn hs-primary m-rand"><span data-ek="tb22044ce">Show a random map</span></button>
+        </div>
+        <div class="m-randout"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hs-page" id="products" hidden>
+    <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
+      <h3 style="margin-top: 0"><span data-ek="t745b1c24">Products</span></h3>
+      <p class="hs-note"><span data-ek="t11d1248f">Every Renegade-era Heroscape box and promo figure, with the army cards and terrain inside. Count the boxes you own; your terrain and map pages use these counts. Buy links open the official Renegade store.</span></p>
+      <div class="hs-tiles">
+        <div class="hs-tile"><b class="p-owned"><span data-ek="t631efd0b">0</span></b><span data-ek="t29bdbb66">products owned</span></div>
+        <div class="hs-tile"><b class="p-army"><span data-ek="t631efd0b-1">0</span></b><span data-ek="t65a9724a">army boxes</span></div>
+        <div class="hs-tile"><b class="p-terr"><span data-ek="t631efd0b-2">0</span></b><span data-ek="t0c22b5b9">terrain boxes</span></div>
+        <div class="hs-tile"><b class="p-promo"><span data-ek="t631efd0b-3">0</span></b><span data-ek="t52b57529">promos</span></div>
+        <div class="hs-tile"><b class="p-hexes"><span data-ek="t631efd0b-4">0</span></b><span data-ek="tb36a0595">terrain hexes</span></div>
+      </div>
+      <div class="hs-armyadd">
+        <div class="hs-field"><span data-ek="t22769f95">Type</span>
+          <div class="hs-seg p-kind" role="group" aria-label="Product type">
+            <button type="button" data-k="" aria-pressed="true"><span data-ek="t1fe1c2c1">All</span></button>
+            <button type="button" data-k="army" aria-pressed="false"><span data-ek="tf3c2adbb">Armies</span></button>
+            <button type="button" data-k="terrain" aria-pressed="false"><span data-ek="t4bacb5fd">Terrain</span></button>
+            <button type="button" data-k="box" aria-pressed="false"><span data-ek="tad05a15e">Master sets &amp; battle boxes</span></button>
+            <button type="button" data-k="promo" aria-pressed="false"><span data-ek="tfd82368c">Promos</span></button>
+            <button type="button" data-k="acc" aria-pressed="false"><span data-ek="t6ba394ec">Accessories</span></button>
+          </div>
+        </div>
+        <div class="hs-field"><span data-ek="tc67b7667">Show</span>
+          <div class="hs-seg p-own" role="group" aria-label="Owned">
+            <button type="button" data-o="" aria-pressed="true"><span data-ek="t1fe1c2c1-1">All</span></button>
+            <button type="button" data-o="owned" aria-pressed="false"><span data-ek="t534447c6">Owned</span></button>
+            <button type="button" data-o="missing" aria-pressed="false"><span data-ek="t399cc1d2">Not owned</span></button>
+          </div>
+        </div>
+        <label class="hs-field"><span data-ek="t99551671">Search</span><input type="search" class="p-q" placeholder="Product, card or wave"></label>
+      </div>
+      <label class="hs-chk"><input type="checkbox" class="p-auto" checked> <span data-ek="t50c71566">When I add or remove a product, add or remove its army cards in my card collection too</span></label>
+    </div>
+    <div class="p-list"></div>
+  </section>
+
+  <section class="hs-page" id="terrain" hidden>
+    <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
+      <h3 style="margin-top: 0"><span data-ek="tfa8b733f">Terrain</span></h3>
+      <p class="hs-note"><span data-ek="tee46f8ac">Your terrain pieces, counted from the products you own plus any loose pieces you add. Grouped by what the terrain does, with each piece size in its own column.</span> <span class="t-note"></span></p>
+      <div class="hs-tiles">
+        <div class="hs-tile"><b class="t-hexes"><span data-ek="t0212fcf6">0</span></b><span data-ek="tddc825cc">hexes of tiles</span></div>
+        <div class="hs-tile"><b class="t-tiles"><span data-ek="t0212fcf6-1">0</span></b><span data-ek="t48439667">tiles</span></div>
+        <div class="hs-tile"><b class="t-objs"><span data-ek="t0212fcf6-2">0</span></b><span data-ek="t59267516">trees, walls and objects</span></div>
+        <div class="hs-tile"><b class="t-types"><span data-ek="t0212fcf6-3">0</span></b><span data-ek="tb761f4d5">terrain types</span></div>
+      </div>
+      <label class="hs-chk"><input type="checkbox" class="t-all"> <span data-ek="ta1a6f740">Show terrain types I don't own</span></label>
+    </div>
+    <div class="t-groups"></div>
+  </section>
+
+  <section class="hs-page" id="maps" hidden>
+    <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
+      <h3 style="margin-top: 0"><span data-ek="t33049794">Tournament maps</span></h3>
+      <p class="hs-note"><span data-ek="t19730ee7">The maps on Renegade's official tournament list, with the products each one needs. A map counts as buildable when you own every product it lists. Premier maps are legal at Premier and Relaxed events; Relaxed maps only at Relaxed events.</span></p>
+      <div class="hs-tiles">
+        <div class="hs-tile"><b class="m-can"><span data-ek="tdd6fbee4">0</span></b><span data-ek="teb0f6df6">maps you can build</span></div>
+        <div class="hs-tile"><b class="m-total"><span data-ek="tdd6fbee4-1">0</span></b><span data-ek="tc8ef1edf">maps on the list</span></div>
+        <div class="hs-tile"><b class="m-max"><span data-ek="tdd6fbee4-2">0</span></b><span data-ek="t25726505">maps you can set up at once</span></div>
+        <div class="hs-tile"><b class="m-unknown"><span data-ek="tdd6fbee4-3">0</span></b><span data-ek="t71f6728a">maps with terrain to record</span></div>
+      </div>
+      <div class="hs-armyadd">
+        <div class="hs-field"><span data-ek="t9429450a">Level</span>
+          <div class="hs-seg m-level" role="group" aria-label="Event level">
+            <button type="button" data-l="" aria-pressed="true"><span data-ek="tf01ab42d">All</span></button>
+            <button type="button" data-l="Premier" aria-pressed="false"><span data-ek="t966d2851">Premier</span></button>
+            <button type="button" data-l="Relaxed" aria-pressed="false"><span data-ek="t80d3e8ea">Relaxed</span></button>
+          </div>
+        </div>
+        <div class="hs-field"><span data-ek="ta326c884">Show</span>
+          <div class="hs-seg m-show" role="group" aria-label="Which maps">
+            <button type="button" data-s="" aria-pressed="true"><span data-ek="tf01ab42d-1">All</span></button>
+            <button type="button" data-s="can" aria-pressed="false"><span data-ek="t37dcb5b4">I can build</span></button>
+            <button type="button" data-s="cannot" aria-pressed="false"><span data-ek="t633bc757">I can't build</span></button>
+          </div>
+        </div>
+        <label class="hs-field"><span data-ek="t68738339">Search</span><input type="search" class="m-q" placeholder="Map, designer or event"></label>
+      </div>
+    </div>
+    <div class="hs-grid" style="margin-bottom: var(--cds-gap-md)">
+      <div class="hs-card">
+        <h3 style="margin-top: 0"><span data-ek="t6e7a7100">Most maps at once</span></h3>
+        <p class="hs-note"><span data-ek="t8edf5185">The largest group of maps you can have built at the same time with the products you own, for running several tables.</span></p>
+        <div class="m-best"></div>
+      </div>
+      <div class="hs-card">
+        <h3 style="margin-top: 0"><span data-ek="t0d2e6ea1">What to get next</span></h3>
+        <p class="hs-note"><span data-ek="tdb90aaa5">Products that would let you build the most extra maps.</span></p>
+        <div class="m-next"></div>
+      </div>
+    </div>
+    <div class="m-list"></div>
+  </section>
+
+  <section class="hs-page" id="tournament" hidden>
+    <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
+      <div class="hs-armyadd">
+        <label class="hs-field"><span data-ek="ta87b505f">Tournament</span><select class="tn-sel"></select></label>
+        <button type="button" class="hs-btn tn-new"><span data-ek="t3e108d27">New tournament</span></button>
+        <button type="button" class="hs-btn tn-del"><span data-ek="t6cb2f81f">Delete</span></button>
+        <span class="tn-delc" hidden><b><span data-ek="tcae3e04c">Delete this tournament?</span></b> <button type="button" class="hs-btn tn-dely"><span data-ek="t26c1c662">Yes, delete</span></button> <button type="button" class="hs-btn tn-deln"><span data-ek="t66e0bc59">Cancel</span></button></span>
+      </div>
+      <div class="tn-empty hs-empty"><span data-ek="t046752c3">No tournaments yet. Press “New tournament” to run one with Swiss pairings and a round timer.</span></div>
+      <div class="tn-body">
+        <div class="hs-armyadd">
+          <label class="hs-field"><span data-ek="t9d71101c">Name</span><input type="text" class="tn-name" maxlength="60"></label>
+          <label class="hs-field"><span data-ek="t7c6a025c">Date</span><input type="date" class="tn-date"></label>
+          <label class="hs-field"><span data-ek="tcdbe11dc">Kind</span><select class="tn-kind"><option value="tournament">Tournament</option><option value="local">Local event</option><option value="online">Online event</option></select></label>
+          <label class="hs-field"><span data-ek="t17346438">Rounds</span><input type="number" class="hs-num tn-rounds" min="1" max="12" value="3"></label>
+          <label class="hs-field"><span data-ek="t6d846090">Round minutes</span><input type="number" class="hs-num tn-mins" min="5" max="240" value="75"></label>
+          <label class="hs-field"><span data-ek="t122f8d6b">I'm playing as</span><select class="tn-me"></select></label>
+        </div>
+        <p class="hs-note"><span data-ek="td3ce34e3">Pick yourself under “I'm playing as” and your games and final place go into My record automatically.</span></p>
+      </div>
+    </div>
+    <div class="hs-grid tn-body">
+      <div class="hs-card" id="tn-timer">
+        <h3 style="margin-top: 0"><span data-ek="t537cfccb">Round timer</span></h3>
+        <div class="tn-clock" aria-live="off"><span data-ek="tf6e93595">75:00</span></div>
+        <div class="row tn-tbtns">
+          <button type="button" class="hs-btn hs-primary tn-start"><span data-ek="t3353e54b">Start</span></button>
+          <button type="button" class="hs-btn tn-reset"><span data-ek="t398c29d4">Reset</span></button>
+          <button type="button" class="hs-btn tn-plus"><span data-ek="t8925f7eb">+1 min</span></button>
+          <button type="button" class="hs-btn tn-minus"><span data-ek="t51c58321">−1 min</span></button>
+          <label class="hs-chk"><input type="checkbox" class="tn-sound" checked> <span data-ek="t9e41df6e">Sound at time</span></label>
+        </div>
+        <p class="hs-note tn-tnote"><span data-ek="t97ed9480">The timer keeps running if you switch pages.</span></p>
+      </div>
+      <div class="hs-card" id="tn-players">
+        <h3 style="margin-top: 0"><span data-ek="tcb774da4">Players</span></h3>
+        <div class="hs-armyadd">
+          <label class="hs-field"><span data-ek="te804f2df">Add players (one per line)</span><textarea class="tn-addtext" rows="3" placeholder="Sam&#10;Alex&#10;Jordan"></textarea></label>
+          <button type="button" class="hs-btn tn-add"><span data-ek="td9f94982">Add</span></button>
+        </div>
+        <div class="tn-plist"></div>
+      </div>
+    </div>
+    <div class="hs-card tn-body" style="margin-top: var(--cds-gap-md)">
+      <div class="hs-armyadd">
+        <h3 style="margin: 0; flex: 1"><span data-ek="t17346438-1">Rounds</span></h3>
+        <button type="button" class="hs-btn hs-primary tn-pair"><span data-ek="t62338f2e">Pair next round</span></button>
+        <button type="button" class="hs-btn tn-unpair"><span data-ek="td07a73a3">Undo last pairing</span></button>
+        <button type="button" class="hs-btn tn-finish"><span data-ek="t986442ee">Finish tournament</span></button>
+      </div>
+      <p class="hs-note tn-msg" aria-live="polite"></p>
+      <div class="tn-rounds-out"></div>
+      <h3><span data-ek="t3453253b">Standings</span></h3>
+      <p class="hs-note"><span data-ek="t6a0a262b">Ranked by wins (a draw counts as half), then strength of schedule (your opponents' total wins), then total points destroyed.</span></p>
+      <div class="hs-scroll"><table class="hs-a tn-stand"><thead><tr><th class="l"><span data-ek="te5bfd783">#</span></th><th class="l"><span data-ek="t550de4f4">Player</span></th><th><span data-ek="t0317bb89">Wins</span></th><th><span data-ek="tab98fa74">Losses</span></th><th><span data-ek="ta6d11c94">Draws</span></th><th><span data-ek="te0b48830">SoS</span></th><th><span data-ek="t84091ba7">Pts destroyed</span></th></tr></thead><tbody></tbody></table></div>
+    </div>
+  </section>
+
+  <section class="hs-page" id="record" hidden>
+    <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
+      <h3 style="margin-top: 0"><span data-ek="t4623a1d1">My record</span></h3>
+      <div class="hs-tiles rc-tiles"></div>
+      <div class="hs-scroll"><table class="hs-a rc-bytype"><thead><tr><th class="l"><span data-ek="taacddec8">Where</span></th><th><span data-ek="tb378f399">Games</span></th><th><span data-ek="tcb447cb0">Wins</span></th><th><span data-ek="t77773472">Losses</span></th><th><span data-ek="tb8f14a1e">Draws</span></th><th><span data-ek="ta3a92faa">Win rate</span></th></tr></thead><tbody></tbody></table></div>
+    </div>
+    <div class="hs-grid" style="margin-bottom: var(--cds-gap-md)">
+      <div class="hs-card">
+        <h3 style="margin-top: 0"><span data-ek="tc6045fc2">Log a game</span></h3>
+        <form class="rc-form" autocomplete="off">
+          <div class="hs-armyadd">
+            <label class="hs-field"><span data-ek="tb3089f5d">Date</span><input type="date" class="rc-date" required></label>
+            <label class="hs-field"><span data-ek="taacddec8-1">Where</span><select class="rc-type"><option value="tournament">Tournament</option><option value="local">Local event</option><option value="online">Online</option><option value="casual">Casual</option></select></label>
+            <label class="hs-field"><span data-ek="tcce48e5f">Result</span><select class="rc-res"><option value="W">Win</option><option value="L">Loss</option><option value="D">Draw</option></select></label>
+          </div>
+          <div class="hs-armyadd">
+            <label class="hs-field"><span data-ek="t81c5a5f6">Event name</span><input type="text" class="rc-event" maxlength="60" placeholder="Optional"></label>
+            <label class="hs-field"><span data-ek="t93cb0c82">Opponent</span><input type="text" class="rc-opp" maxlength="40" placeholder="Optional"></label>
+          </div>
+          <div class="hs-armyadd">
+            <label class="hs-field"><span data-ek="t6587690e">My army</span><select class="rc-army"></select></label>
+            <label class="hs-field"><span data-ek="t673880de">My main faction</span><select class="rc-fac"></select></label>
+            <label class="hs-field"><span data-ek="t6a2b981b">Map</span><select class="rc-map"></select></label>
+          </div>
+          <label class="hs-field"><span data-ek="tee4c063c">Notes</span><input type="text" class="rc-notes" maxlength="200" placeholder="Optional"></label>
+          <div class="row" style="display: flex; gap: 8px; align-items: center; margin-top: 8px"><button type="submit" class="hs-btn hs-primary"><span data-ek="tf7eef0fc">Add game</span></button><span class="hs-note rc-msg" aria-live="polite"></span></div>
+        </form>
+      </div>
+      <div class="hs-card">
+        <h3 style="margin-top: 0"><span data-ek="t9f061dc1">Log an event result</span></h3>
+        <p class="hs-note"><span data-ek="t63e736fd">For a whole tournament or local event: where you finished. Tournaments you run here are added for you.</span></p>
+        <form class="ev-form" autocomplete="off">
+          <div class="hs-armyadd">
+            <label class="hs-field"><span data-ek="tb3089f5d-1">Date</span><input type="date" class="ev-date" required></label>
+            <label class="hs-field"><span data-ek="t4c956c63">Kind</span><select class="ev-type"><option value="tournament">Tournament</option><option value="local">Local event</option><option value="online">Online event</option></select></label>
+          </div>
+          <div class="hs-armyadd">
+            <label class="hs-field"><span data-ek="t81c5a5f6-1">Event name</span><input type="text" class="ev-name" maxlength="60" required></label>
+            <label class="hs-field"><span data-ek="t4b0e0813">My place</span><input type="number" class="hs-num ev-place" min="1" max="999" required></label>
+            <label class="hs-field"><span data-ek="t0a7fd7c1">Players</span><input type="number" class="hs-num ev-size" min="2" max="999"></label>
+          </div>
+          <div class="row" style="display: flex; gap: 8px; align-items: center; margin-top: 8px"><button type="submit" class="hs-btn hs-primary"><span data-ek="t0a7e075f">Add event</span></button><span class="hs-note ev-msg" aria-live="polite"></span></div>
+        </form>
+      </div>
+    </div>
+    <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
+      <h3 style="margin-top: 0"><span data-ek="t88162eee">Events</span></h3>
+      <div class="ev-list"></div>
+    </div>
+    <div class="hs-card">
+      <h3 style="margin-top: 0"><span data-ek="tb378f399-1">Games</span></h3>
+      <div class="rc-list"></div>
+    </div>
+  </section>
+
+  <section class="hs-page" id="player" hidden>
+    <div class="hs-grid" style="margin-bottom: var(--cds-gap-md)">
+      <div class="hs-card">
+        <h3 style="margin-top: 0"><span data-ek="t44b0ff1c">My player card</span></h3>
+        <div class="hs-armyadd">
+          <label class="hs-field"><span data-ek="tfe3d0c1f">Name</span><input type="text" class="pl-name" maxlength="40"></label>
+          <label class="hs-field"><span data-ek="t5998dc3f">Title</span><input type="text" class="pl-title" maxlength="40" placeholder="e.g. Ullar loyalist"></label>
+        </div>
+        <div class="hs-armyadd">
+          <label class="hs-field"><span data-ek="te0304d6e">Home store or club</span><input type="text" class="pl-home" maxlength="60"></label>
+          <label class="hs-field"><span data-ek="tddd90abe">Favorite faction</span><select class="pl-fac"></select></label>
+          <label class="hs-field"><span data-ek="t58ea7493">Favorite unit</span><select class="pl-unit"></select></label>
+        </div>
+        <label class="hs-field"><span data-ek="t5eb17a1e">About me</span><input type="text" class="pl-bio" maxlength="140"></label>
+        <div class="hs-armyadd" style="margin-top: 8px">
+          <label class="hs-field"><span data-ek="t727a06f7">Card color</span><input type="color" class="pl-color" value="#6b3fa0"></label>
+          <label class="hs-field"><span data-ek="td6b8260a">Picture</span><input type="file" class="pl-pic" accept="image/*"></label>
+          <button type="button" class="hs-btn pl-picx"><span data-ek="t0888813a">Remove picture</span></button>
+        </div>
+        <div class="hs-fx pl-show" style="margin-top: 6px">
+          <label><input type="checkbox" data-s="record" checked> <span data-ek="t6588af1a">Show my record</span></label>
+          <label><input type="checkbox" data-s="events" checked> <span data-ek="tbd1cce93">Show events</span></label>
+          <label><input type="checkbox" data-s="collection" checked> <span data-ek="t7b0a8cf3">Show collection</span></label>
+        </div>
+        <p class="hs-note"><span data-ek="t2b43f967">Your picture is shrunk and kept in this browser only.</span></p>
+      </div>
+      <div class="hs-card pl-preview-box">
+        <div class="pl-card"></div>
+        <div class="row" style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: var(--cds-gap-sm); align-items: center">
+          <button type="button" class="hs-btn pl-dl"><span data-ek="te018b84c">Download card as image</span></button>
+          <span class="hs-note pl-msg" aria-live="polite"></span>
+        </div>
+      </div>
+    </div>
+    <div class="hs-card">
+      <h3 style="margin-top: 0"><span data-ek="t593ee240">Achievements</span></h3>
+      <p class="hs-note"><span data-ek="t9c5e8387">Earned from your record, your events and your collection. Tick up to six to show on your player card.</span></p>
+      <div class="bd-grid"></div>
+    </div>
+  </section>
+
+  <section class="hs-page" id="rules" hidden>
+    <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
+      <h3 style="margin-top: 0"><span data-ek="t25615a4c">Master rules</span></h3>
+      <p class="hs-note"><span data-ek="tb257e3eb">You can also open a different rulebook PDF from your device. It is read in your browser and never uploaded.</span></p>
+      <div class="hs-armyadd">
+        <label class="hs-field"><span data-ek="t5f14e17e">Other rulebook PDF</span><input type="file" class="rb-file" accept="application/pdf,.pdf"></label>
+        <label class="hs-chk"><input type="checkbox" class="rb-keep" checked> <span data-ek="tdfb4acd8">Keep it in this browser for next time</span></label>
+        <button type="button" class="hs-btn rb-forget" hidden><span data-ek="tb93de858">Back to the site rulebook</span></button>
+      </div>
+      <p class="hs-note rb-msg" aria-live="polite"></p>
+    </div>
+    <div class="hs-card rb-viewer" hidden>
+      <div class="rb-bar">
+        <button type="button" class="hs-btn rb-prev" aria-label="Previous page"><span data-ek="t8bcb844f">◀</span></button>
+        <span class="rb-pos"></span>
+        <button type="button" class="hs-btn rb-next" aria-label="Next page"><span data-ek="tb1862394">▶</span></button>
+        <label class="hs-field rb-go"><span data-ek="tad04339a">Page</span><input type="number" class="hs-num rb-page" min="1"></label>
+        <button type="button" class="hs-btn rb-mark"><span data-ek="tad7dd698">Bookmark this page</span></button>
+        <select class="rb-marks" aria-label="Bookmarks"></select>
+        <button type="button" class="hs-btn rb-zfit" hidden><span data-ek="t84af3dd4">Fit page</span></button>
+      </div>
+      <div class="rb-bar rb-findbar">
+        <label class="hs-field rb-findf"><span data-ek="t445b8869">Find in rulebook</span><input type="search" class="rb-find" placeholder="Ctrl+F" autocomplete="off"></label>
+        <button type="button" class="hs-btn rb-fprev" aria-label="Previous match" disabled><span data-ek="tfb7853ec">▲</span></button>
+        <button type="button" class="hs-btn rb-fnext" aria-label="Next match" disabled><span data-ek="t59e0ec9a">▼</span></button>
+        <span class="rb-hits hs-note" aria-live="polite"></span>
+      </div>
+      <div class="rb-stage" tabindex="0" aria-label="Rulebook pages. Use the arrow keys to turn pages.">
+        <div class="rb-book"><canvas class="rb-left"></canvas><canvas class="rb-right"></canvas><div class="rb-flip"></div></div>
+      </div>
+      <p class="hs-note"><span data-ek="t8c31c716">Click the right half to turn forward and the left half to turn back, swipe on a phone, or use the arrow keys. Ctrl+F jumps to Find (Enter for the next match, Shift+Enter for the previous one). Scroll over the pages (or pinch) to zoom, drag to move around, and double-click or press Fit page to zoom back out.</span></p>
+    </div>
+  </section>
+
+
+  <section class="hs-page" id="settings" hidden>
+    <div class="hs-grid" style="margin-bottom: var(--cds-gap-md)">
+      <div class="hs-card">
+        <h3 style="margin-top: 0"><span data-ek="td89f9e34">Colors</span></h3>
+        <div class="hs-field st-sitewrap"><span data-ek="t8fd9335a">Theme</span>
+          <div class="hs-seg st-site" role="group" aria-label="Theme"></div>
+          <span class="hs-note st-sitenote"></span>
+          <span><button type="button" class="hs-btn hs-sm st-newmine"><span data-ek="t58e4fd5d">Make a new theme</span></button> <button type="button" class="hs-btn hs-sm st-mine" hidden><span data-ek="te16432c8">Edit my themes</span></button> <button type="button" class="hs-btn hs-sm st-themein"><span data-ek="td6cd9504">Import a theme</span></button></span>
+          <label class="hs-chk st-dq"><input type="checkbox"> <span data-ek="t3602519b">Show the drawing square on the side of the screen</span></label>
+        </div>
+        <div class="hs-field"><span data-ek="te15e8703">Light or dark</span>
+          <div class="hs-seg st-mode" role="group" aria-label="Light or dark">
+            <button type="button" data-m="" aria-pressed="true"><span data-ek="tf114297a">Match my device</span></button>
+            <button type="button" data-m="light" aria-pressed="false"><span data-ek="t4b6079f4">Light</span></button>
+            <button type="button" data-m="dark" aria-pressed="false"><span data-ek="t5c5229fd">Dark</span></button>
+          </div>
+        </div>
+        <h4 style="margin: 12px 0 6px"><span data-ek="tc9116ba0">Accent</span></h4>
+        <div class="st-presets"></div>
+        <p class="hs-note st-egg" aria-live="polite"></p>
+        <h4 style="margin: 12px 0 6px"><span data-ek="t61342019">Your own colors</span></h4>
+        <div class="hs-armyadd st-custom">
+          <label class="hs-field"><span data-ek="tc9116ba0-1">Accent</span><input type="color" data-c="accent"></label>
+          <label class="hs-field"><span data-ek="tb169e27d">Background</span><input type="color" data-c="color-bg"></label>
+          <label class="hs-field"><span data-ek="tc340a0bf">Panels</span><input type="color" data-c="color-panel"></label>
+          <label class="hs-field"><span data-ek="t29b3f95a">Text</span><input type="color" data-c="color-fg"></label>
+          <label class="hs-field"><span data-ek="tc2c7a633">Soft text</span><input type="color" data-c="color-fg-muted"></label>
+          <label class="hs-field"><span data-ek="te82b1fbb">Lines</span><input type="color" data-c="color-border-line"></label>
+        </div>
+        <div class="m-act"><button type="button" class="hs-btn st-randall"><span data-ek="t56d8cc9c">Randomize all colors</span></button>
+<button type="button" class="hs-btn st-reset"><span data-ek="t8d7bfbab">Back to the standard colors</span></button></div>
+      </div>
+      <div class="hs-card">
+        <h3 style="margin-top: 0"><span data-ek="tf820ef9c">Add an ability to any card</span></h3>
+        <p class="hs-note"><span data-ek="t08afbe1d">House rules or new abilities. They show on the card with a “Custom” tag.</span></p>
+        <form class="ca-form" autocomplete="off">
+          <label class="hs-field"><span data-ek="tbe6c51ab">Card</span><select class="ca-unit" required></select></label>
+          <label class="hs-field"><span data-ek="tcca9c37c">Ability name</span><input type="text" class="ca-name" maxlength="60" required></label>
+          <label class="hs-field"><span data-ek="t8a59fcea">Ability text</span><textarea class="ca-text" rows="3" maxlength="600" required></textarea></label>
+          <div class="row" style="display: flex; gap: 8px; align-items: center; margin-top: 8px"><button type="submit" class="hs-btn hs-primary"><span data-ek="tceca189b">Add ability</span></button><span class="hs-note ca-msg" aria-live="polite"></span></div>
+        </form>
+        <div class="ca-list"></div>
+      </div>
+    </div>
+    <div class="hs-card">
+      <h3 style="margin-top: 0"><span data-ek="td0c698ba">Your own army cards</span></h3>
+      <p class="hs-note"><span data-ek="t70cd2a3b">Custom cards work everywhere: rankings, charts, armies, the fight simulator and the Randomizer. They are marked “Custom”.</span></p>
+      <form class="cu-form" autocomplete="off">
+        <div class="hs-armyadd">
+          <label class="hs-field"><span data-ek="tcfa19dcc">Name</span><input type="text" class="cu-f" data-k="unit" maxlength="60" required></label>
+          <label class="hs-field"><span data-ek="t8332c56c">Faction</span><input type="text" class="cu-f" data-k="faction" maxlength="30" list="cu-facs" required></label>
+          <label class="hs-field"><span data-ek="t2e10af1b">Card type</span><select class="cu-f" data-k="ctype"><option>Unique Hero</option><option>Common Hero</option><option>Uncommon Hero</option><option>Unique Squad</option><option>Common Squad</option><option>Uncommon Squad</option></select></label>
+          <label class="hs-field"><span data-ek="te266eb0d">Species</span><input type="text" class="cu-f" data-k="species" maxlength="30"></label>
+          <label class="hs-field"><span data-ek="t9c414951">Class</span><input type="text" class="cu-f" data-k="cls" maxlength="30"></label>
+          <label class="hs-field"><span data-ek="t41d73ec8">Personality</span><input type="text" class="cu-f" data-k="pers" maxlength="30"></label>
+        </div>
+        <div class="hs-armyadd">
+          <label class="hs-field"><span data-ek="t1998a644">Size</span><select class="cu-f" data-k="size"><option>Small</option><option selected>Medium</option><option>Large</option><option>Huge</option></select></label>
+          <label class="hs-field"><span data-ek="t7f12f3b4">Height</span><input type="number" class="hs-num cu-f" data-k="sizenum" min="1" max="20" value="5"></label>
+          <label class="hs-field"><span data-ek="t7f4b74b3">Points</span><input type="number" class="hs-num cu-f" data-k="points" min="1" max="999" value="100" required></label>
+          <label class="hs-field"><span data-ek="taaa1ebbd">Figures</span><input type="number" class="hs-num cu-f" data-k="figures" min="1" max="12" value="1"></label>
+          <label class="hs-field"><span data-ek="t1df58c29">Life</span><input type="number" class="hs-num cu-f" data-k="life" min="1" max="20" value="4"></label>
+          <label class="hs-field"><span data-ek="t496a1ff3">Move</span><input type="number" class="hs-num cu-f" data-k="move" min="0" max="20" value="5"></label>
+          <label class="hs-field"><span data-ek="t710db9f3">Range</span><input type="number" class="hs-num cu-f" data-k="range" min="1" max="20" value="1"></label>
+          <label class="hs-field"><span data-ek="t0f77c9ca">Attack</span><input type="number" class="hs-num cu-f" data-k="attack" min="0" max="20" value="3"></label>
+          <label class="hs-field"><span data-ek="t6e5c9a9b">Defense</span><input type="number" class="hs-num cu-f" data-k="defense" min="0" max="20" value="3"></label>
+        </div>
+        <div class="cu-abs"></div>
+        <div class="row" style="display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-top: 8px">
+          <button type="button" class="hs-btn cu-addab"><span data-ek="tf1cb6313">Add an ability line</span></button>
+          <button type="submit" class="hs-btn hs-primary cu-save"><span data-ek="t0b27cfe2">Save card</span></button>
+          <button type="button" class="hs-btn cu-cancel" hidden><span data-ek="t0e4c6c15">Cancel editing</span></button>
+          <span class="hs-note cu-msg" aria-live="polite"></span>
+        </div>
+        <datalist id="cu-facs"></datalist>
+      </form>
+      <div class="cu-list" style="margin-top: var(--cds-gap-md)"></div>
+    </div>
+  </section>
+
+  <footer class="site-foot">
+    <p class="foot-links"><a href="https://heroscape.renegadegamestudios.com/" target="_blank" rel="noopener noreferrer"><span data-ek="teb4f19a1">Official Heroscape store (Renegade Game Studios)</span></a> <span data-ek="t56d61437">·</span> <a href="https://heroscape.org/ohs" target="_blank" rel="noopener noreferrer"><span data-ek="t18ae2b37">Play Heroscape online at heroscape.org</span></a> <span data-ek="t56d61437-1">·</span> <a href="https://heroscape.renegadegamestudios.com/how-to-play" target="_blank" rel="noopener noreferrer"><span data-ek="tf84daeb4">Official rules</span></a></p>
+    <p><span data-ek="t870e672a">Product contents and tournament maps come from Renegade's product pages, scenario books and tournament map list, and from release reports by iCv2, Opinionated Gamers and Gaming Trend. Upcoming products can change before release.</span></p>
+    <p><span data-ek="ta1c5a8dc">Fan-made and free. Not affiliated with or endorsed by Hasbro or Wizards of the Coast. Heroscape and its army cards belong to their owners.</span></p>
+    <p><span data-ek="tfab7d592">Stats, ability text and card pictures were transcribed from Contemporary-format army cards. “With specials” and “With conditional” are this site's own estimates; open a card to see exactly what each one counts.</span></p>
+    <p class="foot-wip"><span data-ek="t9c57bd5c">This page is a work in progress.</span></p>
+  </footer>
+</div>
+
+<dialog class="hs-dlg hs-gdlg" aria-labelledby="gdlg-t">
+  <div class="hs-dlg-in">
+    <div class="hs-dlg-top"><h2 id="gdlg-t"></h2><button type="button" class="hs-x hs-gx" aria-label="Close"><span data-ek="t302d0079">×</span></button></div>
+    <p class="hs-note hs-gnote"></p>
+    <div class="hs-chart hs-gchart" style="min-height: 260px"></div>
+  </div>
+</dialog>
+
+<dialog class="hs-dlg" aria-labelledby="dlg-name">
+  <div class="hs-dlg-in">
+    <div class="hs-dlg-top">
+      <h2 id="dlg-name"></h2>
+      <button type="button" class="hs-x" aria-label="Close"><span data-ek="t302d0079-1">×</span></button>
+    </div>
+    <div class="hs-dlg-act"><button type="button" class="hs-btn hs-dlg-add"><span data-ek="tc7899456">Add to army</span></button> <span class="hs-dlg-inarmy hs-note"></span></div>
+    <button type="button" class="hs-notebtn" aria-expanded="false" aria-controls="dlg-notes"><span data-ek="t98912075">Notes</span></button>
+    <div class="hs-notes" id="dlg-notes" hidden>
+      <label class="hs-field"><span data-ek="t77cc5c86">Note on this card</span><textarea class="dlg-cnote" rows="3" maxlength="1000"></textarea></label>
+      <label class="hs-field"><span class="dlg-anote-l"><span data-ek="t9e4a44f5">Note on the army</span></span><textarea class="dlg-anote" rows="3" maxlength="1000"></textarea></label>
+    </div>
+    <div class="hs-dlg-prod hs-note"></div>
+    <div class="hs-dlg-own">
+      <span class="lbl"><span data-ek="ta4f27283">In my collection</span></span>
+      <span class="hs-q2"><button type="button" class="dlg-own-m" aria-label="One fewer owned"><span data-ek="t41f63b35">−</span></button><b class="dlg-own-n"><span data-ek="t7cbf08df">0</span></b><button type="button" class="dlg-own-p" aria-label="One more owned"><span data-ek="tb15224fc">+</span></button></span>
+      <button type="button" class="hs-btn dlg-want" aria-pressed="false"><span data-ek="ta9a24941">☆ Wishlist</span></button>
+    </div>
+    <div class="hs-sub"></div>
+    <div class="hs-cardimg-box" data-source="cards"></div>
+    <div class="hs-basic"></div>
+    <div class="hs-stats"></div>
+    <div class="hs-special"></div>
+    <div class="hs-abs" data-source="abilities"></div>
+  </div>
+</dialog>
+</div>
+<script src="vendor/d3.v7.min.js"></script>
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
