@@ -424,9 +424,18 @@ table.hs-mx { border-collapse: collapse; font-size: var(--cds-font-size-caption)
 .m-editgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr)); gap: 6px; margin: 6px 0; max-height: 16rem; overflow: auto; }
 .m-editgrid .hs-field { font-size: var(--cds-font-size-caption); }
 .m-editgrid .hs-num { width: 4rem; }
-.m-bestlist { margin: 0; padding-left: 1.4em; columns: 2 14rem; }
-.m-bestlist li { break-inside: avoid; margin-bottom: 2px; }
-.m-gain { display: flex; justify-content: space-between; gap: 8px; padding: 4px 0; border-bottom: 1px solid var(--color-border-line); font-size: var(--cds-font-size-body); }
+.m-opts { display: flex; flex-direction: column; gap: 8px; margin: 10px 0 12px; }
+.m-opt { display: flex; align-items: flex-start; gap: 8px; color: var(--color-fg); font-size: var(--cds-font-size-body); line-height: 1.3; cursor: pointer; }
+.m-opt input { width: auto; min-width: 0; margin: 2px 0 0; flex: none; }
+.m-opt small { display: block; color: var(--color-fg-muted); font-size: 0.85em; }
+.m-sizenote { margin-bottom: 12px; font-size: 0.85em; }
+.m-best { border-top: 1px solid var(--color-border-line); padding-top: 10px; }
+.m-bestlist { margin: 0; padding-left: 1.6em; columns: 2 14rem; column-gap: 24px; }
+.m-bestlist li { break-inside: avoid; margin-bottom: 8px; line-height: 1.3; }
+.m-bestprods { display: block; color: var(--color-fg-muted); font-size: 0.85em; }
+.m-gain { display: grid; grid-template-columns: 5.2em 1fr auto; align-items: baseline; gap: 4px 12px; padding: 8px 0; border-bottom: 1px solid var(--color-border-line); font-size: var(--cds-font-size-body); line-height: 1.3; }
+.m-gain:last-child { border-bottom: 0; }
+.m-gain > b, .m-gain > a { white-space: nowrap; }
 
 /* ---------- random picks ---------- */
 .ru-card { display: flex; gap: var(--cds-gap-md); align-items: flex-start; }
@@ -813,3 +822,11 @@ dialog.hs-dlg.ab-newdlg { width: min(26rem, calc(100vw - 2rem)); height: fit-con
 dialog.m-pdfdlg { width: min(96vw, 70rem); max-width: none; }
 .mpdf-pages { display: grid; gap: 10px; justify-items: center; overflow: auto; margin-top: 8px; }
 .mpdf-pages canvas { max-width: none; background: #fff; border: 1px solid var(--color-border-line); border-radius: 6px; }
+.t-addrow { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px 12px; }
+.t-addrow .hs-field { flex: 1 1 10rem; }
+.t-addbtns { display: flex; gap: 8px; }
+.t-addbtns .hs-btn { min-width: 3.2em; }
+.t-addmsg:empty { display: none; }
+.t-loose h4 { margin: 14px 0 4px; }
+.t-lrow { display: grid; grid-template-columns: 1fr auto auto; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid var(--color-border-line); font-size: var(--cds-font-size-body); }
+.t-neg { color: var(--color-bad); }

@@ -8,7 +8,7 @@
 <meta name="description" content="Free Heroscape tracker: army card rankings, army builder, collection and terrain tracking, tournament maps, Swiss tournaments, game record and rules. No accounts; your data stays on your device.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; connect-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
-<link rel="stylesheet" href="css/style.css?v=ae87ea2d05">
+<link rel="stylesheet" href="css/style.css?v=6f609b1e02">
 </head>
 <body>
 <div id="dash-root"><div class="hs">
@@ -582,6 +582,21 @@
       </div>
       <label class="hs-chk"><input type="checkbox" class="t-all"> <span data-ek="ta1a6f740">Show terrain types I don't own</span></label>
     </div>
+    <div class="hs-card t-addcard" style="margin-bottom: var(--cds-gap-md)">
+      <h3 style="margin-top: 0"><span data-ek="t7720794f">Add pieces</span></h3>
+      <p class="hs-note"><span data-ek="tfc81da9d">Add loose pieces one at a time, on top of your products. They count everywhere the site counts your terrain, including the map tools that count by piece.</span></p>
+      <div class="t-addrow">
+        <label class="hs-field"><span data-ek="tfa8b733f-1">Terrain</span><select class="t-addtype"></select></label>
+        <label class="hs-field"><span data-ek="taa6ab08c">Piece</span><select class="t-addsize"></select></label>
+        <label class="hs-field t-addother" hidden><span data-ek="t4b6be86e">Name</span><input type="text" class="t-addname" maxlength="40" placeholder="e.g. 16H tree"></label>
+        <div class="t-addbtns">
+          <button type="button" class="hs-btn t-sub" aria-label="Take away one piece"><span data-ek="t51c0508c">−1</span></button>
+          <button type="button" class="hs-btn primary t-add" aria-label="Add one piece"><span data-ek="t88f56be8">+1</span></button>
+        </div>
+      </div>
+      <p class="hs-note t-addmsg" aria-live="polite"></p>
+      <div class="t-loose"></div>
+    </div>
     <div class="t-groups"></div>
   </section>
 
@@ -622,9 +637,11 @@
       <div class="hs-card">
         <h3 style="margin-top: 0"><span data-ek="t6e7a7100">Most maps at once</span></h3>
         <p class="hs-note"><span data-ek="t8edf5185">The largest group of maps you can have built at the same time with the products you own, for running several tables.</span></p>
-        <label class="hs-chk"><input type="checkbox" class="m-sizeonly"> <span data-ek="te6764bd1">Ignore hex type, count only size</span></label>
-        <label class="hs-chk"><input type="checkbox" class="m-noobj"> <span data-ek="t60bd2ea4">Ignore terrain objects (trees, walls, ruins and other non-hex pieces)</span></label>
-        <p class="hs-note m-sizenote"><span data-ek="t22366d61">With these on, the count goes by pieces: maps with “Pieces counted from the PDF” use those pieces, and other maps need every piece in their listed products. Counting only size puts hexes of any type together by size, and trees of any kind together.</span></p>
+        <div class="m-opts">
+          <label class="m-opt"><input type="checkbox" class="m-sizeonly"><span><span data-ek="t617979b3">Ignore hex type</span><small><span data-ek="t50fa13e1">Count only size</span></small></span></label>
+          <label class="m-opt"><input type="checkbox" class="m-noobj"><span><span data-ek="t9f06cf3d">Ignore terrain objects</span><small><span data-ek="t63dd125b">Trees, walls, ruins and other non-hex pieces</span></small></span></label>
+        </div>
+        <p class="hs-note m-sizenote"><span data-ek="ta330207d">Counts by piece: maps with “Pieces counted from the PDF” use those pieces, other maps need every piece in their listed products. Counting only size also pools trees of any kind.</span></p>
         <div class="m-best"></div>
       </div>
       <div class="hs-card">
@@ -832,11 +849,7 @@
 
   <section class="hs-page" id="rules" hidden>
     <div class="hs-card" style="margin-bottom: var(--cds-gap-md)">
-      <h3 style="margin-top: 0"><span data-ek="t25615a4c">Master rules</span></h3>
-      <div class="hs-seg rb-book-seg" role="group" aria-label="Which document">
-        <button type="button" data-book="rules" aria-pressed="true"><span data-ek="t0eadb48d">Master rulebook</span></button>
-        <button type="button" data-book="faq" aria-pressed="false"><span data-ek="t581c466d">FAQ &amp; errata</span></button>
-      </div>
+      <h3 style="margin-top: 0" class="rb-title"><span data-ek="t25615a4c">Master rules</span></h3>
       <div class="rb-own">
       <p class="hs-note"><span data-ek="tb257e3eb">You can also open a different rulebook PDF from your device. It is read in your browser and never uploaded.</span></p>
       <div class="hs-armyadd">
@@ -1065,7 +1078,7 @@
 </dialog>
 </div>
 <script src="vendor/d3.v7.min.js"></script>
-<script src="js/data.js?v=ae87ea2d05"></script>
-<script src="js/app.js?v=ae87ea2d05"></script>
+<script src="js/data.js?v=6f609b1e02"></script>
+<script src="js/app.js?v=6f609b1e02"></script>
 </body>
 </html>

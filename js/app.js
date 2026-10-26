@@ -481,12 +481,13 @@
   // ---------- pages ----------
   let LAST_ROWS = [], DLG_UNIT = null;
   state.page = 'home';
-  const PAGES = ['home', 'rankings', 'charts', 'random', 'army', 'fight', 'collection', 'products', 'terrain', 'maps', 'tournament', 'record', 'player', 'rules', 'settings', 'data'];
+  const PAGES = ['home', 'rankings', 'charts', 'random', 'army', 'fight', 'collection', 'products', 'terrain', 'maps', 'tournament', 'record', 'player', 'rules', 'faq', 'settings', 'data'];
   function showPage(id, push) {
     if (!PAGES.includes(id)) return;
     state.page = id;
     syncNav(id);
-    root.querySelectorAll('.hs-page').forEach((sec) => { sec.hidden = sec.id !== id; });
+    // the FAQ page shares the rulebook reader's section
+    root.querySelectorAll('.hs-page').forEach((sec) => { sec.hidden = sec.id !== (id === 'faq' ? 'rules' : id); });
     // the filter bar only on pages that use it; pages.css hides the parts a page doesn't use (#filters[data-on])
     const filt = document.getElementById('filters');
     filt.hidden = !['rankings', 'charts', 'collection', 'random', 'fight'].includes(id);
@@ -2030,14 +2031,14 @@
       ['collection', 'Army cards'],
       ['products', 'Products'],
       ['terrain', 'Terrain']]],
-    ['maps', 'Maps', [
-      ['maps', 'Tournament maps']]],
     ['play', 'Play', [
       ['tournament', 'Swiss tournament'],
+      ['maps', 'Tournament maps'],
       ['record', 'My record'],
       ['player', 'Player card']]],
     ['rules', 'Rules', [
-      ['rules', 'Master rules']]],
+      ['rules', 'Master rules'],
+      ['faq', 'FAQ & errata']]],
     ['settings', 'Settings', [
       ['settings', 'Colors & custom cards'],
       ['data', 'Save & load']]]
@@ -2133,7 +2134,7 @@
     if (P === 'record') drawRecord();
     if (P === 'player') drawPlayer();
     if (P === 'settings') drawSettings();
-    if (P === 'rules') drawRules();
+    if (P === 'rules' || P === 'faq') drawRules();
     if (P === 'random') drawRandom(rows);
     if (P === 'home') drawHome();
     drawEdits();
@@ -2346,11 +2347,75 @@
     for (const [k, n] of out) if (n <= 0) out.delete(k);
     return out;
   }
+  // add loose pieces one at a time
+  const tAddType = root.querySelector('.t-addtype'), tAddSize = root.querySelector('.t-addsize'), tAddName = root.querySelector('.t-addname'), tAddMsg = root.querySelector('.t-addmsg');
+  const OTHER = '\u0000other';
+  const tiledType = (t) => !/Trees|Outcrops/.test(t.group);
+  const sizeLabel = (s) => /^\d+$/.test(s) ? s + '-hex' : s;
+  function pieceSizes(t) {
+    const T = RAW('terrain');
+    if (tiledType(t)) return T.sizes.slice();
+    const set = new Set();
+    for (const p of RAW('products') || []) for (const x of p.terrain || []) if (x.t === t.id) set.add(x.s);
+    for (const k of Object.keys(TERR_EXTRA)) { const [a, b] = k.split('|'); if (a === t.id) set.add(b); }
+    return [...set].sort((a, b) => (/^\d+$/.test(b) ? +b : -1) - (/^\d+$/.test(a) ? +a : -1) || a.localeCompare(b));
+  }
+  function fillAddSizes() {
+    const t = (RAW('terrain') || { types: [] }).types.find((x) => x.id === tAddType.value); if (!t) return;
+    const keep = tAddSize.value; tAddSize.replaceChildren();
+    for (const s of pieceSizes(t)) { const o = mk('option', '', sizeLabel(s)); o.value = s; tAddSize.appendChild(o); }
+    if (!tiledType(t)) { const o = mk('option', '', 'Other piece…'); o.value = OTHER; tAddSize.appendChild(o); }
+    if ([...tAddSize.options].some((o) => o.value === keep)) tAddSize.value = keep;
+    root.querySelector('.t-addother').hidden = tAddSize.value !== OTHER;
+  }
+  function fillAddTypes() {
+    const T = RAW('terrain'); if (!T || tAddType.options.length) return;
+    for (const [group, types] of d3.groups(T.types, (t) => t.group)) {
+      const og = document.createElement('optgroup'); og.label = group;
+      for (const t of types) { const o = mk('option', '', t.name); o.value = t.id; og.appendChild(o); }
+      tAddType.appendChild(og);
+    }
+    fillAddSizes();
+  }
+  tAddType.addEventListener('change', fillAddSizes);
+  tAddSize.addEventListener('change', () => { root.querySelector('.t-addother').hidden = tAddSize.value !== OTHER; if (tAddSize.value === OTHER) tAddName.focus(); });
+  const typeName = (id) => ((RAW('terrain') || { types: [] }).types.find((t) => t.id === id) || { name: id }).name;
+  function addLoose(d) {
+    let s = tAddSize.value;
+    if (s === OTHER) { s = tAddName.value.trim().slice(0, 40).replace(/\|/g, '/'); if (!s) { tAddMsg.textContent = 'Type a name for the piece first.'; tAddName.focus(); return; } }
+    const k = tAddType.value + '|' + s, n = Math.max(-999, Math.min(999, (TERR_EXTRA[k] || 0) + d));
+    if (n) TERR_EXTRA[k] = n; else delete TERR_EXTRA[k];
+    tAddMsg.textContent = `${d > 0 ? 'Added' : 'Took away'} 1× ${typeName(tAddType.value)} ${sizeLabel(s)} (loose total ${n > 0 ? '+' : n < 0 ? '−' : ''}${Math.abs(n)}).`;
+    if (tAddSize.value === OTHER) { tAddName.value = ''; fillAddSizes(); tAddSize.value = s; root.querySelector('.t-addother').hidden = true; }
+    draw();
+  }
+  root.querySelector('.t-add').addEventListener('click', () => addLoose(1));
+  root.querySelector('.t-sub').addEventListener('click', () => addLoose(-1));
+  function drawLoose() {
+    const box = root.querySelector('.t-loose'); box.replaceChildren();
+    const keys = Object.keys(TERR_EXTRA).sort((a, b) => typeName(a.split('|')[0]).localeCompare(typeName(b.split('|')[0])) || a.localeCompare(b, undefined, { numeric: true }));
+    if (!keys.length) return;
+    box.appendChild(mk('h4', '', 'Your loose pieces'));
+    for (const k of keys) {
+      const [t, s] = k.split('|'), n = TERR_EXTRA[k];
+      const row = mk('div', 't-lrow');
+      row.appendChild(mk('span', 't-lname', `${typeName(t)} ${sizeLabel(s)}`));
+      const q = mk('span', 'hs-q2');
+      const set = (v) => { if (v) TERR_EXTRA[k] = v; else delete TERR_EXTRA[k]; draw(); };
+      const m = mk('button', '', '−'); m.type = 'button'; m.setAttribute('aria-label', 'One fewer ' + typeName(t) + ' ' + sizeLabel(s)); m.disabled = n <= -999; m.addEventListener('click', () => set(n - 1));
+      const p = mk('button', '', '+'); p.type = 'button'; p.setAttribute('aria-label', 'One more ' + typeName(t) + ' ' + sizeLabel(s)); p.disabled = n >= 999; p.addEventListener('click', () => set(n + 1));
+      q.append(m, mk('span', 'own-n' + (n < 0 ? ' t-neg' : ''), (n > 0 ? '+' : '−') + Math.abs(n)), p);
+      row.append(q, btn('Remove', 'hs-sm', () => set(0), 'Remove ' + typeName(t) + ' ' + sizeLabel(s)));
+      box.appendChild(row);
+    }
+    box.appendChild(mk('p', 'hs-note', 'A minus number means pieces missing from your products.'));
+  }
   const tAll = root.querySelector('.t-all');
   tAll.addEventListener('change', () => { TERR_ALL = tAll.checked; drawTerrain(); });
   function drawTerrain() {
     const T = RAW('terrain'), P = DATA('products'); if (!T || !P) return;
     tAll.checked = TERR_ALL;
+    fillAddTypes(); drawLoose();
     root.querySelector('.t-note').textContent = T.note;
     const own = terrainOwned();
     const sizesOf = (tid) => {
@@ -2650,7 +2715,7 @@
     if (!best.length) bb.appendChild(mk('p', 'hs-empty', 'Count your boxes on the Products page to see which maps you can set up.'));
     else {
       const ul = mk('ol', 'm-bestlist');
-      for (const { m, o } of best) { const li = mk('li', '', m.name + ' '); li.appendChild(mk('span', 'hs-note', '(' + Object.entries(o).map(([p, n]) => (n > 1 ? n + '× ' : '') + (prodById(p) || { name: p }).name).join(', ') + ')')); ul.appendChild(li); }
+      for (const { m, o } of best) { const li = mk('li'); li.append(mk('b', '', m.name), mk('span', 'm-bestprods', Object.entries(o).map(([p, n]) => (n > 1 ? n + '× ' : '') + (prodById(p) || { name: p }).name).join(', '))); ul.appendChild(li); }
       bb.appendChild(ul);
     }
     // what to buy next: products that add the most buildable maps
@@ -2659,7 +2724,7 @@
     const gains = terrainProds.map((p) => { const have = { ...PROD_OWN, [p.id]: (PROD_OWN[p.id] || 0) + 1 }; return { p, n: M.filter((m) => !mapCan(m) && mapCan(m, have)).length }; })
       .filter((x) => x.n > 0).sort((a, b) => b.n - a.n).slice(0, 5);
     if (!gains.length) nb.appendChild(mk('p', 'hs-empty', can.length ? 'No single product unlocks another listed map. Combinations may.' : 'Count your boxes on the Products page first.'));
-    for (const g of gains) { const d = mk('div', 'm-gain'); d.append(mk('b', '', `+${g.n} map${g.n === 1 ? '' : 's'}`), document.createTextNode(` with ${PROD_OWN[g.p.id] ? 'another ' : ''}${g.p.name} `)); d.appendChild(link(g.p.era === 'classic' ? 'info ↗' : 'buy ↗', buyUrl(g.p))); nb.appendChild(d); }
+    for (const g of gains) { const d = mk('div', 'm-gain'); d.append(mk('b', 'm-gainn', `+${g.n} map${g.n === 1 ? '' : 's'}`), mk('span', '', `${PROD_OWN[g.p.id] ? 'Another ' : ''}${g.p.name}`)); d.appendChild(link(g.p.era === 'classic' ? 'info ↗' : 'buy ↗', buyUrl(g.p))); nb.appendChild(d); }
     const list = M.filter((m) => (!MSTATE.level || m.level === MSTATE.level) && (!MSTATE.show || (MSTATE.show === 'can') === mapCan(m))
       && (!MSTATE.q || [m.name, m.designer, m.event].join(' ').toLowerCase().includes(MSTATE.q)));
     const box = root.querySelector('.m-list'); box.replaceChildren();
@@ -3997,10 +4062,13 @@
 
   async function openPdf(bytes, name, fromStore) {
     rbMsg('Opening ' + name + '…');
+    const ticket = RB.ticket = (RB.ticket || 0) + 1; // a newer open (switching pages quickly) wins
     try {
       const lib = await pdfLib();
-      if (RB.doc) { RB.doc.destroy(); RB.doc = null; }
-      RB.doc = await lib.getDocument({ data: bytes.slice(0), isEvalSupported: false }).promise;
+      const doc = await lib.getDocument({ data: bytes.slice(0), isEvalSupported: false }).promise;
+      if (ticket !== RB.ticket) { doc.destroy(); return; }
+      if (RB.doc) RB.doc.destroy();
+      RB.doc = doc;
       RB.name = name;
       RB.text = null; RB.hits = []; RB.hit = -1;
       if (rb('rb-find').value.trim()) runFind(true);
@@ -4052,14 +4120,10 @@
     } else openSite();
   }
   function syncBookSeg() {
-    root.querySelectorAll('#rules .rb-book-seg button').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.book === RULES.book)));
+    rb('rb-title').textContent = RULES.book === 'rules' ? 'Master rules' : 'FAQ & errata';
     rb('rb-own').hidden = RULES.book !== 'rules';
     rb('rb-findl').textContent = RULES.book === 'rules' ? 'Find in rulebook' : 'Find in FAQ';
   }
-  root.querySelectorAll('#rules .rb-book-seg button').forEach((b) => b.addEventListener('click', () => {
-    if (b.dataset.book === RULES.book) return;
-    RULES.book = b.dataset.book; persist(); openBook();
-  }));
 
   // one page on narrow screens, two facing pages (cover alone) when there is room
   const twoUp = () => rb('rb-stage').clientWidth >= 720;
@@ -4219,7 +4283,7 @@
   rb('rb-fprev').addEventListener('click', () => stepHit(-1));
   rb('rb-fnext').addEventListener('click', () => stepHit(1));
   document.addEventListener('keydown', (e) => {
-    if (state.page !== 'rules' || !RB.doc || !(e.ctrlKey || e.metaKey) || e.altKey || e.key.toLowerCase() !== 'f') return;
+    if (!['rules', 'faq'].includes(state.page) || !RB.doc || !(e.ctrlKey || e.metaKey) || e.altKey || e.key.toLowerCase() !== 'f') return;
     e.preventDefault();
     const f = rb('rb-find');
     f.scrollIntoView({ block: 'nearest' });
@@ -4356,7 +4420,7 @@
   }
   let rbWidth = 0;
   window.addEventListener('resize', () => {
-    if (state.page !== 'rules' || !RB.doc) return;
+    if (!['rules', 'faq'].includes(state.page) || !RB.doc) return;
     const w = rb('rb-stage').clientWidth;
     if (Math.abs(w - rbWidth) > 40) { rbWidth = w; showSpread(false); }
   });
@@ -4365,6 +4429,9 @@
 
   let rbChecked = false;
   function drawRules() {
+    // Master rules and FAQ & errata are separate pages that share this reader
+    const want = state.page === 'faq' ? 'faq' : 'rules';
+    if (RULES.book !== want) { RULES.book = want; persist(); if (rbChecked) openBook(); }
     fillMarks();
     if (!rbChecked) {
       rbChecked = true;
