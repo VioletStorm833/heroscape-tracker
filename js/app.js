@@ -5248,6 +5248,9 @@
   root.querySelector('.st-themein').addEventListener('click', () => themeIn.click());
   root.querySelector('.st-mine').addEventListener('click', () => { const t = siteTheme(); startMaker(t && t.mine ? t.id : ''); });
   root.querySelector('.st-newmine').addEventListener('click', () => startMaker('new'));
+  // straight to drawing: opens the theme maker on your own theme and the art maker on top
+  function openArtMaker() { const t = siteTheme(); if (!EDIT_MODE) startMaker(t && t.mine ? t.id : ''); openPixel(); }
+  root.querySelector('.st-art').addEventListener('click', openArtMaker);
   root.querySelector('.st-dq input').addEventListener('change', (e) => { DRAWSQ.on = e.target.checked; DRAWSQ.set = true; if (!DRAWSQ.on && DQ.open && !edActive()) closeDraw(); persist(); syncDrawSquare(); });
 
   // ---------- art maker: pixel art (edit mode and the theme maker) ----------
@@ -5933,13 +5936,14 @@
     dqPop.append(mk('span', 'hs-note dq-laylabel', 'Layer'), lay);
     const cols = pxColorRow(drawDrawUI); cols.classList.add('dq-cols');
     dqPop.appendChild(cols);
-    dqPop.appendChild(btn(DQ.adv ? 'Hide advanced tools' : 'Advanced tools', 'hs-sm', () => { DQ.adv = !DQ.adv; drawDrawUI(); }));
+    const more = mk('div', 'ed-row');
+    more.append(btn(DQ.adv ? 'Hide advanced tools' : 'Advanced tools', 'hs-sm', () => { DQ.adv = !DQ.adv; drawDrawUI(); }), btn('Art maker', 'hs-sm', () => { closeDraw(); openArtMaker(); }));
+    dqPop.appendChild(more);
     if (DQ.adv) {
       const { rows } = ptToolRows(DS, drawDrawUI, true);
       const adv = mk('div', 'dq-adv'); adv.append(...rows);
       adv.appendChild(btn('Redo', 'hs-sm', () => DS && ptRedo(DS)));
       if (!edActive()) adv.appendChild(btn('Erase my drawings on this page', 'hs-sm', (e) => { if (!armed('dqclear', e.currentTarget, 'Tap again to erase them')) return; clearDoodles(drawPage()); drawDrawUI(); }));
-      if (edActive()) adv.appendChild(btn('Open the art maker', 'hs-sm', () => { closeDraw(); openPixel(); }));
       dqPop.appendChild(adv);
     }
     if (!DQ.drawing) dqPop.appendChild(mk('div', 'hs-note', 'Browsing: the page works as normal. Pick Draw to keep drawing.'));
